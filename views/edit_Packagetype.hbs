@@ -1,0 +1,89 @@
+{{> header}}
+
+<style>
+    .alert-danger {
+  color: #FFF;
+  background-color: #EA6153;
+  border-color: #E05749;
+}
+</style>
+<div class="container">
+  <hr>
+  <div class="row">
+    
+     
+    <div class="col-md-12">
+      	<form method="POST" action="/packagetype/edit/{{ptype._id}}">
+          <div id="form-group">
+              {{#if error}}
+     
+     {{#each error as |error|}}
+    <div class="alert-danger">
+    <hr>
+    <span>{{error.msg}}</span>
+    <hr>
+    </div>
+    {{/each}}
+  
+    {{/if}}
+
+            <label>Packing ID: </label>
+            <input class="form-control" name="packingid" type="number" value="{{ptype.packingid}}">
+          </div>
+          <div id="form-group">
+            <label>Packing Type: </label>
+            <input class="form-control" name="packingtype" type="text" value="{{ptype.packingtype}}">
+          </div>
+          <div id="form-group">
+            <label>Description:</label>
+            <input class="form-control" name="description" type="text" value="{{ptype.description}}">
+          </div>
+          <div id="form-group">
+            <label>Capacity: </label>
+            <input class="form-control" name="capacity" type="text" value="{{ptype.capacity}}">
+          </div>
+          <div id="form-group">
+            <label>Cap Color:</label>
+            <input class="form-control" name="capcolor" type="text" value="{{ptype.capcolor}}">
+          </div>
+          <div id="form-group">
+            <label>Cap Size:</label>
+            <input class="form-control" name="capsize" type="text" value="{{ptype.capsize}}">
+          </div>
+          <div id="form-group">
+            <label>Cap Style:</label>
+            <input class="form-control" name="capstyle" type="text" value="{{ptype.capstyle}}">
+          </div>
+          <div id="form-group">
+            <label>Diameter:</label>
+            <input class="form-control" name="diameter" type="number" step=".01" value="{{ptype.diameter}}">
+          </div>
+          <div id="form-group">
+            <label>Dip Tube:</label>
+            <input class="form-control" name="diptube" type="number" step=".01" value="{{ptype.diptube}}">
+          </div>
+          <div id="form-group">
+            <label>Label panel dimension:</label>
+            <input class="form-control" name="labelpaneldimension" type="text" value="{{ptype.labelpaneldimension}}">
+          </div>
+          <div id="form-group">
+            <label>Height:</label>
+            <input class="form-control" name="height" type="number" step=".01" value="{{ptype.height}}">
+          </div>
+            <div id="form-group">
+            <label>Container Weight:</label>
+            <input class="form-control" name="containerweight" type="number" step=".01" value="{{ptype.containerweight}}">
+          </div>
+          <div id="form-group">
+            <label>Container Volume:</label>
+            <input class="form-control" name="containervolume" type="number" step=".01" value="{{ptype.containervolume}}">
+          </div>
+          <br>
+          <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+  </div> <!-- row -->
+</div>
+    {{> footer}}
+  </body>
+</html>

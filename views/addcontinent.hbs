@@ -1,0 +1,184 @@
+{{> header}}
+{{> nav}}
+<style>
+    
+.select2-container {
+  min-width: 400px;
+}
+
+.select2-results__option {
+  padding-right: 20px;
+  vertical-align: middle;
+}
+.select2-results__option:before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #e9e9e9;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+.select2-results__option[aria-selected=true]:before {
+  font-family:fontAwesome;
+  content: "\f00c";
+  color: #fff;
+  background-color: #f77750;
+  border: 0;
+  display: inline-block;
+  padding-left: 3px;
+}
+.select2-container--default .select2-results__option[aria-selected=true] {
+	background-color: #fff;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: #eaeaeb;
+	color: #272727;
+}
+.select2-container--default .select2-selection--multiple {
+	margin-bottom: 10px;
+}
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+	border-radius: 4px;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border-color: #f77750;
+	border-width: 2px;
+}
+.select2-container--default .select2-selection--multiple {
+	border-width: 2px;
+}
+.select2-container--open .select2-dropdown--below {
+	
+	border-radius: 6px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+}
+.select2-selection .select2-selection--multiple:after {
+	content: 'hhghgh';
+}
+/* select with icons badges single*/
+.select-icon .select2-selection__placeholder .badge {
+	display: none;
+}
+.select-icon .placeholder {
+	display: none;
+}
+.select-icon .select2-results__option:before,
+.select-icon .select2-results__option[aria-selected=true]:before {
+	display: none !important;
+	/* content: "" !important; */
+}
+.select-icon  .select2-search--dropdown {
+	display: none;
+}
+</style>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+	<title>Assign Continent</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+
+	<link rel="stylesheet" href="select222.css">
+	<link rel="stylesheet" href="">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.full.js"></script>
+	</head>
+<body>
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Assign Continents</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+          
+     <div class="container">
+      
+		<div class="row">
+			<br><select class="js-select22 sort" single="single">
+                <option></option>
+                 {{#each pages as |pages|}}
+                            <option value="{{pages._id}}" {{#equal ../pages value}} {{/equal}}>
+                                {{pages.title}}</option>
+                            {{/each}}
+		                        {{!-- <option value="africa">Africa</option>
+                                <option value="europe">Europe</option>
+                                <option value="asia">Asia</option>
+                                <option value="northamerica">North America</option>
+                                <option value="southamerica">South America</option>
+                                <option value="australia">Australia</option> --}}
+			</select>
+		</div>
+	</div>
+     <div class="container">
+         <br><hr>
+		<div class="row">
+			<br>
+			<div class="selector22"></div>
+			
+		</div>
+	</div>
+        </div>
+    </div>
+</div>	
+	<div id="pageContentJson">
+		{{pages}}
+	</div>
+</body>
+</html>
+
+
+ <script>
+                        
+		$(".js-select2").select2({
+			closeOnSelect : false,
+			placeholder : "Select Continents",
+			allowHtml: true,
+			allowClear: true,
+			tags: true 
+		});
+
+		$(".js-select22").select2({
+			closeOnSelect : true,
+			containerCssClass: "get_page_data",
+			placeholder : "Select Page",
+			allowHtml: true,
+			allowClear: true,
+			tags: true 
+		}).on('select2:select', function (e) {
+  // Do something
+	const selectedId = e.target.value
+	const html22 = `<select class="js-select2" multiple="multiple">
+			</select>`;
+	jQuery("#page-wrapper").append(`<p>${selectedId}</p>`)
+	let abc = jQuery("#pageContentJson").text()
+	const parsedData = JSON.parse(abc)
+
+	console.log({abc})
+	console.log('test',  {e, value: e.target.value})
+});
+	
+</script>
+{{> footer}}

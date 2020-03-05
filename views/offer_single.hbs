@@ -1,0 +1,62 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Offer</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-3">Offer Product Name :</div>
+                <div class="col-md-9">{{offer.offerproductid.producttitle}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Product Brand :</div>
+                <div class="col-md-9">{{offer.productbrand}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Pack :</div>
+                <div class="col-md-9">{{offer.pack}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Info :</div>
+                <div class="col-md-9">{{offer.offerinfo}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Discount :</div>
+                <div class="col-md-9">{{offer.priceoffer}}/<small>Rs</small></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Maximum User Limit :</div>
+                <div class="col-md-9">{{offer.maxlimituser}}<small>{{offer.maxlimituserunit}}</small></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Date Time :</div>
+                <div class="col-md-9">{{dateformat offer.startdatemiliseconds 'DD/MM/YYYY h:mm a'}} to {{dateformat offer.enddatemiliseconds 'DD/MM/YYYY h:mm a'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Stock :</div>
+                <div class="col-md-9">{{offer.offersize}}<small>{{offer.offersizeunit}}</small></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">Offer Remaining Stock :</div>
+                <div class="col-md-9">{{subtract offer.offersize offer.offerremaingquantity}}<small>{{offer.offersizeunit}}</small></div>
+            </div>
+            <div class="row">
+                {{#if offer.filepath}}
+                    <div class="product_image">
+                        <img src="{{offer.filepath}}"/>
+                    </div>
+                {{/if}}
+            </div>
+            <a class="btn btn-default" href="/offers/edit/{{offer._id}}"> Edit</a>
+            <a class="btn btn-danger delete-offers" href="#" data-id="{{offer._id}}">Delete</a>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

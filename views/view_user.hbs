@@ -1,0 +1,63 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">View User</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    {{!-- {{#each user as |user errorkey|}} --}}        
+        <div class="order-id-section Regular shadow">
+            <p>Id: </p>
+            <p>{{user._id}}</p>
+        </div>
+       
+            {{!-- Table Start --}}
+            <div class="table-inside-section">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Username:</th>
+                            <td>{{usermeta.firstname}} {{usermeta.lastname}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">email:</th>
+                            <td>{{user.email}}</td>
+                        </tr>                       
+                        {{!-- <tr>
+                            <th scope="row">Display Name:</th>
+                            <td>{{user.displayname}}</td>
+                        </tr>                        --}}
+                        <tr>
+                            <th scope="row">Phone Number:</th>
+                            <td>{{user.phonenumber}}</td>
+                        </tr>                       
+                                             
+                        {{!-- <tr>
+                            <th scope="row">Status:</th>
+                            <td>{{user.status}}</td>
+                        </tr>                        --}}
+                        <tr>
+                            <th scope="row">Created On:</th>
+                            <td>{{user.createdDate}}</td>
+                        </tr>                       
+                    </tbody>
+                </table>
+            </div>
+        
+            {{!-- Table End --}}
+
+        {{!-- <p>Username: {{user.username}}</p> --}}
+        {{!-- <p>email: {{user.email}}</p> --}}
+        {{!--  <p>Display Name: {{user.displayname}}</p> --}}
+        {{!--  <p>Phone Number: {{user.phonenumber}}</p> --}}
+        {{!-- <p>Role: {{user.role}}</p> --}}
+        {{!-- <p>Status: {{user.status}}</p> --}}
+        {{!-- <p>Created On: {{user.createdDate}}</p> --}}
+    {{!-- {{/each}} --}}
+    
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

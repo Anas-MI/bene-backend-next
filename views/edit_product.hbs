@@ -1,0 +1,1013 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper" style="padding-left: 15px;padding-right: 15px">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Product</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <form method="POST" action="/products/edit/{{products.id}}" enctype="multipart/form-data"
+                class="product-add-form" id="editproductform">
+                <div class="col-md-8 shadow-lg custom-division">
+                    <div class="page_notice_section">
+                        <div class="alert alert-success productsuccess" style="display:none;"></div>
+                        <div class="alert alert-danger productdanger" style="display:none;"></div>
+                        <div class="form_error sku_error">Product SKU Can not be Left Blank</div>
+                        <div class="form_error regular_price_error">Please enter the Default Regulare Price</div>
+                        <div class="form_error attributeserror">Attributes Section Can not be Left Blank</div>
+                        <div class="form_error variationserror">Variation Section Can not be Left Blank</div>
+                    </div>
+                    <div class="title-descripion">
+                        <div id="form-group">
+                            <label>Edit Serial number:</label>
+                            <input class="form-control" name="productid" type="text" id="editproductid"
+                                autocomplete="off" value="{{products.productid.id}}"
+                                data-prodmeta-id="{{products._id}}">
+                        </div>
+                        <div id="form-group">
+                            <label>Title: <span class="required">*</span></label>
+                            <input class="form-control editproducttitle" name="producttitle" type="text"
+                                autocomplete="off" value="{{products.productid.producttitle}}">
+                            <span class="form_error">Please enter Product Name</span>
+                        </div>
+                        {{!-- <div id="form-group">
+                            <label>Barcode: <span class="required">*</span></label>
+                            <input class="form-control editbarcode" name="barcode" type="text" autocomplete="off"
+                                value="{{products.barcode}}">
+                            <span class="form_error">Please enter the barcode number</span>
+                        </div> --}}
+                        <div id="form-group">
+                            <label>Short Description:</label>
+                            <textarea class="form-control" name="sdescription" id="productbody" row="10"
+                                column="10">{{products.productid.sdescription}}</textarea>
+                        </div>
+                        <div id="form-group">
+                            <label>Long Description:</label>
+                            <textarea class="form-control" name="description" id="productbody" row="10"
+                                column="10">{{products.productid.description}}</textarea>
+                        </div>
+                    </div>
+                    <div id="woocommerce-product-data" class="postbox ">
+                        <h2 class="hndle ui-sortable-handle">
+                            <span>Product data<span class="type_box ">
+                                    <label for="product-type">
+                                        <select id="product-type" name="producttype">
+                                            <optgroup label="Product Type">
+                                                {{#select products.producttype}}
+                                                <option value="simple">Simple product</option>
+                                                <option value="variable">Variable product</option>
+                                                {{/select}}
+                                            </optgroup>
+                                        </select>
+                                    </label>
+                                </span>
+                            </span>
+                        </h2>
+                        <h2 class="hndle ui-sortable-handle">
+                            <span>Vendor ID: <span class="required"></span><span class="type_box ">
+                                    <label for="visibility-type">
+                                        <select name="vendorid" class="">
+                                            {{#each vendor as |filter|}}
+                                            <option value="{{filter._id}}"
+                                                {{#equal ../products.vendorid._id filter._id}}selected="selected"
+                                                {{/equal}}>{{filter.vendorid}}: {{this.vendorname}}</option>
+                                            {{/each}}
+                                        </select>
+
+                                    </label>
+                                </span>
+                            </span>
+                            <span class="form_error">Please enter the Product visibility</span>
+                        </h2>
+
+                        <h2 class="hndle ui-sortable-handle">
+                            <span>Packaging Type:<span class="required"></span><span class="type_box ">
+                                    <label for="visibility-type">
+
+                                        <select name="packagetype" class="pagemenu">
+
+                                            {{#each ptype as |filter|}}
+                                            <option value="{{filter._id}}"
+                                                {{#equal ../products.packagingtype._id filter._id}}selected="selected"
+                                                {{/equal}}>{{filter.packingid}}: {{this.packingtype}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </label>
+                                </span>
+                            </span>
+                            <span class="form_error">Please enter the Product visibility</span>
+                        </h2>
+                        <h2 class="hndle ui-sortable-handle">
+                            <span>Visibility <span class="required">*</span><span class="type_box">
+                                    <label for="visibility-type">
+                                        <select id="visibility-type" class="edit_prod_visibility" name="visibilitytype">
+                                            <optgroup label="Visibility">
+                                                {{#select products.visibilitytype}}
+                                                <option value="true" selected="selected">Show</option>
+                                                <option value="false">Hide</option>
+                                                {{/select}}
+                                            </optgroup>
+                                        </select>
+                                        <span class="form_error">Please enter the Product visibility</span>
+                                    </label>
+                                </span>
+                            </span>
+                        </h2>
+                        <h2 class="hndle ui-sortable-handle">
+                            <span>Type of product<span class="type_box ">
+                                    <label for="featured-type">
+                                        <select id="featured-type" name="featured">
+                                            <optgroup label="Type">
+                                                {{#select products.featured}}
+                                                <option value="false">Normal</option>
+                                                <option value="true">Featured</option>
+                                                {{/select}}
+                                            </optgroup>
+                                        </select>
+                                    </label>
+                                </span>
+                            </span>
+                        </h2>
+                        <div class="inside">
+                            <div class="panel-wrap product_data">
+                                <ul class="product_data_tabs wc-tabs">
+                                    <li class="general_options general_tab">
+                                        <a href="javascript:void(0)" data-tab-id="general_product_data"
+                                            class="active btn-secondary"><span>General</span></a>
+                                    </li>
+                                    <li class="inventory_options inventory_tab">
+                                        <a href="javascript:void(0)" data-tab-id="inventory_product_data"
+                                            class="btn-secondary"><span>Inventory</span></a>
+                                    </li>
+                                    <li class="shipping_options shipping_tab">
+                                        <a href="javascript:void(0)" data-tab-id="shipping_product_data"
+                                            class="btn-secondary"><span>Shipping</span></a>
+                                    </li>
+                                    <li class="attribute_options attribute_tab"
+                                        {{#equal products.producttype "simple" }} style="display: none" {{/equal}}>
+                                        <a href="javascript:void(0)" data-tab-id="product_attributes"
+                                            class="btn-secondary"><span>Attributes</span></a>
+                                    </li>
+                                    <li class="variations_options variations_tab"
+                                        {{#equal products.producttype "simple" }} style="display: none" {{/equal}}>
+                                        <a href="javascript:void(0)" data-tab-id="variable_product_options"
+                                            class="btn-secondary"><span>Variations</span></a>
+                                    </li>
+                                </ul>
+                                <div id="general_product_data" class="panel woocommerce_options_panel"
+                                    style="display: block;">
+                                    <div class="options_group_pricing">
+                                        <p class="form-field _regular_price_field ">
+                                            <label for="e_prod_dregular_price">Default Regular price ($) <span
+                                                    class="required">*</span></label>
+                                            <input type="number" class="short wc_input_price" style=""
+                                                name="regular_price" id="e_prod_dregular_price"
+                                                value="{{products.dregularprice}}" placeholder="" step=".01">
+                                        </p>
+                                        <p class="form-field _sale_price_field ">
+                                            <label for="e_d_sale_price">Default Sale price ($) <span
+                                                    class="required">*</span></label>
+                                            <input type="number" class="short wc_input_price" style="" name="sale_price"
+                                                id="e_d_sale_price" value="{{products.dsaleprice}}" placeholder=""
+                                                step=".01">
+                                            <span class="form_error">Sale Price should be Less then Regular Price</span>
+                                        </p>
+                                        <p class="form-field _sale_price_field clearfix">
+                                            <label for="">Total CBD (mg) <span class="required"></span></label>
+                                            <input type="number" class="short wc_input_price" style="" name="totalcbdmg"
+                                                id="" value="{{products.totalcbdmg}}" placeholder="Total CBD"
+                                                step=".01">
+
+                                        </p>
+                                        <p class="form-field clearfix">
+                                            <label for="">CBD Per Unit mg<span class="required"></span></label>
+                                            <input type="number" class="short" style="" name="cbdperunitmg" id=""
+                                                value="{{products.cbdperunitmg}}" placeholder="CBD Per Unit Mg"
+                                                step=".01">
+                                        </p>
+                                        <p class="form-field clearfix">
+                                            <label for="">Servings<span class="required"></span></label>
+                                            <input type="number" class="short" style="" name="servings" id=""
+                                                value="{{products.servings}}" placeholder="Servings" step=".01">
+                                        </p>
+                                        <p class="form-field clearfix">
+                                            <label for="">Serving Size<span class="required"></span></label>
+                                            <input type="text" class="short" style="" name="servingsize" id=""
+                                                value="{{products.servingsize}}" placeholder="Serving Size">
+                                        </p>
+                                           <p class="form-field clearfix">
+                                            <label for="">Field Name<span class="required"></span></label>
+                                            <input type="text" class="short" style="" name="fieldname" id=""
+                                                value="{{products.fieldname}}" placeholder="Field Name" >
+                                        </p>
+                                        <p class="form-field clearfix">
+                                            <label for="">Field Value<span class="required"></span></label>
+                                            <input type="text" class="short" style="" name="fieldvalue" id=""
+                                                value="{{products.fieldvalue}}" placeholder="Field Value" >
+                                        </p>
+                                        <p class="form-field clearfix">
+                                            <label for="">Barcode: <span class="required"></span></label>
+                                            <input type="number" class="short" style="" name="barcode" id=""
+                                                value="{{products.barcode}}" placeholder="Barcode">
+                                        </p>
+                                    </div>
+                                    <div class="options_group reviews">
+                                        <p class="form-field enable_review_field ">
+                                            <label for="enable_review">Enable reviews</label>
+                                            <input type="checkbox" class="checkbox" style="" data-toggle="toggle"
+                                                name="enable_review" id="enable_review" value="true"
+                                                {{#if products.enablereview}}checked="checked" {{/if}}>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="inventory_product_data" class="panel woocommerce_options_panel"
+                                    style="display: none;">
+                                    <div class="options_group">
+                                        <p class="form-field _sku_field ">
+                                            <label for="_sku">
+                                                <abbr title="Stock Keeping Unit">SKU</abbr> <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <input type="text" class="short" name="sku" id="edit_prod_sku"
+                                                value="{{products.productid.sku}}" placeholder="SKU">
+                                            <span class="form_error">Please enter the Product SKU</span>
+                                        </p>
+                                        <p class="form-field _manage_stock_field">
+                                            <label for="_manage_stock">Manage stock?</label>
+                                            <input type="checkbox" class="checkbox manage_stock" name="manage_stock"
+                                                value="1" {{#if products.managestockstatus}}checked="checked" {{/if}}>
+                                        </p>
+                                        {{#if products.managestockstatus}}
+
+                                        {{/if}}
+                                        <div class="stock_fields" style="display: block;">
+                                            <p class="form-field _stock_field ">
+                                                <label for="_stock">Stock quantity</label>
+                                                <input type="number" class="short wc_input_stock" style="" name="stock"
+                                                    id="_stock" value="{{products.unit}}" placeholder="" step="any">
+                                            </p>
+                                            {{!-- <input type="hidden" name="original_stock" value="0">
+                                            <p class="form-field _low_stock_amount_field ">
+                                                <label for="_low_stock_amount">Low stock threshold</label>
+                                                <input type="number" class="short" style="" name="low_stock_amount" id="_low_stock_amount" value="" placeholder="2" step="any"> 
+                                            </p> --}}
+                                        </div>
+                                        <p class="stock_status_field form-field _stock_status_field"
+                                            style="display: block;">
+                                            <label for="_stock_status">Stock status</label>
+                                            <select id="_stock_status" name="_stock_status" class="select short">
+                                                <option value="instock"
+                                                    {{#equal products.stock_status "instock"}}selected="selected"
+                                                    {{/equal}}>In stock</option>
+                                                <option value="outofstock"
+                                                    {{#equal products.stock_status "outofstock"}}selected="selected"
+                                                    {{/equal}}>Out of stock</option>
+                                            </select>
+                                        </p>
+                                    </div>
+
+                                    {{!-- <div class="options_group" style="display: block;">
+                                        <p class="form-field _sold_individually_field" style="display: block;">
+                                            <label for="_sold_individually">Sold individually</label><input type="checkbox" class="checkbox" style=""
+                                                name="_sold_individually" id="_sold_individually" value="yes"> <span class="description">Enable this to
+                                                only allow one of this item to be bought in a single order</span></p>
+                                    </div> --}}
+                                </div>
+                                <div id="shipping_product_data" class="panel woocommerce_options_panel"
+                                    style="display: none;">
+                                    <div class="options_group">
+                                        <p class="form-field _weight_field clearfix">
+                                            <label for="_weight">Batch No.</label>
+                                            <input type="text" class="product_shipping_batch" name="batch_no"
+                                                value="{{products.batch_no}}" placeholder="0">
+                                        </p>
+                                        <p class="form-field _weight_field clearfix">
+                                            <label for="_weight">Expiry</label>
+                                            <input type="text" class="product_expiry" name="expiry"
+                                                value="{{products.expiry}}" placeholder="dd/mm/yyyy">
+                                        </p>
+                                        <p class="form-field dimensions_field" >
+                                            <label for="product_length" style="width:35%;">Dimensions (inches)</label>
+                                            <span class="wrap" style="float: left;">
+Length:
+                                                <input style="width: 90px;"id="product_length" placeholder="Length"
+                                                    class="input-text wc_input_decimal" type="number" name="_length"
+                                                    value="{{products.shipping_length}}">
+Width:
+                                                <input style="width: 90px;" placeholder="Width" class="input-text wc_input_decimal"
+                                                    type="number" name="_width" value="{{products.shipping_width}}">
+Height:                                                
+<input placeholder="Height" style="width: 90px;" class="input-text wc_input_decimal last"
+                                                    type="number" name="_height" value="{{products.shipping_height}}">
+                                            </span>
+                                        </p>
+                                        <p class="form-field dimensions_field clearfix">
+                                            <label for="product_length">Volume</label>
+                                            <span class="wrap">
+                                                <input placeholder="Volume" class="product_volume" type="number"
+                                                    name="volume" value="{{products.volume}}">
+                                                <select name="volume_unit" class="product_vol_unit">
+                                                    <option value="cc"
+                                                        {{#equal products.volumeunit "cc"}}selected="selected"
+                                                        {{/equal}}>CC</option>
+                                                    <option value="ml"
+                                                        {{#equal products.volumeunit "ml"}}selected="selected"
+                                                        {{/equal}}>ML</option>
+                                                    <option value="softgel"
+                                                        {{#equal products.volumeunit "softgel"}}selected="selected"
+                                                        {{/equal}}>soft gel</option>
+                                                    <option value="capsule"
+                                                        {{#equal products.volumeunit "capsule"}}selected="selected"
+                                                        {{/equal}}>Capsule</option>
+                                                    <option value="oz"
+                                                        {{#equal products.volumeunit "oz"}}selected="selected"
+                                                        {{/equal}}>oz</option>
+                                                    <option value="lb"
+                                                        {{#equal products.volumeunit "lb"}}selected="selected"
+                                                        {{/equal}}>lb</option>
+                                                </select>
+                                            </span>
+                                        </p>
+                                               <p class="form-field clearfix">
+                                            <label for="">Weight (oz)</label>
+                                            <input type="number" class="" name="weight" value="{{products.weight}}"
+                                                placeholder="0">
+                                        </p>
+                                    </div>
+                                    {{!-- <div class="options_group">
+                                        <p class="form-field shipping_class_field">
+                                            <label for="product_shipping_class">Shipping class</label>
+                                            <select name="product_shipping_class" id="product_shipping_class" class="select short">
+                                                <option value="-1" selected="selected">No shipping class</option>
+                                            </select>
+                                            <span class="woocommerce-help-tip"></span>
+                                        </p>
+                                    </div> --}}
+                                </div>
+                                {{!-- <div id="linked_product_data" class="panel woocommerce_options_panel" style="display: none;">
+                                    <div class="options_group">
+                                        <p class="form-field">
+                                            <label for="upsell_ids">Upsells</label>
+                                            <select class="wc-product-search select2-accessible enhanced" multiple=""
+                                                style="width: 50%;" id="upsell_ids" name="upsell_ids[]"
+                                                data-placeholder="Search for a product…"
+                                                data-action="woocommerce_json_search_products_and_variations" data-exclude="591"
+                                                tabindex="-1" aria-="true">
+                                            </select>
+                                            <span class="select2 select2-container select2-container--default" dir="ltr"
+                                                style="width: 50%;">
+                                                <span class="selection">
+                                                    <span class="select2-selection select2-selection--multiple" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+                                                        <ul class="select2-selection__rendered" aria-live="polite"
+                                                            aria-relevant="additions removals" aria-atomic="true">
+                                                            <li class="select2-search select2-search--inline">
+                                                                <input class="select2-search__field" type="text" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search for a product…" style="width: 100px;">
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+                                                </span>
+                                                <span class="dropdown-wrapper" aria-="true"></span>
+                                            </span>
+                                            <span class="woocommerce-help-tip"></span>
+                                        </p>
+
+                                        <p class="form-field hide_if_grouped hide_if_external">
+                                            <label for="crosssell_ids">Cross-sells</label>
+                                            <select class="wc-product-search select2--accessible enhanced" multiple=""
+                                                style="width: 50%;" id="crosssell_ids" name="crosssell_ids[]"
+                                                data-placeholder="Search for a product…"
+                                                data-action="woocommerce_json_search_products_and_variations" data-exclude="591"
+                                                tabindex="-1" aria-="true">
+                                            </select>
+                                            <span class="select2 select2-container select2-container--default" dir="ltr"b style="width: 50%;">
+                                                <span class="selection">
+                                                    <span class="select2-selection select2-selection--multiple" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+                                                        <ul class="select2-selection__rendered" aria-live="polite" aria-relevant="additions removals" aria-atomic="true">
+                                                            <li class="select2-search select2-search--inline">
+                                                                <input class="select2-search__field" type="text" tabindex="0"
+                                                                autocomplete="off" autocorrect="off" autocapitalize="off"
+                                                                spellcheck="false" role="textbox" aria-autocomplete="list"
+                                                                placeholder="Search for a product…" style="width: 100px;">
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+                                                </span>
+                                                <span class="dropdown-wrapper" aria-="true"></span>
+                                            </span>
+                                            <span class="woocommerce-help-tip"></span>
+                                        </p>
+                                    </div>
+                                </div> --}}
+                                <div id="product_attributes" class="panel woocommerce_options_panel"
+                                    style="display: none;">
+                                    <div class="toolbar toolbar-top">
+                                        <span class="expand-close">
+                                            <a href="#" class="expand_all">Expand</a> / <a href="#"
+                                                class="close_all">Close</a>
+                                        </span>
+                                        <select name="attribute_taxonomy" class="attribute_taxonomy">
+                                            {{#each attributes as |value key|}}
+                                            {{#if value.terms}}
+                                            <option value="{{value.slug}}" data-rel="{{key}}"
+                                                {{#termcheck value.slug ../attributeselected}} disabled="disabled"
+                                                {{/termcheck}}>{{value.name}}</option>
+                                            {{/if}}
+                                            {{/each}}
+                                        </select>
+                                        <button type="button"
+                                            class="button add_attribute btn btn-primarys button">Add</button>
+                                    </div>
+                                    <div class="product_attributes wc-metaboxes ui-sortable">
+
+                                        {{#each newattribute as |value key|}}
+                                        {{#each ../products.attributes as |selectedattributes attrkey|}}
+                                        {{#equal value.slug selectedattributes.names}}
+                                        <div data-taxonomy="{{value.slug}}" class="woocommerce_attribute" rel="{{key}}"
+                                            id="attribute-{{value.slug}}" data-terms-selected="">
+                                            <h3>
+                                                <a href="javascript:void(0)"
+                                                    class="btn btn-danger remove_row delete">Remove</a>
+                                                <div class="handlediv" title="Click to toggle"></div>
+                                                <strong class="attribute_name">{{value.name}}</strong>
+                                            </h3>
+                                            <div class="woocommerce_attribute_data wc-metabox-content" style="">
+                                                <table cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="attribute_name">
+                                                                <label>Name:</label><strong>{{value.name}}</strong><input
+                                                                    type="hidden" name="attribute[{{key}}][names]"
+                                                                    value="{{value.slug}}"> </td>
+                                                            <td rowspan="3">
+                                                                <label>Value(s):</label>
+                                                                <select multiple="multiple"
+                                                                    class="multiselect attribute_values js-example-basic-multiple"
+                                                                    name="attribute[{{key}}][values]">
+                                                                    {{#each value.terms as |termsvalue termskey|}}
+                                                                    <option value="{{termsvalue.slug}}"
+                                                                        {{#termcheck termsvalue.slug selectedattributes.values}}selected="selected"
+                                                                        {{/termcheck}}>{{termsvalue.name}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                                <button
+                                                                    class="btn btn-primary button plus select_all_attributes"
+                                                                    type="button">Select all</button>
+                                                                <button
+                                                                    class="btn btn-secondary button minus select_no_attributes"
+                                                                    type="button">Select none</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        {{/equal}}
+                                        {{/each}}
+                                        {{/each}}
+                                    </div>
+                                    <div class="toolbar attribute_add_btn">
+                                        <button type="button"
+                                            class="btn btn-success button save_attributes button-primary"
+                                            data-pagetype="editproduct">Save attributes</button>
+                                    </div>
+                                </div>
+                                <div id="variable_product_options" class="panel woocommerce_options_panel"
+                                    style="display: none;">
+                                    <div id="variable_product_options_inner">
+                                        {{#if products.variation}}
+                                        <div class="variation-wrapper" data-variation-rel="1">
+                                            <div class="toolbar toolbar-top variable-add-toolbar">
+                                                <a class="btn btn-primary button bulk_edit do_variation_action"
+                                                    data-variation-rel="{{variationcount}}">Add Variation</a>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="woocommerce_variations" data-attributes="">
+                                                {{#each products.variation as |variationvalue variationkey|}}
+                                                <div class="woocommerce_variation wc-metabox open custom-use-select Small shadow"
+                                                    id="product_variation-{{variationkey}}">
+                                                    <h3>
+                                                        <a href="javascript:void(0)"
+                                                            class="btn btn-danger remove_variation delete"
+                                                            rel="product_variation-{{variationkey}}">Remove</a>
+                                                        <div class="handlediv" aria-label="Click to toggle"></div>
+                                                        <div class="tips sort"></div>
+                                                        <div class="variation_fields_section"></div>
+                                                        {{#each ../products.attributes as |attrvalue attrkey|}}
+                                                        <select
+                                                            name="variaton_atttribute[{{variationkey}}][{{attrvalue.names}}]"
+                                                            class="variation_attribute_name">
+                                                            <option value="">Please Select {{attrvalue.names}}</option>
+                                                            {{#each attrvalue.values as |termsvalue termskey|}}
+                                                            <option value="{{termsvalue}}"
+                                                                {{#variationmatch attrvalue.names termsvalue variationvalue}}selected="selected"
+                                                                {{/variationmatch}}>{{termsvalue}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                                        {{/each}}
+                                                        <span class="form_error attribute_error">Please Select Variation
+                                                            Attribute Name</span>
+                                                    </h3>
+                                                    <div class="woocommerce_variable_attributes wc-metabox-content">
+                                                        <div class="data">
+                                                            <p
+                                                                class="form-field variable_bar{{variationkey}}_field form-row">
+                                                                <label for="variable_bar{{variationkey}}">
+                                                                    <abbr title="Stock Keeping Unit">Barcode</abbr>
+                                                                </label>
+                                                                <input type="text" class="short variable_bar_field"
+                                                                    name="variaton_atttribute[{{variationkey}}][bar]"
+                                                                    id="variable_bar{{variationkey}}"
+                                                                    value="{{variationvalue.bar}}" placeholder="">
+                                                                <span class="form_error">Please Enter a Barcode</span>
+                                                            </p>
+                                                            <p
+                                                                class="form-field variable_sku{{variationkey}}_field form-row">
+                                                                <label for="variable_sku{{variationkey}}">
+                                                                    <abbr title="Stock Keeping Unit">SKU</abbr>
+                                                                </label>
+                                                                <input type="text" class="short variable_sku_field"
+                                                                    name="variaton_atttribute[{{variationkey}}][sku]"
+                                                                    id="variable_sku{{variationkey}}"
+                                                                    value="{{variationvalue.sku}}" placeholder="">
+                                                                <span class="form_error">Please Select Variation
+                                                                    SKU</span>
+                                                            </p>
+                                                            <div class="variable_pricing">
+                                                                <p
+                                                                    class="form-field variable_regular_price_{{variationkey}}_field form-row">
+                                                                    <label
+                                                                        for="variable_regular_price_{{variationkey}}">Regular
+                                                                        price</label>
+                                                                    <input type="number"
+                                                                        class="short wc_input_price variation_price_field"
+                                                                        name="variaton_atttribute[{{variationkey}}][regular_price]"
+                                                                        id="variable_regular_price_{{variationkey}}"
+                                                                        value="{{variationvalue.regular_price}}"
+                                                                        placeholder="Variation price (required)"
+                                                                        step=".01">
+                                                                    <span class="form_error">Please Select Variation
+                                                                        Price</span>
+                                                                </p>
+                                                                <p
+                                                                    class="form-field variable_sale_price{{variationkey}}field form-row">
+                                                                    <label
+                                                                        for="variable_sale_price{{variationkey}}">Sale
+                                                                        price</label>
+                                                                    <input type="number" class="short wc_input_price"
+                                                                        name="variaton_atttribute[{{variationkey}}][sale_price]"
+                                                                        id="variable_sale_price{{variationkey}}"
+                                                                        value="{{variationvalue.sale_price}}"
+                                                                        placeholder="" step=".01">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{/each}}
+
+                                            </div>
+                                            {{!-- <div class="toolbar attribute-save-container">
+                                                    <button type="button" class="button-primary save-variation-changes">Save changes</button>
+                                                    <button type="button" class="button cancel-variation-changes">Cancel</button>
+                                                    <div class="clear"></div>
+                                                </div> --}}
+                                        </div>
+                                        {{else}}
+                                        <div class="initial_variable_message">
+                                            Before you can add a variation you need to add some variation attributes on
+                                            the Attributes tab.
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="attribute-content-section">
+                        <div>
+                            <div class="">
+                                <div id="form-group">
+                                    <label>ASIN: </label>
+                                    <input type="text" class="form-control" name="asin" value="{{products.asin}}"
+                                        autocomplete="off" />
+                                </div>
+                                <div class="">
+                                    <div id="form-group">
+                                        <label>Use: </label>
+                                        <input type="text" class="form-control" name="use" value="{{products.use}}"
+                                            autocomplete="off" />
+                                    </div>
+                                    <div class="">
+                                        <div id="form-group">
+                                            <label>Storage: </label>
+                                            <input type="text" class="form-control" name="storage"
+                                                value="{{products.storage}}" autocomplete="off" />
+                                        </div>
+                                        <div class="">
+                                            <div id="form-group">
+                                                <label>Warning: </label>
+                                                <input type="text" class="form-control" value="{{products.warning}}"
+                                                    name="warning" autocomplete="off" />
+                                            </div>
+                                            <div class="">
+                                                <div id="form-group">
+                                                    <label>Indication: </label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{products.indication}}" name="indication"
+                                                        autocomplete="off" />
+                                                </div>
+                                                <div class="">
+                                                    <div id="form-group">
+                                                        <label>Direction: </label>
+                                                        <input type="text" value="{{products.direction}}"
+                                                            class="form-control" name="direction" autocomplete="off" />
+                                                    </div>
+                                                    <div class="">
+                                                        <div id="form-group">
+                                                            <label>Warranty: </label>
+                                                            <input type="text" value="{{products.warranty}}"
+                                                                class="form-control" name="warranty"
+                                                                autocomplete="off" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="form-group">
+                                                        <label>Attribute One Title:</label>
+                                                        <input type="text" class="attribute-one-title form-control"
+                                                            name="page_attribute[0][title]"
+                                                            value="{{products.attributecontent.[0].title}}" />
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute One Description:</label>
+                                                        <textarea class="form-control attribute-one-description"
+                                                            name="page_attribute[0][description]" row="10"
+                                                            column="10">{{products.attributecontent.[0].description}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Two Title:</label>
+                                                        <input type="text" class="attribute-two-title form-control"
+                                                            name="page_attribute[1][title]"
+                                                            value="{{products.attributecontent.[1].title}}" />
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Two Description:</label>
+                                                        <textarea class="form-control attribute-two-description"
+                                                            name="page_attribute[1][description]" row="10"
+                                                            column="10">{{products.attributecontent.[1].description}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Three Title:</label>
+                                                        <input type="text" class="attribute-three-title form-control"
+                                                            name="page_attribute[2][title]"
+                                                            value="{{products.attributecontent.[2].title}}" />
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Three Description:</label>
+                                                        <textarea class="form-control attribute-three-description"
+                                                            name="page_attribute[2][description]" row="10"
+                                                            column="10">{{products.attributecontent.[2].description}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Four Title:</label>
+                                                        <input type="text" class="attribute-four-title form-control"
+                                                            name="page_attribute[3][title]"
+                                                            value="{{products.attributecontent.[3].title}}" />
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute Four Description:</label>
+                                                        <textarea class="form-control attribute-four-description"
+                                                            name="page_attribute[3][description]" row="10"
+                                                            column="10">{{products.attributecontent.[3].description}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute five Title:</label>
+                                                        <input type="text" class="attribute-five-title form-control"
+                                                            name="page_attribute[4][title]"
+                                                            value="{{products.attributecontent.[4].title}}" />
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>Attribute five Description:</label>
+                                                        <textarea class="form-control attribute-four-description"
+                                                            name="page_attribute[4][description]" row="10"
+                                                            column="10">{{products.attributecontent.[4].description}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>key ingredients:</label>
+                                                        <textarea class="form-control" name="keyingredients"
+                                                            id="keyingredients" row="10"
+                                                            column="10">{{products.keyingredients}}</textarea>
+                                                    </div>
+                                                    <div id="form-group">
+                                                        <label>All ingredients:</label>
+                                                        <textarea class="form-control" name="allingredients"
+                                                            id="keyingredients" row="10"
+                                                            column="10">{{products.allingredients}}</textarea>
+                                                    </div>
+                                                    <div id="form-group" class="faq-section">
+                                                        <label>FAQ:</label>
+                                                        <div class="section-inside">
+                                                            {{#each products.faqcontent as |faqvalue faqkey|}}
+                                                            <div id="clonedfaq{{faqkey}}" class="clonedfaq">
+                                                                <div class="faq-question-rept">
+                                                                    <div class="faq-label">
+                                                                        <label>
+                                                                            FAQ Title
+                                                                            {{#notequal faqkey 0}}{{faqkey}}{{/notequal}}
+                                                                        </label>
+                                                                        <input type="text" name="faq[{{faqkey}}][title]"
+                                                                            class="faq-title-field"
+                                                                            data-repid="{{faqkey}}"
+                                                                            value="{{faqvalue.title}}">
+                                                                    </div>
+                                                                    <div class="faq-description">
+                                                                        <label>
+                                                                            FAQ Descripiton
+                                                                            {{#notequal faqkey 0}}{{faqkey}}{{/notequal}}
+                                                                        </label>
+                                                                        <textarea class="form-control"
+                                                                            name="faq[{{faqkey}}][description]"
+                                                                            class="faq-description-field" row="5"
+                                                                            column="5">{{faqvalue.description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="actions">
+                                                                    <button type="button"
+                                                                        class="clone-faq btn btn-secondary"
+                                                                        data-repid="{{faqkey}}">Add More</button>
+                                                                    {{#notequal faqkey 0}}
+                                                                    <button type="button"
+                                                                        class="btn btn-danger remove-faq"
+                                                                        data-repid="{{faqkey}}">Remove</button>
+                                                                    {{/notequal}}
+                                                                </div>
+                                                            </div>
+                                                            {{/each}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="publish-section">
+                        <div class="section-heading">
+                            <h2>Publish</h2>
+                        </div>
+                        <div class="section-inside">
+                            <input type="submit" value="Submit" class="producteditsubmit btn btn-light">
+                        </div>
+                    </div>
+                    <div class="category-section">
+                        <div class="section-heading">
+                            <h3>Product Category <span class="required">*</span></h3>
+                        </div>
+                        <div class="section-inside">
+                            <select name="categoryid" class="edit_prod_cat js-example-basic-multiple"
+                                multiple="multiple" style="width: 100%;">
+                                <option value="">Select Category</option>
+                                {{#each categories}}
+                                <option value="{{this._id}}"
+                                    {{#equal ../products.categoryid.[0]._id this._id}}selected="selected" {{/equal}}>
+                                    {{this.categorytitle}}</option>
+                                {{/each}}
+                            </select>
+                            <span class="form_error">Please enter the Product Category</span>
+                        </div>
+                    </div>
+                    <div class="country-section">
+                        <div class="secttion-heading">
+                            <h3>Blocked Countries</h3>
+                        </div>
+
+                        <div class="section-inside">
+
+                            <div id="page-form-group">
+                                <select name="blockedcountries" class="edit-blokced-country js-example-basic-multiple"
+                                    multiple="multiple" style="width: 100%;">
+                                    <option value="">Please Select</option>
+                                    {{#each countries as |countriesValue countrieskey|}}
+                                    {{#if ../products.productid.blockedcountries}}
+                                    {{#termcheck countriesValue ../products.productid.blockedcountries}}
+                                    <option value="{{countriesValue}}" selected="selected">{{countriesValue}}</option>
+                                    {{else}}
+                                    <option value="{{countriesValue}}">{{countriesValue}}</option>
+                                    {{/termcheck}}
+                                    {{else}}
+                                    <option value="{{countriesValue}}">{{countriesValue}}</option>
+                                    {{/if}}
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+             
+             
+             
+                           <div style="border:1px solid black; padding:10px 10px; display: inline-block">
+                        <div class="section-heading">
+                            <h2>Menu</h2>
+                            <div class="menu-image-section">
+                                <div class="section-heading">
+                                    <h3>Menu Image</h3>
+                                </div>
+                           
+                                <div class="section-inside">
+                                    {{#if products.productid.menuimage}}
+                                    <div class="feature_image_section">
+                                        <img src="{{products.productid.menuimage}}" alt="menu_image">
+                                        <input type="hidden" name="remove_menu" class="remove_menu" value="">
+                                        <button type="button" class="change-menu-img">Change</button>
+                                        <button type="button" class="remove-menu-img"
+                                            data-prod-id="{{products.productid._id}}"
+                                            data-action="menu_remove">Remove</button>
+                                    </div>
+                                        <div id="menu-image-holder" ></div>
+                                    <div class="menu_image_section1" style="display: none">
+                                        <input type="file" name="menu_image" class="menu-feature-img">
+                                    </div>
+                                    {{else}}
+                                    <div id="menu-image-holder"></div>
+                                    <div class="image_section_default1">
+                                        <input type="file" name="menu_image" class="menu-feature-img">
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><hr>
+             
+             
+                    <div style="border:1px solid black; padding:10px 10px; display: inline-block">
+                        <div class="section-heading">
+                            <h2>Section A </h2>
+                            <div class="feature-image-section">
+                                <div class="section-heading">
+                                    <h3>Product Image</h3>
+                                </div>
+                                <div class="section-inside">
+                                    {{#if products.productid.featurefilepath}}
+                                    <div class="feature_image_section">
+                                        <img src="{{products.productid.featurefilepath}}" alt="feature_image">
+                                        <input type="hidden" name="remove_feature" class="remove_feature" value="">
+                                        <button type="button" class="change-feature-img">Change</button>
+                                        <button type="button" class="remove-feature-img"
+                                            data-prod-id="{{products.productid._id}}"
+                                            data-action="f_remove">Remove</button>
+                                    </div>
+                                    <div id="image-holder"></div>
+                                    <div class="image_section">
+                                        <input type="file" name="feature_image" class="prod-feature-img">
+                                    </div>
+                                    {{else}}
+                                    <div id="image-holder"></div>
+                                    <div class="image_section_default">
+                                        <input type="file" name="feature_image" class="prod-feature-img">
+                                    </div>
+                                    {{/if}}
+
+                                </div>
+                            </div>
+
+                            <div class="gallery-image-section">
+                                <div class="section-heading">
+                                    <h2>Product Gallery</h2>
+                                </div>
+                                <div class="section-inside">
+                                    {{#if products.galleryimgdetails}}
+                                    <div class="gallery_images">
+                                        <ul class="gallery_ul">
+                                            {{#each products.galleryimgdetails as |imagepath imagekey|}}
+                                            <li class="galleryimg" id="gallery_li_{{imagekey}}">
+                                                <div class="prod-gall-img" id="gall_imges_{{imagekey}}">
+                                                    <img src="{{imagepath}}" />
+                                                    <input type="hidden" name="remove_gallery[{{imagekey}}]"
+                                                        class="remove_gallery" id="remove_gallery_{{imagekey}}"
+                                                        value="">
+                                                    <button type="button" class="change-gallery-img"
+                                                        data-img-rel="{{imagekey}}">Change</button>
+                                                    <button type="button" class="remove-gallery-img"
+                                                        data-img-rel="{{imagekey}}" data-prod-id="{{../products._id}}"
+                                                        data-action="g_remove">Remove</button>
+                                                </div>
+
+                                                <div id="clonedInput{{imagekey}}" class="clonedInput"
+                                                    style="display:none;">
+                                                    <div class="gallery-image-holder"></div>
+                                                    <div class="prod-gallery-rept">
+                                                        <input type="file" name="product_gallery_img[{{imagekey}}]"
+                                                            class="product-gallery-img" data-repid="{{imagekey}}">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <button type="button" class="btn btn-primary clone-edit"
+                                                            data-repid="{{imagekey}}">Add More</button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                    {{else}}
+                                    <div id="clonedInput" class="clonedInput">
+                                        <div class="gallery-image-holder"></div>
+                                        <div class="prod-gallery-rept">
+                                            <input type="file" name="product_gallery_img[0]" class="product-gallery-img"
+                                                data-repid="0">
+                                        </div>
+                                        <div class="actions">
+                                            <button type="button" class="btn btn-primary clone" data-repid="0">Add
+                                                More</button>
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    <br><hr>
+                    <div style="border:1px solid black; padding:10px 10px; display: inline-block">
+                         <div class="sectionb-heading">
+                                <h3>Section B Image</h3>
+                            </div>
+                        {{#if products.sectionbimage}}
+                        <div class="imagebsection">
+                           
+                            <div class="section-inside">
+                                <div class="sectionb_image_section">
+                                    <img src="{{products.sectionbimage}}" class="img-fluid" alt="sectionb_image">
+                                    <input type="hidden" name="remove_sectionb" class="remove_sectionb" value="">
+                                    <button type="button" class="change-sectionb-img">Change</button>
+                                    <button type="button" class="remove_sectionb-img"
+                                        data-prod-id="{{products._id}}" data-action="f_remove">Remove</button>
+                                </div>
+                                <div id="imgd"></div>
+                                <div class="image_sectionb" {{#if products.sectionbimage}}style="display:none;"{{/if}}>
+                                    <input type="file" name="sectionbimage" class="sectionb"
+                                        accept="image/gif, image/jpeg, image/png">
+                                </div>
+                            </div>
+                        </div>
+                        {{else}}
+                        <div id="imgd"></div>
+                        <div class="image_sectionb_default">
+                            <input type="file" name="sectionbimage" class="sectionb">
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <hr />
+                                                            <div class="w-100"
+                                                                style="border:1px solid black; padding:10px 10px; display: inline-block">
+                                                                <div class="sectionb-heading">
+                                                                    <h3>Labsheet</h3>
+                                                                </div>
+                                                                {{#if products.labsheet}}
+                                                                <div class="imagebsection">
+
+                                                                    <div class="section-inside">
+                                                                        <div class="sectionb_labsheet_section">
+                                                                            <a href="{{products.labsheet}}"
+                                                                            >View Labsheet</a><br>
+                                                                            <input type="hidden" name="remove_labsheet"
+                                                                                class="remove_sectionb" value="">
+                                                                            <button type="button"
+                                                                                class="change-labsheet">Change</button>
+                                                                            <button type="button"
+                                                                                class="remove_sectionb-labsheet-combo"
+                                                                                data-prod-id="{{products._id}}"
+                                                                                data-action="l_remove">Remove</button>
+                                                                        </div>
+                                                                        <div id="imgd"></div>
+                                                                        <div class="labsheet_sectionb"
+                                                                            {{#if products.labsheet}}style="display:none;"
+                                                                            {{/if}}>
+                                                                            <input type="file" name="labsheet">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {{else}}
+                                                                {{!-- <div id="imgd"></div> --}}
+                                                                <div class="image_sectionb_de">
+                                                                    <input type="file" name="labsheet"
+                                                                        class="">
+                                                                </div>
+                                                                {{/if}}
+                                                            </div>
+                    <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

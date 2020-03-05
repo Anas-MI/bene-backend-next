@@ -1,0 +1,100 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Orders Details</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="result_filter_section">
+                <form method="POST" action="" id="order_filter_form">
+                    <div id="form-group">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control" name="filterstartdate" id="filterstartdate" autocomplete="off"/> 
+                    </div>
+                    <div id="form-group">
+                        <label>End Date </label>
+                        <input type="text" class="form-control" name="filterenddate" id="filterenddate" autocomplete="off"/>
+                    </div>
+                    <div id="form-group">
+                        <label>Pending</label>
+                        <input type="radio" class="form-checkbox" name="formfilter" id="pendingorder" ordervalue="pending"/>
+                        <label>Delivered</label>
+                        <input type="radio" class="form-checkbox" name="formfilter" id="deliveredorder" ordervalue="delivered"/>
+                        <label>All</label>
+                        <input type="radio" class="form-checkbox" name="formfilter" id="allorder" ordervalue="all"/>
+                    </div>
+                    <input type="button" class="btn btn-success" name="filtersubmit" id="filtersubmit" ordervalue="submit" value="submit"/>
+                </form>
+            </div>
+            <table class="product_detail_table table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Mobile Number</th>
+                        <th>Broker Name</th>
+                        <th>Product Name</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Delivared Quantity</th>
+                        <th>Balanced Quantity</th>
+                        <th>&nbsp;</th>
+                    </tr>      
+                </thead>  
+                <tbody class="order_detail_body">
+                    {{#each orders as |ordervalue key|}}
+                        {{#each ordervalue.cartobject as |cartvalue cartkey|}}
+                            {{#each cartvalue as |childvalue childkey|}}
+                            <tr>
+                                <td>{{ordervalue.orderid}}</td>
+                                <td>
+                                    {{#equal ordervalue.userid.role 'customer'}}
+                                        {{ordervalue.userid.name}}
+                                    {{else}}
+                                        {{ordervalue.customername}}
+                                    {{/equal}}
+                                </td>
+                                <td>{{ordervalue.userid.phonenumber}}</td>
+                                <td>
+                                    {{#equal ordervalue.userid.role 'broker'}}
+                                        {{ordervalue.userid.name}}
+                                    {{else}}
+                                        {{ordervalue.brokername}}
+                                    {{/equal}}
+                                </td>
+                                <td>{{childvalue.productName}}</td>
+                                <td>{{childvalue.offerPrice}}</td>
+                                <td>{{childvalue.quantity}}</td>
+                                <td>{{childvalue.deliveredQty}}</td>
+                                <td>{{childvalue.balanceQty}}{{#equal childvalue.balanceQty 0}}<span style="display:none;">delivered</span>{{else}}<span style="display:none;">pending</span>{{/equal}}</td>
+                                <td><a href="/orders/ordersingledetail/?id={{ordervalue._id}}&key={{removeAndsign childkey 'add'}}">Edit</a></td>
+                            </tr>
+                            {{/each}}
+                        {{/each}}
+                    {{/each}}   
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Mobile Number</th>
+                        <th>Broker Name</th>
+                        <th>Product Name</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Delivared Quantity</th>
+                        <th>Balanced Quantity</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

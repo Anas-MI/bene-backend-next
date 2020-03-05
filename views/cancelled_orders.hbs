@@ -1,0 +1,74 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Cancelled Orders</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">S.no</th>
+                        <th>Customer Email</th>
+                        <th style="width: 215px;">Customer Mobile Number</th>
+                        <th style="width: 70px;">Payment Status</th>
+                        <th style="width: 140px;">Status</th>
+                        <th style="width: 230px;">Total Amount</th>
+                        <th style="width: 170px;">Order Status</th>
+                        <th style="width: 500px;">Date Created</th>
+                    </tr>      
+                </thead>  
+                <tbody>
+                    {{#each orders as |ordervalue orderkey|}}
+                    <tr>
+                        
+                        {{!-- <td>{{sum @index 1}}</td> --}}
+                        <td>{{ordervalue.serial_id}}</td>
+                            {{!-- {{#equal ordervalue.userid.role 'customer'}}
+                               {{ordervalue.userid.name}}
+                            {{else}}
+                                {{ordervalue.customername}}
+                            {{/equal}} --}}
+                        
+                         <td>
+                            <a href="/pages/orders/view/{{ordervalue._id}}">{{ordervalue.userdetails.email}}</a>
+                            
+                        </td>
+                        
+                        <td>
+                            {{!-- {{#equal ordervalue.userid.role 'broker'}}
+                                {{ordervalue.userid.name}}
+                            {{else}}
+                                {{this.brokername}}
+                            {{/equal}} --}}
+                            {{ordervalue.userdetails.phonenumber}}
+                        </td>
+                        <td>{{ordervalue.paymentstatus}}</td>
+                        <td>{{ordervalue.deleted}}</td>
+                        {{!-- <td>{{dateformat this.ordermilisecond 'DD/MM/YYYY h:mm a'}}</td> --}}
+                        <td>{{ordervalue.grandtotal}}</td>
+                        <td>{{ordervalue.orderstatus}}</td>
+                        <td>{{ordervalue.orderdate}}</td>
+                        <td style="width: 90px;">
+                            <div class="custom-delete-edit">   
+                                <a href="/pages/orders/permadelete/{{ordervalue._id}}" class="delete-product" data-id="{{productvalue._id}}"><i class="fa fa-trash" title="Delete Permanently" aria-hidden="true"></i></a>                                
+                                <a href="/pages/orders/revert/{{ordervalue._id}}" class="edit-product" data-id="{{productvalue._id}}"><i class="fa fa-undo" title="Revert Back" aria-hidden="true"></i></a>                                
+                        </div>
+                        </td> 
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                <tfoot>
+                  
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

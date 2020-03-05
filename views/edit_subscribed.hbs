@@ -1,0 +1,237 @@
+{{> header}}
+{{> nav}}
+
+<style>
+    body {
+        color: #2c3e50;
+        background: #ecf0f1;
+        padding: 0 1em 1em;
+    }
+
+    h1 {
+        margin: 0;
+        line-height: 2;
+        text-align: center;
+    }
+
+    h2 {
+        margin: 0 0 0.5em;
+        font-weight: normal;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row .col {
+        flex: 1;
+    }
+
+    .row .col:last-child {
+        margin-left: 1em;
+    }
+
+    /* Accordion styles */
+    .tabs {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    .tab {
+        width: 100%;
+        color: white;
+        overflow: hidden;
+    }
+
+    .tab-label {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+        background: #2c3e50;
+        font-weight: bold;
+        cursor: pointer;
+        /* Icon */
+    }
+
+    .tab-label:hover {
+        background: #1a252f;
+    }
+
+    .tab-label::after {
+        content: "\276F";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all 0.35s;
+    }
+
+    .tab-content {
+        max-height: 0;
+        padding: 0 1em;
+        color: #2c3e50;
+        background: white;
+        transition: all 0.35s;
+    }
+
+    .tab-close {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1em;
+        font-size: 0.75em;
+        background: #2c3e50;
+        cursor: pointer;
+    }
+
+    .tab-close:hover {
+        background: #1a252f;
+    }
+
+    input:checked+.tab-label {
+        background: #1a252f;
+    }
+
+    input:checked+.tab-label::after {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+    input:checked~.tab-content {
+        max-height: 100vh;
+        padding: 1em;
+    }
+</style>
+
+
+<div id="page-wrapper" style="padding-left: 15px;padding-right: 15px; padding-bottom:30px;">
+
+    
+    <h1>View Susbcribed Product</h1>
+    {{!-- <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">View Order</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div> --}}
+ 
+
+    <hr>
+ 
+    <hr />
+    {{!-- Start 1 --}}
+
+    <table class="table table-bordered">
+        <tbody>
+          
+            <tr>
+                <th scope="row">Product Name</th>
+                <td>{{sub.title}}</td>
+            </tr>
+           
+            <tr>
+                <th scope="row">subscribedscription Failed</th>
+                <td>{{sub.subscriptionFailed}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Reviewed By User</th>
+                <td>{{sub.reviewed}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Quantiy</th>
+                <td>{{sub.qty}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Unit Price</th>
+                <td>{{sub.unitPrice}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Subscription ID</th>
+                <td>{{sub.subscriptionId}}</td>
+            </tr>
+
+            {{#if sub.attribute}}
+            {{#each sub.attribute as |attr|}}
+            <tr>
+                <th scope="row">{{@key}}</th>
+                <td>{{attr}}</td>
+            </tr>
+            {{/each}}
+            {{/if}}
+             <tr>
+                <th scope="row">Start Date</th>
+                <td>{{data.subscription.paymentSchedule.startDate}}</td>
+            </tr>
+             <tr>
+                <th scope="row">Total Occurences</th>
+                <td>{{data.subscription.paymentSchedule.totalOccurrences}}</td>
+            </tr>
+             <tr>
+                <th scope="row">Amount</th>
+                <td>{{data.subscription.amount}}</td>
+            </tr>
+             <tr>
+                <th scope="row">Subscription Status</th>
+                <td>{{data.subscription.status}}</td>
+            </tr>
+             <tr>
+                <th scope="row">Customer Profile ID</th>
+                <td>
+{{data.subscription.profile.customerProfileId}}</td>
+            </tr>
+             <tr>
+                <th scope="row"> Result Code</th>
+                <td>{{data.messages.resultCode}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+<a href="/suborder/{{sub._id}}" class="btn btn-primary">View Order</a>
+
+{{!-- { subscription:
+   { name: 'asdfasdf',
+     paymentSchedule:
+      { interval: [Object],
+        startDate: '2019-07-05T00:00:00',
+        totalOccurrences: 6,
+        trialOccurrences: 0 },
+     amount: 405.03,
+     trialAmount: 0,
+     status: 'active',
+     profile:
+      { paymentProfile: [Object],
+        customerProfileId: '1508389176',
+        description: 'Profile created by Subscription: 5872738' },
+     arbTransactions: [ [Object] ] },
+  messages: { resultCode: 'Ok', message: [ [Object] ] } } --}}
+
+
+
+
+
+
+
+
+    <hr />
+    {{!--       
+       <div >
+        <a href="{{products.label}}" target="_blank">View Label</a>
+        <img src="{{ordervalue.label}}" height="500" width="400" onclick="window.print()" />
+    </div> --}}
+    {{!-- {{/each}} --}}
+    <!-- /.row -->
+
+  
+
+
+</div>
+<!-- /#page-wrapper -->
+
+{{> footer}}

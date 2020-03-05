@@ -1,0 +1,78 @@
+{{> header}}
+{{> nav}}
+<style>
+.hideThisDate span{
+display:none;
+}
+</style>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Subscribed Products</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 245px;">Product Name</th>
+                        <th style="width: 230px;">Delivery Date</th>
+                        <th style="width: 75px;">Quantity</th>
+                        <th style="width: 155px;">Unit Price</th>
+                        <th style="width: 155px;">Subscription Status</th>
+                        
+                    </tr>      
+                </thead>
+                
+                <tbody>
+                    {{#each products as |productvalue productvkey|}}
+                
+                    <tr>
+                        <td>
+                            <a href="/subscribed/edit/{{productvalue._id}}">{{productvalue.title}}</a>  
+                            {{!-- <a href="/subscribed/delete/{{productvalue._id}}" class="delete-product" data-id="{{productvalue._id}}"><i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a> --}}
+                        </td>
+                         <td class="hideThisDate">
+                            {{!-- {{#each productvalue.deliverydate}}
+                                {{this.categorytitle}}
+                            {{/each}} --}}
+                            
+                            
+                            <span >{{dateformat productvalue.createdOn 'DD/MM/YYYY'}}</span>{{productvalue.createdOn}}
+                         
+                        </td>
+                        <td>{{productvalue.qty}}</td>
+                        <td>{{productvalue.unitPrice}}</td>
+                        <td>
+                            
+                            {{#ifEquals productvalue.subscriptionFailed true}}
+                                    Subscription Failed
+                                    {{else}}
+                                    Subscribed
+                                    {{/ifEquals}}
+                            
+                            
+                            
+                            </td>
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Sku</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </tfoot> --}}
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

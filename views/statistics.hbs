@@ -1,0 +1,230 @@
+{{> header}}
+{{> nav}}
+<style>
+  body {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
+
+  .container {
+    margin: 0 auto;
+    width: 60% !important;
+    float: none;
+    min-height: 1px;
+    height: 100%;
+  }
+
+  .heading {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 3.5em;
+    margin-top: 5%;
+  }
+
+  .counter {
+    display: flex;
+    margin-top: 3%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .counter .item {
+    vertical-align: middle;
+    width: 16.66%;
+    height: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .counter .item i {
+    color: rgba(25, 25, 25, 0.9);
+    font-size: 4em;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  .counter .item p.number {
+    color: rgba(21, 21, 21, 1.0);
+    font-size: 3em;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  .counter .item p.label {
+    color: rgba(25, 25, 25, 0.9);
+    font-size: 1.1em;
+    text-shadow: 1px 1px 1px #ccc;
+    text-transform: lowercase;
+  }
+
+  .counter .item:hover i,
+  .counter .item:hover p {
+    color: rgba(10, 10, 10, 1.0);
+  }
+
+  @media (max-width: 786px) {
+    .counter .item {
+      flex: 0 0 50%;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+
+    $.fn.jQuerySimpleCounter = function (options) {
+      var settings = $.extend({
+        start: 0,
+        end: 100,
+        easing: 'swing',
+        complete: ''
+      }, options);
+
+      var thisElement = $(this);
+
+      $({ count: settings.start }).animate({ count: settings.end }, {
+        duration: settings.duration,
+        easing: settings.easing,
+        step: function () {
+          var mathCount = Math.ceil(this.count);
+          thisElement.text(mathCount);
+        },
+        complete: settings.complete
+      });
+    };
+
+    $('#number1').jQuerySimpleCounter({ end: {{visits}}, duration: 3000 });
+    $('#number2').jQuerySimpleCounter({ end: {{productsSold}}, duration: 3700 });
+    $('#number3').jQuerySimpleCounter({ end: {{kitsSold}}, duration: 3100 });
+    $('#number4').jQuerySimpleCounter({ end: 16, duration: 3450 });
+    //$('#number5').jQuerySimpleCounter({end: 472,duration: 3300});
+    //$('#number6').jQuerySimpleCounter({end: 224,duration: 2175});
+  });
+</script>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Subscribed Products</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+ <div class="row">
+        <div class="col-lg-12">
+          <div class="counter ">
+            <div class="item">
+              {{!-- <i class="fas fa-laptop"></i> --}}
+
+
+              <p id="number1" class="number">0</p>
+              <p class="label">Visits</p>
+            </div>
+            <div class="item">
+              {{!-- <i class="fas fa-camera"></i> --}}
+              <p id="number2" class="number">0</p>
+              <p class="label">Products Sold</p>
+            </div>
+            <div class="item">
+              {{!-- <i class="fas fa-car"></i> --}}
+              <p id="number3" class="number">0</p>
+              <p class="label">Kits Sold</p>
+            </div>
+            <div class="item">
+              {{!-- <i class="fas fa-briefcase"></i> --}}
+              <p id="number4" class="number">0</p>
+              <p class="label">Total Orders</p>
+            </div>
+            {{!-- <div class="item">
+      <i class="fab fa-twitter"></i>
+      <p id="number5" class="number">0</p>
+      <p class="label">Tweets sent</p>
+    </div>
+    <div class="item">
+      <i class="fas fa-coffee"></i>
+      <p id="number6" class="number">0</p>
+      <p class="label">Cups of coffee</p>
+    </div> --}}
+          </div>
+          </div>
+          </div>
+
+<hr>
+
+<h4>Products</h4>
+
+<br>
+    <table style="width: 800px;" class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="custom-table1" >Product Name</th>
+                        <th class="custom-table2" >Number of times sold</th>
+                    </tr>      
+                </thead>  
+                <tbody>
+                    {{#each count1 as |productvalue productvkey|}}
+                    <tr>
+                        <td>{{@key}}</td>
+                        <td>{{this}}
+                   
+                        </td>
+                         
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Sku</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </tfoot> --}}
+            </table>
+
+<hr>
+
+<h4>Bundles</h4>
+
+<br>
+    <table style="width: 800px;" class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="custom-table1" >Product Name</th>
+                        <th class="custom-table2" >Number of times sold</th>
+                    </tr>      
+                </thead>  
+                <tbody>
+                    {{#each count2 as |productvalue productvkey|}}
+                    <tr>
+                        <td>{{@key}}</td>
+                        <td>{{this}}
+                   
+                        </td>
+                         
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Sku</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </tfoot> --}}
+            </table>
+
+
+        </div>
+    
+
+
+
+{{> footer}}

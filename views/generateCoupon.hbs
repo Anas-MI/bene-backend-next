@@ -1,0 +1,80 @@
+{{> header}} {{> nav}}
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" action="/stripe/admin/coupon/generate/">
+                    
+                    {{!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-5"> --}}
+                                {{!-- <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="select-combo-product">Generate Coupon</label>
+                                        <select multiple class="select2 select-2-active ">
+                                        </select>
+                                    </div>
+                                    <div class="">
+                                        <ul id="" cla>
+                                        </ul>
+                                    </div>
+                                </div> --}}
+                            
+                            <h3>Generate Coupon</h3>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="title-descripion mb-5 clearfix">
+                                        <div class="form-group">
+                                            <label> Coupon Name:
+                                                <span class="required">*</span>
+                                            </label>
+                                            <input class="form-control" name="couponname" type="text"
+                                                 autocomplete="off" required>
+                                            <span class="form_error">Please enter Coupon Name</span>
+                                        </div>
+                                        {{!-- <div class="form-group">
+                                            <label>Short Description:</label>
+                                            <textarea class="form-control" name="sdescription" id="productbody" row="10"
+                                                column="10"></textarea>
+                                        </div> --}}
+                                        <div class="form-group">
+                                            <label>Duration In Months: </label>
+                                            <select name="months" class="select2 select-2-active">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>                                                
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                            {{!-- <input class="form-control" name="duration" type="number" id="productbody" max="12"> --}}
+                                        </div>
+                                        {{!-- <div class="form-group">
+                                            <label>:   </label>
+                                            <select name="duration" class="select2 select-2-active">
+                                                <option value="once">Once</option>
+                                                <option value="repeating">Repeating</option>
+                                                <option value="forever">Forever</option> 
+                                                </select>
+                                        </div> --}}
+                                         <div class="form-group">
+                                            <label>Percentage Off:   </label>
+                                            <input class="form-control"  name="percentoff" type="number" id="productbody" max="100" required>
+                                        </div>
+                                                   <input class="btn btn-primary" type="submit" value="Submit">
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

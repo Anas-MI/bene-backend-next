@@ -1,0 +1,116 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Ambassador Management</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+     <div class="col-lg-12 broker_table">
+                <table class="product_detail_table table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Approved</th>
+                            <th>Phone Number</th>
+                            <th>Created On</th>
+                            <th>ID</th>
+                            <th>Extention</th>
+                            <td></td>
+                            <td></td>
+                        </tr>      
+                    </thead>  
+                    <tbody>
+                      
+                        {{#each user as |value key|}}
+                            {{!-- {{#notequal value.role "superAdmin"}} --}}
+                                <tr>
+                                    <td>{{value.email}}</td>
+                                    <td>{{#ifEquals value.status false}}
+                                    <a href="/ambassador-portal/approve/{{value._id}}" class="ed" >Approve User</a>
+                                    {{else}}
+                                    True
+                                    {{/ifEquals}}
+                                    </td>
+                                    <td>{{value.phonenumber}}</td>
+                                    <td>{{value.createdon}}</td>
+                                    <td>{{value.ambass_id}}</td>
+                                    <td>{{value.extention}}</td>
+                                    {{!-- <td>{{#if this.referalamout}}{{this.referalamout}} Rs{{else}}0 Rs{{/if}}</td>
+                                    <td>{{#if this.discountbyrefnumber}}{{this.discountbyrefnumber}}{{else}}0{{/if}}</td> --}}
+                                    <td><a href="/ambassador-portal/view/{{value._id}}" class="edit_user_btn" >View</a></td>
+                                    <td><a href="/ambassador-portal/delete/{{value._id}}" class="delete-user" ><i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a></td>
+                                </tr>
+                            {{!-- {{/notequal}} --}}
+                        {{/each}}    
+                    </tbody>
+                </table>
+            </div>
+</div>
+
+<br>
+<br>
+
+    <div class="row custom-user-managment-edit">      
+        <div class="col-lg-12">
+            <div class="col-lg-12">
+                <div class="alert alert-success brokersuccess" style="display:none;"></div>
+                <div class="alert alert-danger brokerdanger" style="display:none;"></div>
+                
+                    
+                    <h4>Create New Ambassador</h4>
+                    
+                    <div class="col-md-12">
+      	<form method="POST" action="/ambassador-portal/register/admin" class="Regular shadow">
+          {{!-- <div id="form-group">
+          <label>Type:</label>
+                        <select class="form-control adduserrole" name="role" required="">
+                            <option value="admin">Admin</option>
+                            <option value="superadmin">Super Admin</option>
+                            <option value="customer" selected="">Customer</option>
+                        </select>
+                        <span class="form_error">Please Enter Role</span>
+            </div> --}}
+          <div id="form-group">
+            <label>Email:</label>
+            <input class="form-control" name="email" type="text" required>
+          </div>
+          <div id="form-group">
+            <label>First Name:</label>
+            <input class="form-control" name="firstname" type="text" required>
+          </div>
+          <div id="form-group">
+            <label>Last Name:</label>
+            <input class="form-control" name="lastname" type="text" required>
+          </div>
+          <div id="form-group">
+            <label>Profession:</label>
+            <input class="form-control" name="profession" type="text">
+          </div>
+          <div id="form-group">
+            <label>Password:</label>
+            <input class="form-control" name="password" type="password" required>
+          </div>
+          <div id="form-group">
+            <label>Retype Your Password:</label>
+            <input class="form-control" name="password2" type="password" required>
+          </div>
+            <div id="form-group">
+            <label>Status:</label>
+            <select class="form-control edituserstauts" name="status">
+                <option value="false">In Active</option>
+                <option value="true">Active</option>
+            </select>
+            </div>
+          <br>
+          <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+    </div>        
+        </div>
+    </div>
+   
+<!-- /#page-wrapper -->
+{{> footer}}

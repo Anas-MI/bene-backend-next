@@ -1,0 +1,395 @@
+{{> header}}
+{{> nav}}
+<style>
+    
+    [data-acc-toggle] {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        position: relative;
+    }
+
+    [data-acc-toggle]:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 10px;
+        height: 10px;
+        border: 1px solid transparent;
+        border-bottom-color: #000;
+        border-right-color: #000;
+        transform: translateY(-25%) rotate(45deg);
+        transition: all .3s;
+    }
+
+    [data-acc-id] {
+        display: none;
+    }
+
+    .opened [data-acc-toggle]:after {
+        transform: translateY(25%) rotate(225deg);
+    }
+
+    .accordian-wrapper {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 20px;
+        display: block;
+        overflow: hidden;
+        border-radius: 4px;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, .08);
+        transition: all .3s;
+    }
+
+    .accordian-wrapper.opened {
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, .08);
+    }
+
+    .accordian-wrapper>div {
+        padding: 10px;
+    }
+
+    .has-preview .preview-block {
+        display: none;
+    }
+
+    .has-preview .preview-checked:checked~.preview-block {
+        display: block;
+    }
+</style>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Layout Pages</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 Regular shadow rounded custom-add-page">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+            <div>
+                <form action="/pages/edit/{{pageid}}" method="POST" class="" enctype="multipart/form-data"
+                    id="page-edit-form">
+                    {{!-- <div id="page-form-group">
+                        <label>Page Layout: {{pagelayout}}</label>
+                    </div> --}}
+                    <div id="page-form-group">
+                        <label>Page Layout:</label>
+                        <input type="text" name="layout" class="page-layout" value="{{pagelayout}}" readonly
+                            data-pageid="{{pageid}}">
+                    </div>
+                    {{!-- <div id="page-form-group">
+                        <label>Page Type:</label>
+                        <select name="pagetype"  class="page-type">
+                            {{#each pagetype as |value|}}
+                            <option value="{{value}}" {{#equal ../selectedpage value}}selected="selected"
+                                {{/equal}}>{{value}}</option>
+                            {{/each}}
+                        </select>
+                    </div> --}}
+                    <div id="page-form-group">
+                        <label>Page Name/Title:</label>
+                        <input class="pagetitle" name="title" type="text" autocomplete="off" value="{{title}}">
+                        <span class="form_error">Please Enter Page Name</span>
+                    </div>
+                    {{!---------------------------- Layout 2 Fields Started --------------------------------}}
+                    <div class="layout2-fields extra-fields">
+                        <div class="accordian-wrapper">
+                            <div class="accordian-toggler" data-acc-toggle="layout-03-acc-01-edit">
+                                First Section
+                            </div>
+                            <div class="accordian-container" data-acc-id="layout-03-acc-01-edit">
+                                <div>
+                                    <div id="page-form-group">
+                                        <label>First Section Visibility:</label>
+                                        <input type="radio" class="first-visibility-yes" name="firstvisibility" value="yes"
+                                            {{#equal pagecontent.firstsection.visibility 'yes'}}checked="checked" {{/equal}}> &nbsp;
+                                        Yes &nbsp; &nbsp;
+                                        <input type="radio" class="first-visibility-no" name="firstvisibility" value="no"
+                                            {{#equal pagecontent.firstsection.visibility 'no'}}checked="checked" {{/equal}}>&nbsp;
+                                        No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>First Section Background Image:</label>
+                                        </div>
+                                        <div class="image-field-section" id="layout2-first-bg-img">
+                                            {{#if pagecontent.firstsection.firstbgimage}}
+                                            <input type="hidden" class="first-img-link" name="firstimagelink"
+                                                value="{{pagecontent.firstsection.firstbgimage}}" autocomplete="off">
+                                            <img src="{{pagecontent.firstsection.firstbgimage}}" />
+                                            {{/if}}
+                                            <div class="firstimgdiv">
+                                                <div class="img_preview"></div>
+                                                <input type="file" class="layout2img first-bg-image" name="firstbgimage" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Title:</label>
+                                        <input type="text" class="section_one_title" name="firsttitle"
+                                            value="{{pagecontent.firstsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Description:</label>
+                                        <textarea class="first-section-description"
+                                            name="firstdescription">{{pagecontent.firstsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Text:</label>
+                                        <input type="text" class="first-section-buttontext" name="firstbtntext"
+                                            value="{{pagecontent.firstsection.btntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Link:</label>
+                                        <input type="text" class="first-section-btnlink" name="firstbtnlink"
+                                            value="{{pagecontent.firstsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{!----------------------------------- Layout 2 Second Section ----------------------------------------}}
+                        <div class="accordian-wrapper" style="display: none;">
+                            <div class="accordian-toggler" data-acc-toggle="layout-03-acc-02-edit">
+                                Second Section
+                            </div>
+                            <div class="accordian-container" data-acc-id="layout-03-acc-02-edit">
+                                <div>
+                                    <div id="page-form-group" style="display: none;">
+                                        <label>Second Section Visibility:</label>
+                                        <input type="radio" class="second-visibility-yes" name="secondvisibility" value="yes"
+                                            {{#equal pagecontent.secondsection.visibility 'yes'}}checked="checked" {{/equal}}>&nbsp;
+                                        Yes &nbsp; &nbsp;
+                                        <input type="radio" class="second-visibility-no" name="secondvisibility" value="no"
+                                            {{#equal pagecontent.secondsection.visibility 'no'}}checked="checked" {{/equal}}>&nbsp;
+                                        No
+                                    </div>
+
+                                    <div class="wrapper1" style="display: none;">
+                                        <div class="section_two_clone">
+                                            {{#each pagecontent.secondsection.secondtitle as |secondtitle secondkey|}}
+                                            <div class="layout2_second_element" id="layout2_second_element_{{secondkey}}">
+                                                <div id="page-form-group">
+                                                    <label>Second Section Title:</label>
+                                                    <input type="text" class="second-section-title" name="secondtitle[]"
+                                                        value="{{secondtitle}}" autocomplete="off">
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <label>Second Section Sub Title:</label>
+                                                    <textarea class="second-section-subtitle"
+                                                        name="secondsubtitle[]">{{lookup ../pagecontent.secondsection.secondsubtitle @index}}</textarea>
+                                                </div>
+                                                <div class="second_cloned_wrapper clearfix">
+                                                    {{#each (lookup../pagecontent.secondsection.seconddiseases @index) as |diseases dindex|}}
+                                                    <div class="diseases_cloned" id="diseases_cloned_{{secondkey}}_{{dindex}}">
+                                                        <div id="page-form-group">
+                                                            <label>Second Section Diseases Name:</label>
+                                                            <input type="text" class="second-section-diseases"
+                                                                name="seconddiseases[{{secondkey}}][]" value="{{diseases}}"
+                                                                autocomplete="off">
+                                                        </div>
+                                                        <div class="buttons">
+                                                            <button type="button" class="btn btn-primary l2_s_diseases_clone"
+                                                                data-section="{{secondkey}}">Clone</button>
+                                                            {{#notequal dindex 0}}
+                                                            <button type="button" class="btn btn-danger l2_s_diseases_remove"
+                                                                data-remove-id="diseases_cloned_{{secondkey}}_{{dindex}}">Remove</button>
+                                                            {{/notequal}}
+                                                        </div>
+                                                    </div>
+                                                    {{/each}}
+                                                </div>
+                                                <div class="buttons">
+                                                    <button type="button" class="btn btn-primary l2_second_clone">Clone</button>
+                                                    {{#notequal secondkey 0}}
+                                                    <button type="button" class="btn btn-danger l2_second_remove"
+                                                        data-remove-id="layout2_second_element_{{secondkey}}">Remove</button>
+                                                    {{/notequal}}
+                                                </div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-------------------------------- Layout 2 Third Section ----------------------------------------}}
+                        <div class="accordian-wrapper">
+                            <div class="accordian-toggler" data-acc-toggle="layout-03-acc-03-edit">
+                                Second Section
+                            </div>
+                            <div class="accordian-container" data-acc-id="layout-03-acc-03-edit">
+                                <div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Visibility:</label>
+                                        <input type="radio" class="third-visibility-yes" name="thirdvisibility" value="yes"
+                                            checked="checked" {{#equal pagecontent.thirdsection.visibility 'yes'}}checked="checked"
+                                            {{/equal}}>&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="third-visibility-no" name="thirdvisibility" value="no"
+                                            {{#equal pagecontent.thirdsection.visibility 'no'}}checked="checked" {{/equal}}>&nbsp;No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Title:</label>
+                                        <input type="text" class="third-section-stitle" name="thirdstitle"
+                                            value="{{pagecontent.thirdsection.thirdtitle}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section First Description:</label>
+                                        <textarea class="third-section-firstdescription"
+                                            name="thirdfirstdescription">{{pagecontent.thirdsection.thirdfirstdescription}}</textarea>
+                                    </div>
+
+                                    <div class="third_cloned_wrapper">
+                                        {{#each pagecontent.thirdsection.thirddiseases as |thdieases thdkey|}}
+                                        <div class="third_diseases_cloned" id="third_diseases_cloned_{{thdkey}}">
+                                            <div id="page-form-group">
+                                                <label>Second Section Name:</label>
+                                                <input type="text" class="third-section-diseases" name="thirddiseases[]"
+                                                    value="{{thdieases}}" autocomplete="off">
+                                            </div>
+                                            <div class="buttons">
+                                                <button type="button" class="btn btn-primary l2_third_clone">Clone</button>
+                                                {{#notequal thdkey 0}}
+                                                <button type="button" class="btn btn-danger l2_third_remove"
+                                                    data-remove-id="third_diseases_cloned_{{thdkey}}">Remove</button>
+                                                {{/notequal}}
+                                            </div>
+                                        </div>
+                                        {{/each}}
+
+                                    </div>
+
+                                    <div id="page-form-group">
+                                        <label>Second Section Second Description:</label>
+                                        <textarea class="third-section-seconddescription"
+                                            name="thirdseconddescription">{{pagecontent.thirdsection.thirdseconddescription}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Button Text:</label>
+                                        <input type="text" class="third-section-buttontext" name="thirdbtntext"
+                                            value="{{pagecontent.thirdsection.thirdbtntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Button Link:</label>
+                                        <input type="text" class="third-section-btnlink" name="thirdbtnlink"
+                                            value="{{pagecontent.thirdsection.thirdbtnlink}}" autocomplete="off">
+                                    </div>
+
+                                    <div id="page-form-group">
+                                        <label>Second Section secondary Link Text:</label>
+                                        <input type="text" class="third-section-buttontext" name="thirdslinktext"
+                                            value="{{pagecontent.thirdsection.thirdslinktext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section secondary Link URL:</label>
+                                        <input type="text" class="third-section-btnlink" name="thirdsbtnlink"
+                                            value="{{pagecontent.thirdsection.thirdsbtnlink}}" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{!--------------------------- Layout 2 Fourth Section --------------------------------------}}
+                        <div class="accordian-wrapper">
+                            <div class="accordian-toggler" data-acc-toggle="layout-03-acc-04-edit">
+                                Third Section
+                            </div>
+                            <div class="accordian-container" data-acc-id="layout-03-acc-04-edit">
+                                <div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Visibility:</label>
+                                        <input type="radio" class="fourth-visibility-yes" name="fourthvisibility" value="yes"
+                                            {{#equal pagecontent.fourthsection.visibility 'yes'}}checked="checked" {{/equal}}>&nbsp;
+                                        Yes &nbsp; &nbsp;
+                                        <input type="radio" class="fourth-visibility-no" name="fourthvisibility" value="no"
+                                            {{#equal pagecontent.fourthsection.visibility 'no'}}checked="checked" {{/equal}}>&nbsp;
+                                        No
+                                    </div>
+
+                                    <div class="wrapper2">
+                                        <div class="fourth_results">
+                                            {{#each pagecontent.fourthsection.fourthtitle as |fourthtitle fourthkey|}}
+                                            <div class="fourth_element" id="fourth_element_{{fourthkey}}">
+                                                <div id="page-form-group">
+                                                    <label>Third Section Title:</label>
+                                                    <input type="text" class="fourth-section-title" name="fourthtitle[]"
+                                                        value="{{fourthtitle}}" autocomplete="off">
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <div class="image-label-section">
+                                                        <label>Third Section Image:</label>
+                                                    </div>
+                                                    <div class="image-field-section fourth-img-section"
+                                                        id="fourth_image_{{fourthkey}}">
+                                                        {{#if ../pagecontent.fourthsection.fourthimage}}
+                                                        <input type="hidden" class="fourth-img-link" name="fourthimagelink[]"
+                                                            value="{{lookup ../pagecontent.fourthsection.fourthimage  @index}}"
+                                                            autocomplete="off">
+                                                        <img src="{{lookup ../pagecontent.fourthsection.fourthimage  @index}}" />
+                                                        {{else}}
+                                                        <input type="hidden" class="fourth-img-link" name="fourthimagelink[]"
+                                                            value="" autocomplete="off">
+                                                        {{/if}}
+                                                        <div class="fourthimgdiv">
+                                                            <div class="img_preview"></div>
+                                                            <input type="file" class="fourth-section-image"
+                                                                name="fourthimage{{fourthkey}}" value="" autocomplete="off">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <label>Third Section Image Link:</label>
+                                                    <input type="text" class="fourth-section-link" name="fourthlink[]"
+                                                        value="{{lookup ../pagecontent.fourthsection.fourthlink  @index}}"
+                                                        autocomplete="off">
+                                                </div>
+                                                {{!-- <div class="buttons">
+                                                    <button type="button" class="btn btn-primary l2_fourthclone">Clone</button>
+                                                    {{#notequal fourthkey 0}}
+                                                    <button type="button" class="btn btn-danger l2_fourth_remove" data-remove-id="fourth_element_{{fourthkey}}">Remove</button>
+                                                    {{/notequal}}
+                                                </div> --}}
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page-form-group" style="display: none">
+                        <label>Country:</label>
+                        <select name="country" id="" class="page-country">
+                            {{#each countries as |countriesValue countrieskey|}}
+                            <option value="{{countriesValue}}" {{#equal ../country countriesValue}}selected="selected"
+                                {{/equal}}>{{countriesValue}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer}}
+
+<script>
+    function setAccordian() {
+        jQuery(document).ready(function ($) {
+            $("[data-acc-toggle]").each(function () {
+                $(this).off('click');
+                $(this).click(function () {
+                    const id = $(this).attr("data-acc-toggle")
+                    $(this).parent(".accordian-wrapper").toggleClass("opened")
+                    $(this).toggleClass("acc-open")
+                    $('[data-acc-id="' + id + '"]').slideToggle()
+                })
+            })
+        })
+    }
+    setAccordian()
+</script>

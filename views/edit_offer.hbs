@@ -1,0 +1,120 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Offer</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    
+    {{#each errors as |errorvalue errorkey|}}
+        {{errorvalue}}
+         {{errorkey}}
+    {{/each}}
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="POST" action="/offers/edit/{{offer._id}}" enctype="multipart/form-data">
+                <div id="form-group">
+                    <label> Product Name:</label>
+                    {{#list products offer.offerproductid.producttitle 'productname'}}
+                        {{producttitle}}
+                    {{/list}}
+                </div>
+                <div id="form-group">
+                    <label>Brand Name:</label>
+                    <div class="product_brand_div">
+                       {{offer.productbrand}}
+                       <input class="form-control" name="previousproductbrand" type="hidden" value="{{offer.productbrand}}">
+                    </div>
+                    <div class="product_id_hidden_div">
+                       <input type="hidden" name="offerproductid" class="form-control" id="offerproductid" value="{{offer.offerproductid._id}}"/>  
+                    </div> 
+                </div>
+                 <div id="form-group">
+                    <label>Pack:</label>
+                    <div class="product_variation_div">
+                        <input class="form-control" name="pack" type="text" value="{{offer.pack}}">
+                    </div>
+                </div>
+                <div id="form-group">
+                    <label>Offer Info:</label>
+                    <textarea class="form-control" name="offerinfo">{{offer.offerinfo}}</textarea>
+                </div>
+                <div id="form-group">
+                    <label>Price Offer:</label>
+                    <div class="price_offer_wrapper">
+                        <input type="text" class="form-control price_offer_field" name="priceoffer" value="{{offer.priceoffer}}"/>
+                        <select class="form-control" name="priceofferunit" id="priceofferunit">
+                            <option value="percentage" {{#equal offer.priceofferunit "percentage"}}selected=""{{/equal}}>%</option>
+                            <option value="rupees" {{#equal offer.priceofferunit "rupees"}}selected=""{{/equal}}>Rs</option>
+                        </select>
+                        <select class="form-control" name="priceofferapplied" id="priceofferapplied">
+                            <option value="perpack" {{#equal offer.priceofferapplied "perpack"}}selected=""{{/equal}}>Per Pack</option>
+                            <option value="perqtl" {{#equal offer.priceofferapplied "perqtl"}}selected=""{{/equal}}>Per QTL</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="form-group">
+                    <label>Max Limit Per User:</label>
+                    <div class="form-group-wrapper">
+                        <input type="text" class="form-control" name="maxlimituser" value="{{offer.maxlimituser}}"/>
+                        <select class="form-control" name="maxlimituserunit" id="maxlimituserunit">
+                            <option value="Kg" {{#equal offer.maxlimituserunit "Kg"}}selected=""{{/equal}}>KG</option>
+                            <option value="qtl" {{#equal offer.maxlimituserunit "qtl"}}selected=""{{/equal}}>Qtl</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="form-group">
+                    <label>Offer Date Start:</label>
+                    <input type="text" class="form-control" name="offerstartdate" id="offerstartdate" value="{{dateformat offer.offerstartdate 'DD/MM/YYYY'}}"/>
+                </div>
+                <div id="form-group">
+                    <label>Offer Date End:</label>
+                    <input type="text" class="form-control" name="offerenddate" id="offerenddate" value="{{dateformat offer.offerenddate 'DD/MM/YYYY'}}"/> 
+                </div>
+
+                <div id="form-group">
+                    <label>Offer Start Time:</label>
+                    <input type="text" class="form-control" name="offerstarttime" id="offerstarttime" value="{{dateformat offer.offerstartdate 'h:mm a'}}"/> 
+                </div>
+                <div id="form-group">
+                    <label>Offer End Time:</label>
+                    <input type="text" class="form-control" name="offerendtime" id="offerendtime" value="{{dateformat offer.offerenddate 'h:mm a'}}"/> 
+                </div>
+
+                <div id="form-group">
+                    <label>Offer Size:</label>
+                    <div class="form-group-wrapper">
+                        <input type="text" class="form-control" name="offersize" value="{{offer.offersize}}"/>
+                        <select class="form-control" name="offersizeunit" id="offersizeunit">
+                            <option value="Kg" {{#equal offer.offersizeunit "Kg"}}selected=""{{/equal}}>KG</option>
+                            <option value="qtl" {{#equal offer.offersizeunit "qtl"}}selected=""{{/equal}}>Qtl</option>
+                        </select>
+                    </div> 
+                </div>
+                <div class="product_image_preview_section">
+                    {{#if offer.filepath}}
+                        <div class="col-md-2 product_image">
+                            <label>Offer Image:</label>
+                            <img src="{{offer.filepath}}"/>
+                        </div>
+                    {{/if}}
+                    <div class="col-md-10">
+                        <button type="button" class="change_product_img btn btn-default">Change Image</button>
+                    </div>
+                </div>
+                <div id="form-group" class="product_image_upload">
+                    <label>Offer Image:</label>
+                    <input class="form-control" name="offerimage" type="file">
+                    <input type="hidden" name="previousfilename" value="{{offer.filename}}"/>
+                </div>
+                <br>
+                <input class="btn btn-success" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

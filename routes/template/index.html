@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+            body {
+                padding: 50px;
+            }
+            div.container {
+                max-width: 1150px;
+                margin: 0 auto;
+                font-family: "Open Sans";
+            }
+
+            div.container p {
+                margin: 0;
+            }
+
+            .container h1,
+            .container h2 {
+                margin: 0px;
+                color: #070707;
+                padding-bottom: 20px;
+            }
+
+            .container h1 {
+                font-size: 50px;
+                padding-bottom: 29px
+            }
+
+            hr {
+                border: 1px solid #070707;
+                margin: 30px 0;
+            }
+
+            table.bordered {
+                border-collapse: collapse;
+            }
+
+            table.bordered td,
+            table.bordered th,
+            table.bordered {
+                border: 2px solid #070707;
+            }
+
+            .full-width { width: 100%; }
+
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
+            .text-left { text-align: left; }
+            .text-top * { vertical-align: top; }
+
+            .monospaced {
+                font-family: "Monaco", monospace;
+            }
+
+            table.padded th,
+            table.padded td {
+                padding: 5px;
+            }
+
+            table th {
+                font-weight: normal;
+            }
+
+            .mt-s { margin-top: 23px; }
+            .mb-s { margin-bottom: 23px; }
+
+            .logobene{
+                padding-right: 63px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- <div class="logobene">
+                
+
+        </div> -->
+        <div class="container">
+                <img class="logobene" src="https://cbdbene.com/static/media/bene_new.ce8b3135.png" alt="Smiley face" height="130" align="right" width="130">
+            <!-- Seller Fields -->
+            <h1>{{seller.company}}</h1>
+            <!-- <p>Tax Payer's Registration Number: <strong>{{seller.registrationNumber}}</strong></p>-->
+            <p> <strong>8 The Green, Suite B, Dover, DE 19901</strong></p> 
+            <p>Phone: <strong>(347) 380-1655</strong></p>
+            <p>Bene-2019-189B171</p>
+            <!-- <p>Address: <strong>{{seller.address.street}} {{seller.address.number}}<br/>
+                    {{seller.address.zip}} {{seller.address.city}}, {{seller.address.region}}, {{seller.address.country}}</strong></p>
+            <p>Phone: <strong>{{seller.phone}}</strong></p>
+            <p>Email: <strong>{{seller.email}}</strong></p>
+            <p>Website: <strong>{{seller.website}}</strong></p>
+            <p>Bank: <strong>{{seller.bank.name}}</strong></p>
+            <p>SWIFT: <strong>{{seller.bank.swift}}</strong></p>
+            <p><strong>IBAN {{seller.bank.currency}}: {{seller.bank.iban}}</strong></p> -->
+
+            <hr>
+
+            <!-- Invoice data -->
+            <h2>INVOICE</h2>
+            <table class="mb-s">
+                <tbody>
+                    <tr>
+                        <td style="width: 113px;">Order-Number: </td>
+                        <td>{{invoice.number.series}}{{invoice.number.separator}}{{invoice.number.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice-Date: </td>
+                        <td>{{invoice.date}}</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Due-Date: </td>
+                        <td>{{invoice.dueDate}}</td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+            <!-- Seller Fields -->
+            <h2><strong>Customer Details: </strong></h2>
+            <h3>{{buyer.company}}</h3>
+            <!-- <p>Tax ID: <strong>{{buyer.taxId}}</strong></p> -->
+            
+            <h3>Address:</h3>
+            
+            <p><strong>{{buyer.address.street}} {{buyer.address.number}}<br/>
+                    {{buyer.address.zip}} {{buyer.address.city}}, {{buyer.address.country}}</strong></p>
+                    <br>
+            <p>Phone: <strong>{{buyer.phone}}</strong></p>
+            <p>Email: <strong>{{buyer.email}}</strong></p>
+            <!-- <p>Website: <strong>{{buyer.website}}</strong></p> -->
+
+            <table class="bordered full-width padded mt-s mb-s monospaced">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"><strong>S.No.</strong></th>
+                        <th>
+                            <strong>Product Name</strong><br>
+                        </th>
+                        <!-- <th>
+                            <strong>Unit</strong><br>
+                        </th> -->
+                        <th>
+                            <strong>Qty</strong><br>
+                        </th>
+                        <th>
+                            <strong>Unit price<br>
+                                –{{invoice.currency.main}}–
+                            </strong><br>
+                            <!-- –({{invoice.currency.secondary}})– -->
+                        </th>
+                        <th>
+                            <strong>Total Amount<br>
+                                –{{invoice.currency.main}}–
+                            </strong><br>
+                            <!-- –({{invoice.currency.secondary}})– -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-top">
+                    {{{description_rows}}}
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <strong>Invoice Total </strong><br>
+                    
+                        </td>
+                        <td class="text-right">
+                            <strong>{{total.main}}</strong><br>
+                            <!-- ({{total.secondary}}) -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 style="text-align:center">{{invoice.explanation}}</h3>
+        </div>
+    </body>
+</html>

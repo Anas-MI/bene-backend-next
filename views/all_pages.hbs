@@ -1,0 +1,142 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">All Pages</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Assigned Continents</th>
+                        <th></th>
+                        <th></th>
+                    </tr>      
+                </thead>  
+                <tbody>
+                    {{#each pages as |pagevalue pagekey|}}
+                    <tr>
+                        <td>{{pagevalue.title}}</td>
+                        <td class="conteinent_popup" data-page-id="{{pagevalue._id}}" data-conteinent="{{pagevalue.continent}}" 
+                        onclick="openConteinentPopup()"
+                         >{{pagevalue.continent}}</td>
+                        <div class="custom-delete-edit">
+                            <td><a href="/pages/edit/{{pagevalue._id}}" class="" data-id="{{pagevalue._id}}">Edit <i class="fa fa-pencil-square-o" title="Edit" aria-hidden="true"></i></a></td>
+                            <td><a href="/pages/delete/{{pagevalue._id}}" class="delete-page" data-id="{{pagevalue._id}}">Delete <i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a></td>
+                        </div>
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                {{!-- <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Creation Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </tfoot> --}}
+            </table>         
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="page_continent_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      {{!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> --}}
+    </div>
+
+  </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}
+
+<script>
+    function openConteinentPopup(){
+        jQuery('#page_continent_modal').modal("show");
+    }
+    jQuery(".conteinent_popup").click(function(){
+        const temp = jQuery(this).attr("data-conteinent")
+        const dataPageId = jQuery(this).attr("data-page-id")
+        //console.log({temp})
+        let selectEl = document.createElement("select");
+        //multiple size="6"
+        selectEl.setAttribute("multiple", "multiple")
+        selectEl.setAttribute("size", 7)
+        const continentArr = [
+            "Africa",
+            "Europe",
+            "Asia",
+            "North America",
+            "South America",
+            "Australia",
+            "All"
+        ]
+        continentArr.map(el => {
+            let option = document.createElement("option")
+            let optionValue = el.replace(/ /g, "").toLowerCase()
+            option.setAttribute("value", el );
+            let optionLabel = document.createTextNode(el);
+            if(temp.includes(el)){
+                option.setAttribute("selected", "selected")
+            }else{
+                console.log({
+                    temp,el
+                })
+            }
+            option.appendChild(optionLabel);
+            selectEl.appendChild(option)
+        })
+        let saveBtn = document.createElement("button")
+        let buttonLabel = document.createTextNode("Save");
+        
+        saveBtn.appendChild(buttonLabel)
+        saveBtn.onclick = function(){
+            const conteinentData = jQuery('#page_continent_modal .modal-body select').val()
+            
+            const sendData = {
+                pageid: dataPageId,
+                continent: conteinentData
+            }
+            console.log({
+                sendData
+            })
+            jQuery.ajax({
+                type: "POST",
+                url: "/pages/update", 
+                data: sendData, 
+                dataType: "text",
+                success: function(resultData){
+                    console.log({resultData })
+                    jQuery('#page_continent_modal').modal("hide");
+                    jQuery('.modal-backdrop').remove();
+                    location.reload(true);
+                },
+                error: function(error){
+                    console.log({error})
+                }
+            })
+        }           
+        jQuery('#page_continent_modal .modal-body').empty().append(selectEl)
+        jQuery(selectEl).select2({
+            width: "100%",
+            placeholder: "Select Continentzz"
+        })
+        jQuery('#page_continent_modal .modal-body').append(saveBtn)
+    })
+</script>

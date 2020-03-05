@@ -1,0 +1,76 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Offers</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="result_filter_section">
+                <form method="POST" action="" id="offer_filter_form">
+                    <div id="form-group">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control" name="filterstartdate" id="filterstartdate" autocomplete="off"/> 
+                    </div>
+                    <div id="form-group">
+                        <label>End Date </label>
+                        <input type="text" class="form-control" name="filterenddate" id="filterenddate" autocomplete="off"/>
+                    </div>
+                    <input type="button" class="btn btn-success" name="offerfiltersubmit" id="offerfiltersubmit" value="submit"/>
+                </form>
+            </div>
+            <table class="product_detail_table table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Offer S.no</th>
+                        <th>Offer Product Name</th>
+                        <th>Offer Product Brand</th>
+                        <th>Offer Pack</th>
+                        <th>Offer Discount</th>
+                        <th>Maximum User Limit</th>
+                        <th>Offer Date Time</th>
+                        <th>Offer Stock</th>
+                        <th>Offer Remaining Stock</th>
+                        <th>&nbsp;</th>
+                    </tr>      
+                </thead>  
+                <tbody class="all_offer_body">
+                    {{#each offers as |value key|}}
+                    <tr>
+                        <td>{{sum @index 1}}</td>
+                        <td>{{value.offerproductid.producttitle}}</td>
+                        <td>{{value.productbrand}}</td>
+                        <td>{{value.pack}}</td>
+                        <td>{{value.priceoffer}} {{#equal value.priceofferunit 'percentage'}}%{{else}}Rs{{/equal}} {{#equal value.priceofferapplied 'perpack'}}Per Pack{{else}}Per QTL{{/equal}}</td>
+                        <td>{{value.maxlimituser}} {{value.maxlimituserunit}}</td>
+                        <td>{{dateformat value.startdatemiliseconds 'DD/MM/YYYY h:mm a'}} to {{dateformat value.enddatemiliseconds 'DD/MM/YYYY h:mm a'}}</td>
+                        <td>{{value.offersize}} {{value.offersizeunit}}</td>
+                        <td>{{subtract value.offersize value.offerremaingquantity}} {{value.offersizeunit}}</td>
+                        <td><a href="/offers/{{value._id}}">Edit</a></td>
+                    </tr>
+                    {{/each}}    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Offer S.no</th>
+                        <th>Offer Product Name</th>
+                        <th>Offer Product Brand</th>
+                        <th>Offer Pack</th>
+                        <th>Offer Discount</th>
+                        <th>Maximum User Limit</th>
+                        <th>Offer Date Time</th>
+                        <th>Offer Stock</th>
+                        <th>Offer Remaining Stock</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

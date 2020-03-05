@@ -1,0 +1,41 @@
+{{> header}}
+
+<style>
+    .alert-danger {
+  color: #FFF;
+  background-color: #EA6153;
+  border-color: #E05749;
+}
+</style>
+<div class="container">
+  <hr>
+  <div class="row">
+    
+     
+    <div class="col-md-12">
+      	<form method="POST" action="/vendor/add">
+          <div id="form-group">
+              {{#if error}}
+    <hr>
+    <div class="alert-danger">
+    <span>{{error}}</span>
+    </div>
+    <hr>
+    {{/if}}
+
+            <label>Vendor ID</label>
+            <input class="form-control" name="vendorid" type="text">
+          </div>
+          <div id="form-group">
+            <label>Vendor Name:</label>
+            <input class="form-control" name="vendorname" type="text">
+          </div>
+          <br>
+          <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+  </div> <!-- row -->
+</div>
+    {{> footer}}
+  </body>
+</html>

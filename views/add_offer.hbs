@@ -1,0 +1,117 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Add Offer</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <form method="POST" action="/offers/add" enctype="multipart/form-data" class="repeater" id="addofferform">
+            All fields marked as (*) is mendtory
+            <div id="form-group">
+                <label>Product Name <span>*</span></label>
+                <select class="form-control productname" name="productname" id="offerproductname">
+                    <option value="" selected="">None</option>
+                    {{#each products}}
+                    <option value="{{this.producttitle}}" data-productid="{{this._id}}">{{this.producttitle}}</option>
+                    {{/each}}
+                </select>
+                <span class="form_error">Please Select Product</span>
+            </div>
+            <div id="form-group">
+                <label>Brand Name <span>*</span></label>
+                 <div class="product_brand_div">
+                    <select class="form-control productbrandfield" name="productbrand" id="productbrand">
+                    </select>
+                     <span class="form_error">Please Select Product Brand</span>
+                </div>
+                <div class="product_id_hidden_div"></div>      
+            </div>
+                
+            <div id="form-group">
+                <label>Pack <span>*</span></label>
+                <div class="product_variation_div">
+                    <select class="form-control variationfield" name="pack" id="pack">
+                    </select>
+                    <span class="form_error">Please Enter Product Variation</span>
+                </div>
+            </div>
+            <div id="form-group">
+                <label>Offer Info <span>*</span></label>
+                <textarea class="form-control offerinfo" name="offerinfo"></textarea>
+                <span class="form_error">Please Enter Offer Info</span>
+            </div>
+            <div id="form-group">
+                <label>Price Offer <span>*</span></label>
+                <div class="price_offer_wrapper">
+                    <input type="text" class="form-control price_offer_field" name="priceoffer"/>
+                    <select class="form-control offerunit" name="priceofferunit" id="priceofferunit">
+                        <option value="percentage" selected="">%</option>
+                        <option value="rupees">Rs</option>
+                    </select>
+                    <select class="form-control priceofferapplied" name="priceofferapplied" id="priceofferapplied">
+                        <option value="perpack" selected="">Per Pack</option>
+                        <option value="perqtl">Per QTL</option>
+                    </select>
+                    <span class="form_error priceoffererror">Please Enter Price Offer</span>
+                </div>
+            </div>
+            <div id="form-group">
+                <label>Max Limit Per User <span>*</span></label>
+                <div class="form-group-wrapper">
+                    <input type="text" class="form-control maxlimituser" name="maxlimituser"/>
+                    <select class="form-control" name="maxlimituserunit" id="maxlimituserunit">
+                        <option value="Kg">KG</option>
+                        <option value="qtl">Qtl</option>
+                    </select>
+                    <span class="form_error offermaxlimit">Please Enter Maximum Limit Per User</span>
+                </div>
+            </div>
+
+            <div id="form-group">
+                <label>Offer Date Start <span>*</span></label>
+                <input type="text" class="form-control offer-start-date" name="offerstartdate" id="offerstartdate" autocomplete="off"/>
+                <span class="form_error">Please Enter Offer Start Date</span>
+            </div>
+            <div id="form-group">
+                <label>Offer Date End <span>*</span></label>
+                <input type="text" class="form-control offer-end-date" name="offerenddate" id="offerenddate" autocomplete="off"/>
+                <span class="form_error">Please Enter Offer End Date</span>
+            </div>
+
+            <div id="form-group">
+                <label>Offer Start Time <span>*</span></label>
+                <input type="text" class="form-control offer-start-time" name="offerstarttime" id="offerstarttime" autocomplete="off"/>
+               <span class="form_error">Please Enter Offer Start Time</span>
+            </div>
+            <div id="form-group">
+                <label>Offer End Time <span>*</span></label>
+                <input type="text" class="form-control offer-end-time" name="offerendtime" id="offerendtime" autocomplete="off"/>
+                <span class="form_error">Please Enter Offer End Time</span>
+            </div>
+
+            <div id="form-group">
+                <label>Offer Size <span>*</span></label>
+                <div class="form-group-wrapper">
+                    <input type="text" class="form-control offer-size" name="offersize"/>
+                    <select class="form-control" name="offersizeunit" id="offersizeunit">
+                        <option value="Kg">KG</option>
+                        <option value="qtl">Qtl</option>
+                    </select>
+                    <span class="form_error offer-size-error">Please Enter Maximum Limit Per User</span>
+                </div> 
+            </div>
+            
+            <div id="form-group">
+                <label>Image </label>
+                <input class="" name="offerimage" type="file">
+            </div>
+            <br>
+            <input class="btn btn-success offeraddbtn" type="button" value="Submit">
+        </form>
+    </div><!-- /.row -->
+</div><!-- /#page-wrapper -->
+{{> footer}}

@@ -1,0 +1,140 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Menus</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-5">
+                <div class="alert alert-success menusuccess" style="display:none;"></div>
+                <div class="alert alert-danger menudanger" style="display:none;"></div>
+                <form method="POST" action="/menus/edit/{{menus._id}}" id="addmenuform" class="menuform">
+            
+
+                {{!-- <label >Page Type</label> --}}
+                {{!-- <select name="type">
+                    <optgroup label="Product Type">
+                        {{#select menus.type}}
+                        <option value="home">Home</option>
+                        <option value="faq">Faq</option>
+                        <option value="contact">Contact</option>
+                        <option value="about">About</option>
+                        {{/select}}
+                    </optgroup>
+                </select> --}}
+                {{!-- <input type="text" name="type" value="{{menus.type}}" class="page_type_value" readonly> --}}
+
+                <h3>Menu Type: {{menus.pagetype}}</h3>
+                <hr>
+                    <div id="menu-group">
+                        <label>Label:</label>
+                        <input class="form-control menulabel" name="menulabel" type="text" autocomplete="off" value="{{menus.menulabel}}">
+                        <span class="form_error">Please Enter Menu Label</span>
+                    </div>           
+                 <hr>
+                {{#ifEquals menus.pagetype "custompage"}}
+                    <div id="menu-group">
+                        <label>Page Name:</label>
+                        <p>Previously Selected Page:  {{menus.pagetitle}} </p>
+                        {{#ifEquals menus.pagetype "custompage"}}
+                        <select name="pagetitle" class="pagemenu">
+
+                            <option value="">Please Select</option>
+                            {{#each menus1 as |page|}}
+                            
+                                <option value="{{this._id}}|!@{{this.title}}">{{page.title}}</option>
+                            
+                            {{/each}}
+                            {{/ifEquals}}
+                        </select>
+                    </div>
+                {{/ifEquals}}
+
+                {{#ifEquals menus.pagetype "categorypage"}}
+                    <label>Previosly Selected Category: {{menus.category}}</label>
+                    <select name="category" class="pagemenu">
+                        <option value="">Please Select</option>
+                        {{#each category as |category|}}
+                            <option value="{{this.categorytitle}}">{{this.categorytitle}}</option>
+                        {{/each}}
+                    </select>
+                {{/ifEquals}}
+
+                    <hr>
+                    <div id="menu-group">
+                        <label>Parent Menu:</label>
+                        <p>Previously Selected menu: {{menus.menulabel}}</p>
+                        <select name="parentid" class="parentmenu">
+                            <option value="">Please Select</option>
+                            {{#each allmenus}}
+                                {{#notequal ../menus.menulabel this.menulabel}}
+                                    <option value="{{this._id}}">{{this.menulabel}}</option>
+                                {{/notequal}}
+                            {{/each}}
+                        </select>
+                    </div>
+                    <hr>
+                    <div id="menu-group" class="menuorderdiv">
+                        <label>Menu Order:</label>
+                        <input class="menuorder" name="menuorder" type="number" value="{{menus.menuorder}}">
+                        <span class="form_error">Please Enter Menu Order</span>
+                    </div>
+                    <hr>
+                    {{!-- <div id="menu-group">
+                        <label>Blocked Countries:</label>
+                        <br>
+                        <p>Prevously Selected Blocked Countries: {{menus.blockedcountries}}</p>
+                        <br>
+                        <select name="blockedcountries" id="" class="blokcedcountry" multiple>
+                            <option value="">Please Select</option>
+                            {{#each countries as |countriesValue countrieskey|}}
+                                <option value="{{countriesValue}}">{{countriesValue}}</option> 
+                            {{/each}}
+                        </select>
+                    </div> --}}
+                    <hr>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+                <form method="POST" action="" enctype="multipart/form-data" class="menuform" id="edit_menu_form" style="display:none;">
+                    <div id="menu-group">
+                        <label>Label:</label>
+                        <input class="form-control editmenuname" name="menulabel" type="text" value="" autocomplete="off">
+                        <span class="form_error">Please Enter Menu Label</span>
+                    </div>
+                    <div id="menu-group">
+                        <label>Parent menu:</label>
+                        <select name="parentid" class="editparentmenu">
+                            <option value="">Please Select</option>
+                            {{#each menus}}
+                                <option value="{{this._id}}">{{this.menulabel}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div id="menu-group" class="editmenuorderdiv">
+                        <label>Menu Order:</label>
+                        <input class="editmenuorder" name="menuorder" type="number" value="">
+                    </div>
+                    <div id="menu-group">
+                        <label>Blocked Countries:</label>
+                        <select name="blockedcountries" id="" class="edit_blokced_country" multiple>
+                            <option value="">Please Select</option>
+                            {{#each countries as |countriesValue countrieskey|}}
+                                <option value="{{countriesValue}}">{{countriesValue}}</option> 
+                            {{/each}}
+                        </select>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

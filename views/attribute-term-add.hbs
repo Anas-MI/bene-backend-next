@@ -1,0 +1,109 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{pageTitle}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-5">
+                <div class="alert alert-success termsuccess" style="display:none;"></div>
+                <div class="alert alert-danger termdanger" style="display:none;"></div>
+                <form method="POST" action="" id="termaddfrom" class="attributeform">
+                    <p>Attribute terms can be assigned to products and variations.</p>
+                    <p><b>Note</b>: Deleting a term will remove it from all products and variations to which it has been assigned. Recreating a term will not automatically assign it back to products.</p>
+                    <h2>Add New Attribute Term</h2>
+                    <div id="category-group">
+                        <label>Name:</label>
+                        <input class="form-control termtitle" name="termtitle" type="text" autocomplete="off">
+                        <span class="form_error">Please Enter Term Name</span>
+                    </div>
+                    <div id="category-group">
+                        <label>Slug:</label>
+                        <input class="form-control termslug" name="termslug" type="text" autocomplete="off">
+                        <input type="hidden" name="attributeid" class="termattributeid" value="{{attributes._id}}">
+                    </div>
+                    <div id="category-group">
+                        <label>Description:</label>
+                        <textarea class="form-control termdescripiton" name="termdescripiton" rows="10" column="10"></textarea>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary attributeterm-add-btn" type="button" value="Add New">
+                </form>
+                {{!-- <form method="POST" action="" class="attributeform" id="termeditform" style="display:none;">
+                    <div id="category-group">
+                        <label>Name:</label>
+                        <input class="form-control edittermtitle" name="termtitle" type="text" autocomplete="off">
+                        <span class="form_error">Please Enter Term Name</span>
+                    </div>
+                    <div id="category-group">
+                        <label>Slug:</label>
+                        <input class="form-control edittermslug" name="termslug" type="text" autocomplete="off">
+                    </div>
+                    <div id="category-group">
+                        <label>Description:</label>
+                        <textarea class="form-control edittermdescripiton" name="termdescripiton" rows="10" column="10"></textarea>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary edit_attr_term" type="button" value="Edit Term">
+                </form> --}}
+            </div>
+            <div class="col-lg-7">
+                <table class="product_detail_table table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                            <th>&nbsp;</th>
+                        </tr>      
+                    </thead>  
+                    <tbody>
+                        {{#each keys}}
+                        <tr>
+                            <td>
+                                <p>{{this.name}}</p>
+                            </td>
+                            <td>{{this.slug}}</td>
+                            <td>{{this.description}}</td>
+                            <td><a href="javascript:void(0);" class="delete-attribute_term" data-slug="{{this.slug}}" data-attrid="{{../attributes._id}}" data-attribute-slug="{{../attributes.slug}}">Delete</a></td>
+                        </tr>
+                         {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </tfoot>
+                </table>        
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- <div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Categories</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="list-group">
+                {{#each categories}}
+                <li class="list-group-item"><a href="/products/{{this._id}}">{{this.attributetitle}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div> --}}
+<!-- /#page-wrapper -->
+{{> footer}}

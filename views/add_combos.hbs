@@ -1,0 +1,719 @@
+{{> header}} {{> nav}}
+<div class="loader hideonload"></div>
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Combo Products</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" action="/products/combos/add" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12 custom-division">
+                            <div class="card mb-5">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="select-combo-product">Add Products</label>
+                                        <select name="select_product_combo" multiple class="select2 select-2-active "
+                                            id="select-combo-product" required>
+                                        </select>
+                                    </div>
+                                    <div class="selected-product">
+                                        <ul id="combo-product-list" class="list-group">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="title-descripion mb-5 clearfix">
+                                        <div class="form-group">
+                                            <label>Title:
+                                                <span class="required">*</span>
+                                            </label>
+                                            <input class="form-control" name="producttitle" type="text"
+                                                id="producttitle" autocomplete="off" required>
+                                            <span class="form_error">Please enter Product Name</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Short Description:</label>
+                                            <textarea class="form-control" name="sdescription" id="productbody" row="10"
+                                                column="10"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Long Description:</label>
+                                            <textarea class="form-control" name="description" id="productbody" row="10"
+                                                column="10"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="title-descripion mb-5 clearfix">
+                                        {{!-- <div class="form-group">
+                                            <label>Vendor ID</label>
+                                            <select class="form-control" name="vendorid">
+                                                {{#each vendor as |vendor|}}
+                                                    <option value="{{this._id}}">{{this.vendorid}}: {{this.vendorname}}</option>
+                                                {{/each}}
+                                            </select>
+                                            <span class="form_error">Please enter the Product visibility</span>
+                                        </div> --}}
+                                        {{!-- <div class="form-group">
+                                            <label>Packaging Type</label>
+                                            <select name="packagingtype" class="form-control pagemenu">
+                                                {{#each ptype as |ptype|}}
+                                                <option value="{{this._id}}">{{this.packingid}}: {{this.packingtype}}
+                                                </option>
+                                                {{/each}}
+                                            </select>
+                                            <span class="form_error">Please enter the Product visibility</span>
+                                        </div> --}}
+                                        <div class="form-group">
+                                            <label>Visibility</label>
+                                            <select id="visibility-type" class="form-control" name="hide">
+                                                <option value="true" selected="selected">Show</option>
+                                                <option value="false">Hide</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type of product</label>
+                                            <select id="featured-type" class="form-control" name="featured">
+                                                <option value="0" selected="selected">Normal</option>
+                                                <option value="1">Featured</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="title-descripion mb-5 clearfix">
+                                        <div class="panel-wrap product_data">
+                                            <ul class="product_data_tabs wc-tabs">
+                                                <li class="general_options general_tab">
+                                                    <a href="javascript:void(0)" data-tab-id="general_product_data"
+                                                        class="active btn-secondary"><span>General</span></a>
+                                                </li>
+                                                <li class="inventory_options inventory_tab">
+                                                    <a href="javascript:void(0)" data-tab-id="inventory_product_data"
+                                                        class="btn-secondary"><span>Inventory</span></a>
+                                                </li>
+                                                <li class="shipping_options shipping_tab">
+                                                    <a href="javascript:void(0)" data-tab-id="shipping_product_data"
+                                                        class="btn-secondary"><span>Shipping</span></a>
+                                                </li>
+                                            </ul>
+                                            <div id="general_product_data" class="panel woocommerce_options_panel"
+                                                style="display: block;">
+                                                <div class="options_group_pricing options_group">
+                                                    {{!-- <p class="form-field _regular_price_field clearfix">
+                                                        <label>Default Regular price ($): <span>*</span></label>
+                                                        <input type="number" class="short wc_input_price form-control"
+                                                            style="" name="regular_price" value=""
+                                                            placeholder="Enter regular Price" step=".01" required>
+                                                    </p> --}}
+                                                    <p class="form-field _sale_price_field clearfix">
+                                                        <label for="def_sale_price">Default Sale price ($)
+                                                            <span>*</span></label>
+                                                        <input type="number" class="short wc_input_price form-control"
+                                                            style="" name="sale_price" value=""
+                                                            placeholder="Enter Sale Price" step=".01" required>
+                                                        <span class="form_error">Sale Price should be Less then Regular
+                                                            Price</span>
+                                                    </p>
+                                                    {{!-- <p class="form-field _sale_price_field clearfix">
+                                                        <label for="">Total CBD (mg) <span class="required"></span></label>
+                                                        <input type="number" class="short wc_input_price form-control" style="" name="totalcbdmg"
+                                                            id="" value="" placeholder="Total CBD" step=".01">
+
+                                                    </p>
+                                                    <p class="form-field clearfix">
+                                                        <label for="">CBD Per Unit mg<span class="required"></span></label>
+                                                        <input type="number" class="short form-control" style="" name="cbdperunitmg" id=""
+                                                            value="" placeholder="CBD Per Unit Mg" step=".01">
+                                                    </p>
+                                                    <p class="form-field clearfix">
+                                                        <label for="">Servings<span class="required"></span></label>
+                                                        <input type="number" class="short form-control" style="" name="servings" id="" value=""
+                                                            placeholder="Servings" step=".01">
+                                                    </p>
+                                                    <p class="form-field clearfix">
+                                                        <label for="">Serving Size<span class="required"></span></label>
+                                                        <input type="number" class="short form-control" style="" name="servingsize" id=""
+                                                            value="" placeholder="Serving Size" step=".01">
+                                                    </p> --}}
+                                                    <p class="form-field clearfix">
+                                                        <label for="">Barcode: <span class="required"></span></label>
+                                                        <input type="number" class="short form-control" style=""
+                                                            name="barcode" id="" value="" placeholder="Barcode">
+                                                    </p>
+                                                </div>
+                                                <div class="options_group reviews">
+                                                    <p class="form-field enable_review_field ">
+                                                        <label for="enable_review">
+                                                            <input type="checkbox" class="" style=""
+                                                                name="enable_review" id="enable_review" value="true"
+                                                                checked="checked">
+                                                            Enable reviews
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div id="inventory_product_data" class="panel woocommerce_options_panel"
+                                                style="display: none;">
+                                                <div class="options_group">
+                                                    <p class="form-field _sku_field clearfix">
+                                                        <label for="prod_sku">
+                                                            <abbr title="Stock Keeping Unit">SKU</abbr> <span
+                                                                class="required">*</span>
+                                                        </label>
+                                                        <input type="text" class="short form-control" style=""
+                                                            name="sku" id="prod_sku" value="" placeholder="Enter SKU" required>
+                                                    </p>
+                                                    {{!-- <p class="form-field _manage_stock_field clearfix">
+                                                        <label>
+                                                            <input type="checkbox" class="manage_stock"
+                                                                name="manage_stock" value="1">
+                                                            Manage stock?
+                                                        </label>
+                                                    </p>
+                                                    <div class="stock_fields" style="display: none;">
+                                                        <p class="form-field _stock_field clearfix">
+                                                            <label for="_stock">Stock quantity</label>
+                                                            <input type="number"
+                                                                class="short wc_input_stock form-control" name="stock"
+                                                                id="_stock" value="0" placeholder="" step="any">
+                                                        </p>
+                                                        <p class="backorders_field clearfix">
+                                                            <input type="hidden" name="original_stock" value="0">
+                                                        </p> --}}
+                                                    </div>
+                                                    {{!-- STOCK STATUS FIELD  --}}
+                                                    {{!-- <p class="stock_status_field" style="display: none;">
+                                                        <label for="_stock_status">Stock status</label>
+                                                        <span class="woocommerce-help-tip"></span>
+                                                        <select id="_stock_status" name="_stock_status"
+                                                            class="form-control select short">
+                                                            <option value="instock" selected="selected">In stock
+                                                            </option>
+                                                            <option value="outofstock">Out of stock</option>
+                                                        </select>
+                                                    </p> --}}
+                                                </div>
+                                                {{!-- SOLD INDIVISUALLTY CHECKBOX --}}
+                                                {{!-- <div class="options_group">
+                                                    <p class="form-field _sold_individually_field clearfix">
+                                                        <label for="_sold_individually">Sold individually</label>
+                                                        <input type="checkbox" class="checkbox" style="" name="_sold_individually" id="_sold_individually" value="yes">
+                                                        <div class="description">Enable this to only allow one of this item to be bought in a single order</div>
+                                                    </p>
+                                                </div> --}}
+                                            </div>
+                                            <div id="shipping_product_data" class="panel woocommerce_options_panel"
+                                                style="display: none;">
+                                                <div class="options_group">
+                                                    <p class="form-field _weight_field clearfix">
+                                                        <label for="_weight">Batch No.</label>
+                                                        <input type="text" class="product_shipping_batch from-control"
+                                                            name="batch_no" value="" placeholder="0">
+                                                    </p>
+                                                    <p class="form-field _weight_field clearfix">
+                                                        <label for="_weight">Expiry</label>
+                                                        <input type="text" class="product_expiry from-control"
+                                                            name="expiry" value="" placeholder="dd/mm/yyyy">
+                                                    </p>
+                                                    {{!-- <p class="form-field dimensions_field">
+                                                        <label for="product_length">Dimensions (cm)</label>
+                                                        <span class="wrap">
+                                                            <input id="product_length" placeholder="Length"
+                                                                class="input-text wc_input_decimal" size="6"
+                                                                type="number" name="_length" value="">
+                                                            <input placeholder="Width"
+                                                                class="input-text wc_input_decimal" size="6"
+                                                                type="number" name="_width" value="">
+                                                            <input placeholder="Height"
+                                                                class="input-text wc_input_decimal last" size="6"
+                                                                type="number" name="_height" value="">
+                                                        </span>
+                                                        <span class="woocommerce-help-tip"></span>
+                                                    </p> --}}
+                                                    <p class="form-field dimensions_field clearfix">
+                                                        <label for="product_length">Volume</label>
+                                                        <span class="wrap">
+                                                            <input placeholder="Volume" class="product_volume"
+                                                                type="number" name="volume" value="">
+                                                            <select name="volume_unit" class="product_vol_unit  ">
+                                                                <option value="cc" selected="selected">cc</option>
+                                                                <option value="ml">ml</option>
+                                                                <option value="softgel">Soft Gel</option>
+                                                                <option value="capsule">Capsule</option>
+                                                                <option value="oz">oz</option>
+                                                                <option value="lb">lb</option>
+                                                            </select>
+                                                        </span>
+                                                    </p>
+                                                    {{!-- <p class="form-field clearfix">
+                                                        <label for="">Weight (oz)</label>
+                                                        <input type="number" class="" name="weight" value=""
+                                                            placeholder="0">
+                                                    </p> --}}
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-5">
+                                        <div class="publish-section">
+                                            <div class="section-heading">
+                                                <h2>Publish</h2>
+                                            </div>
+                                            <div class="section-inside">
+                                                <input tabindex="-1" type="submit" value="Submit"
+                                                    class="product-submit btn btn-light">
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            {{!-- <div class="category-section">
+                                                <div class="section-heading">
+                                                    <h3>Product Category <span class="required">*</span></h3>
+                                                </div>
+                                                <div class="section-inside">
+                                                    <select name="categoryid" class="prod-cat js-example-basic-multiple" multiple="multiple"
+                                                        style="width: 100%;">
+                                                        <option value="">Select Category</option>
+                                                        {{#each categories}}
+                                                        <option value="{{this._id}}">{{this.categorytitle}}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                    <span class="form_error prod-cat-error">Please enter the Product Category</span>
+                                                </div>
+                                            </div> --}}
+                                            <div class="country-section">
+                                                <div class="secttion-heading">
+                                                    <h3>Blocked Countries</h3>
+                                                </div>
+                                                <div class="section-inside">
+                                                    <div id="page-form-group">
+                                                        <select name="blockedcountries"
+                                                            class="edit-blokced-country js-example-basic-multiple"
+                                                            multiple="multiple" style="width: 100%;">
+                                                            <option value="">Please Select</option>
+                                                            {{#each countries as |countriesValue countrieskey|}}
+                                                            <option value="{{countriesValue}}">{{countriesValue}}
+                                                            </option>
+                                                            {{/each}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                <div class="w-100" style=" border:1px solid black; padding:10px 10px; display: inline-block">
+
+
+                                             <div class="feature-image-section1">
+                            <h3>Menu</h3>
+                            <div class="section-heading">
+                                <h3>Menu Image</h3>
+                            </div>
+                            <div class="section-inside">
+                                <div id="menu-image-holder"></div>
+                                <div class="menu-img">
+                                    <input type="file" name="menu_image" class="menu-feature-img"
+                                        accept="image/gif, image/jpeg, image/png">
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+                        
+    <hr>
+                                            <div
+                                                class="w-100"
+                                                style="border:1px solid black; padding:10px 10px; display: inline-block">
+                                                <div class="form-group">
+                                                    <div class="galsection">
+                                                        <label>Section A <span>Product Image</span></label>
+                                                        <div class="section-inside">
+                                                            <div id="image-holder"></div>
+                                                            <div class="feature-img">
+                                                                <input type="file" name="feature_image"
+                                                                    class="prod-feature-img"
+                                                                    accept="image/gif, image/jpeg, image/png">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="gallery-image-section">
+                                                        <label>Product Gallery</label>
+                                                        <div class="section-inside">
+                                                            <div id="clonedInput" class="clonedInput">
+                                                                <div class="gallery-image-holder"></div>
+                                                                <div class="prod-gallery-rept">
+                                                                    <input type="file" name="product_gallery_img[0]"
+                                                                        class="product-gallery-img"
+                                                                        id="product_gallery_img_0" data-repid="0">
+                                                                </div>
+                                                                <div class="actions">
+                                                                    <button type="button" class="btn btn-primary clone"
+                                                                        data-repid="0">Clone</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div
+                                                class="w-100"
+                                                style="border:1px solid black; padding:10px 10px; display: inline-block">
+
+                                                <div class="sectionb-image-section">
+                                                    <div class="sectionb-heading">
+                                                        <label>Section B Image</label>
+                                                    </div>
+                                                    <div class="section-inside">
+                                                        <div id="imgd"></div>
+                                                        <div class="sectionb-img">
+                                                            <input type="file" name="sectionbimage" class="sectionb"
+                                                                accept="image/gif, image/jpeg, image/png">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{!-- <div class="sectionb-image-section">
+                                                    <div class="sectionb-heading">
+                                                        <label>Labsheet</label>
+                                                    </div>
+                                                    <div class="section-inside">
+                                                        
+                                                        <div class="combo-img">
+                                                            <input type="file" name="labsheet" class="">
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                             
+                                        </div>
+                                </div>
+                                </div>
+                                
+
+                                        {{!-- </div>
+                                </div> --}}
+                                    </div>
+
+                                    <div class="title-descripion mb-5 clearfix">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>ASIN: </label>
+                                                    <input type="text" class="form-control" name="asin"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Use: </label>
+                                                    <input type="text" class="form-control" name="use"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Storage: </label>
+                                                    <input type="text" class="form-control" name="storage"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Warning: </label>
+                                                    <input type="text" class="form-control" name="warning"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Indication: </label>
+                                                    <input type="text" class="form-control" name="indication"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Direction: </label>
+                                                    <input type="text" class="form-control" name="direction"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Warranty: </label>
+                                                    <input type="text" class="form-control" name="warranty"
+                                                        autocomplete="off" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="title-descripion mb-5 clearfix">
+                                                <div class="form-group">
+                                                    <label>Attribute One Title:</label>
+                                                    <input type="text" class="attribute-one-title form-control"
+                                                        name="page_attribute[0][title]" autocomplete="off" />
+                                                    <label>Attribute One Description:</label>
+                                                    <textarea class="form-control attribute-one-description"
+                                                        name="page_attribute[0][description]" row="10"
+                                                        column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="title-descripion mb-5 clearfix">
+                                                <div class="form-group">
+                                                    <label>Attribute Two Title:</label>
+                                                    <input type="text" class="attribute-two-title form-control"
+                                                        name="page_attribute[1][title]" autocomplete="off" />
+                                                    <label>Attribute Two Description:</label>
+                                                    <textarea class="form-control attribute-two-description"
+                                                        name="page_attribute[1][description]" row="10"
+                                                        column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="title-descripion mb-5 clearfix">
+                                                <div class="form-group">
+                                                    <label>Attribute Three Title:</label>
+                                                    <input type="text" class="attribute-three-title form-control"
+                                                        name="page_attribute[2][title]" autocomplete="off" />
+                                                    <label>Attribute Three Description:</label>
+                                                    <textarea class="form-control attribute-three-description"
+                                                        name="page_attribute[2][description]" row="10"
+                                                        column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="title-descripion mb-5 clearfix">
+                                                <div class="form-group">
+                                                    <label>Attribute Four Title:</label>
+                                                    <input type="text" class="attribute-four-title form-control"
+                                                        name="page_attribute[3][title]" autocomplete="off" />
+                                                    <label>Attribute Four Description:</label>
+                                                    <textarea class="form-control attribute-four-description"
+                                                        name="page_attribute[3][description]" row="10"
+                                                        column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="title-descripion mb-5 clearfix">
+                                                <div class="form-group">
+                                                    <label>Attribute Five Title:</label>
+                                                    <input type="text" class="attribute-four-title form-control"
+                                                        name="page_attribute[4][title]" autocomplete="off" />
+                                                    <label>Attribute Five Description:</label>
+                                                    <textarea class="form-control attribute-four-description"
+                                                        name="page_attribute[4][description]" row="10"
+                                                        column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="title-descripion mb-5 clearfix">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>key ingredients:</label>
+                                                    <textarea class="form-control" name="keyingredients"
+                                                        id="keyingredients" row="10" column="10"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>All ingredients:</label>
+                                                    <textarea class="form-control" name="allingredients"
+                                                        id="keyingredients" row="10" column="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="title-descripion mb-5 clearfix faq-section">
+                                        <div class="section-inside">
+                                            <div id="clonedfaq" class="clonedfaq">
+                                                <div class="faq-question-rept">
+                                                    <div class="faq-label">
+                                                        <label>
+                                                            FAQ Title
+                                                        </label>
+                                                        <input type="text" name="faq[0][title]" class="faq-title-field"
+                                                            data-repid="0" autocomplete="off">
+                                                    </div>
+                                                    <div class="faq-description">
+                                                        <label>
+                                                            FAQ Descripiton
+                                                        </label>
+                                                        <textarea class="form-control" name="faq[0][description]"
+                                                            class="faq-description-field" row="5" column="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="actions">
+                                                    <button type="button"
+                                                        class="btn btn-primary button-primary save-variation-changesry clone-faq"
+                                                        data-repid="0">Clone</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer}}
+<script>
+    jQuery(document).ready(function ($) {
+        const productUrl = '/products/api/all'
+        let productsG = [];
+        fetch(productUrl).then(res => res.json()).then(resJson => {
+            productsG = [...resJson.products]
+            initProducts(resJson.products)
+            changeProductSelect()
+            $(".hideonload").fadeOut()
+        }).catch(err => {
+            $(".hideonload").fadeOut()
+            console.log({ err })
+        })
+        $(".select-2-active").each(function () {
+            $(this).select2({
+                width: "100%",
+            })
+        })
+        const filterById = (id, products) => {
+            return products.filter(el => el._id === id)
+        }
+        const filterByIds = (id, products) => {
+            return products.filter(el => id.includes(el._id))
+        }
+        const changeProductSelect = () => {
+            $("#select-combo-product").change(function () {
+                const value = $(this).val();
+                const productsFiltered = filterByIds(value, productsG)
+                setComboPack(productsFiltered)
+                console.log({
+                    attr: value,
+                })
+            })
+        }
+        const getVariationList = variation => {
+            return variation.map(el => {
+                const {
+                    regular_price,
+                    sale_price,
+                    sku,
+                    barcode,
+                    ...rest
+                } = el
+		
+		console.log(sale_price)
+
+                return {
+                    ...el,
+                    title: Object.values({ ...rest, sku, sale_price }).filter(elx => elx && elx.trim() !== "").reduce((a, b) => a + " | " + b, "")
+                }
+            })
+        }
+        const setComboPack = products => {
+            const comboList = $("#combo-product-list")
+            const valuesArr = $("#select-combo-product").val()
+            comboList.empty();
+            products.map((el, index) => {
+                const {
+                    _id,
+                    productid: {
+                        producttitle,
+                        sku
+                    },
+                    variation,
+                    producttype
+                } = el
+                const listItem = document.createElement("li")
+                listItem.className = "list-group-item"
+
+                const innerRow = document.createElement("div")
+                innerRow.className = "row align-items-center"
+
+                const titleDiv = document.createElement("div")
+                titleDiv.className = "col-md-4"
+                titleDiv.innerText = producttitle
+
+                const selectDiv = document.createElement("div")
+                selectDiv.className = "col-md-6"
+
+                const selectSelect = document.createElement("select")
+                selectSelect.name = `select_combo_variation__${_id}`
+                selectSelect.id = `select_combo_variation__${_id}`
+                selectSelect.className = `select2 select-2-active`
+
+                const selectHidden = document.createElement("input")
+                selectHidden.type = "hidden"
+                selectHidden.name = `select_simple__${_id}`
+                selectHidden.value = sku
+                if (producttype === "simple") {
+                    selectDiv.append(selectHidden)
+                }
+                else {
+                    getVariationList(variation).map(elV => {
+                        const selectOption = document.createElement("option")
+                        selectOption.value = elV.sku
+                        selectOption.innerText = elV.title
+                        selectSelect.append(selectOption)
+                        return null
+                    })
+                    selectDiv.append(selectSelect)
+                }
+
+
+                const removeDiv = document.createElement("div")
+                removeDiv.className = "col-md-2 text-right"
+
+                const removeBtn = document.createElement("span")
+                removeBtn.className = "btn btn-danger"
+                removeBtn.onclick = () => {
+                    $("#select-combo-product").val(filteredId = valuesArr.filter(el => el !== _id)).trigger("change")
+                }
+                removeBtn.innerText = "X"
+                removeDiv.append(removeBtn)
+
+
+                innerRow.append(titleDiv)
+                innerRow.append(selectDiv)
+                innerRow.append(removeDiv)
+                listItem.append(innerRow)
+                comboList.append(listItem)
+                comboList.find("select").select2({
+                    width: "100%"
+                })
+                return null
+            })
+        }
+        const initProducts = products => {
+            const productSelect = $("#select-combo-product")
+            productSelect.empty()
+            products.map(el => {
+                productSelect.append(
+                    `<option value="${el._id}" >${el.productid.producttitle}</option>`
+                )
+                return null
+            })
+            productSelect.select2("destroy").select2({
+                width: "100%",
+            })
+        }
+    })
+</script>
+</body>
+
+</html>

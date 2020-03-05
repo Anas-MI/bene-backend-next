@@ -1,0 +1,44 @@
+{{> header}}
+<div class="container">
+  <hr>
+  <div class="row">
+    {{message}}
+    <div class="col-md-12">
+      	<form method="POST" action="/users/register">
+          <div id="form-group">
+            <label>UserName:</label>
+            <input class="form-control" name="username" type="text">
+          </div>
+          <div id="form-group">
+            <label>First Name:</label>
+            <input class="form-control" name="firtstname" type="text">
+          </div>
+          <div id="form-group">
+            <label>Last Name:</label>
+            <input class="form-control" name="lastname" type="text">
+          </div>
+          <div id="form-group">
+            <label>Email:</label>
+            <input class="form-control" name="email" type="text">
+          </div>
+          <div id="form-group">
+            <label>Phone Number:</label>
+            <input class="form-control" name="phonenumber" type="tel">
+          </div>
+          <div id="form-group">
+            <label>Password:</label>
+            <input class="form-control" name="password" type="password">
+          </div>
+          <div id="form-group">
+            <label>Confirm:</label>
+            <input class="form-control" name="password2" type="password">
+          </div>
+          <br>
+          <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+  </div> <!-- row -->
+</div>
+    {{> footer}}
+  </body>
+</html>

@@ -1,0 +1,611 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Footer Menus</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-7">
+                {{!-- <table class="product_detail_table table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="custom-order-menus">Order</th>
+                            <th class="custom-name-menus">Menu Name</th>
+                            
+                        </tr>      
+                    </thead>  
+                    <tbody>
+                        {{!-- {{#each menus}} --}}
+                        {{!-- {{#each newfooters as |footerdetails menukey|}}
+                        <tr>
+                             <td>{{footerdetails.footerorder}}</td>
+                            <td class="custom-table-section">
+                                <p>{{footerdetails.label}}</p>
+                                 <div class="custom-delete-edit">
+                                    <a href="/footermenus/edit/{{footerdetails.id}}" class="edit_menu_btn" data-id="{{footerdetails.id}}"><i class="fa fa-pencil-square-o" title="Edit" aria-hidden="true"></i></a> 
+                                    {{#if this.parentid}}
+                                     |   <a href="/footermenus/delete/{{footerdetails.id}}" class="delete-menu" data-id="{{footerdetails.id}}"><i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a>
+                                    {{/if}}
+                                </div>
+                            </td>
+                           
+                        </tr>
+                        {{/each}}    
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>  --}}
+                    <ul class="menu-section-ul">
+                        {{#each newfooters as |menudetails menukey|}}
+                            <li id="parent_menu_li_{{menukey}}">
+                                <div class="main_nmenu_label" data-li-id="parent_menu_li_{{menukey}}">
+                                     {{menudetails.label}}
+                                    <span class="icon-new">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </span>    
+                                </div>
+                                <div class="open-close menu_edit_div" style="display: none;" id="menu_edit_wrapper_{{menudetails.id}}">
+                                    <p class="description description-wide">
+                                        <label for="edit-menu-item-title-160">Title:</label>
+                                        <input type="text" class="widefat edit-menu-item-title" name="menu-item-title[]" value="{{menudetails.label}}">
+                                                                                <span class="form_error pagetitleerror">Page Title is Required</span>
+
+                                    </p>
+                                    <p class="field-xfn description description-thin hidden-field">
+                                        <label for="edit-menu-item-xfn-160">Type:</label>
+                                        <input type="text" class="widefat code edit-menu-item-type" name="menu-item-type[]" value="{{menudetails.type}}" readonly>
+                                    </p>
+                    
+                                    <div class="menu-item-actions description-wide submitbox">
+                                         <input class="menu-item-objectid" type="hidden" name="menu-item-objectid" value="{{menudetails.id}}">
+                                        <a class="btn btn-info item-edit submitedit" id="edit-{{menudetails.id}}" href="javascript:void(0);">Edit</a>
+                                    </div>
+                                </div>
+                                {{#if menudetails.child}}
+                                <form id="sort-it-{{menukey}}" class="menu_order_form">
+                                    <ol class="menu_sort">
+
+                                        {{#each menudetails.child as |childdetails childkey|}}
+                                            <li class="menu_item"> 
+                                                 <div class="submenu_label_section">
+                                               <div class="main_nmenu_label">
+                                                   {{childdetails.footerlabel}}
+                                                   <span class="form_open_submenu">
+                                                        <i class="fa fa-chevron-down"></i>
+                                                    </span>
+                                                    </div>
+                                                    <div class="submenu_edit menu_edit_div" style="display: none;" id="submenu_edit_wrapper_{{childdetails._id}}">
+                                                        <p class="description description-wide">
+                                                            <label for="edit-submenu-item-title-160">Title</label>
+                                                            <input type="text" class="widefat edit-submenu-item-title" name="footerlabel" value="{{childdetails.footerlabel}}">
+                                                            <span class="form_error subpagetitleerror">Page Title is Required</span>
+
+                                                        <input type="hidden" class="widefat code edit-submenu-type" name="menu-item-type" value="{{childdetails.pagetype}}">
+                                                        <input class="menu-item-objectid" type="hidden" name="menu-item-objectid" value="{{childdetails._id}}">
+
+                                                       
+
+                                                        {{#ifEquals footer.pagetype "custompage"}}
+                                                            <div id="menu-group">
+                                                                <label>Page Name:</label>
+                                                                <p>Previously Selected Page:  {{footer.pagetitle}} </p>
+                                                                {{#ifEquals footer.pagetype "custompage"}}
+                                                                    <select name="pagetitle" class="pagemenu">
+                                                                        <option value="">Please Select</option>
+                                                                        {{#each footer1 as |page|}}
+                                                                            <option value="{{this._id}}|!@{{this.title}}">{{page.title}}</option>
+                                                                        {{/each}}
+                                                                    </select>
+                                                                {{/ifEquals}}
+                                                            </div>
+                                                        {{/ifEquals}}
+
+                                                        {{#ifEquals footer.pagetype "categorypage"}}
+                                                            <label>Previosly Selected Category: {{footer.category}}</label>
+                                                            <select name="category" class="pagemenu">
+                                                                <option value="">Please Select</option>
+                                                                {{#each category as |category|}}
+                                                                    <option value="{{this.categorytitle}}">{{this.categorytitle}}</option>
+                                                                {{/each}}
+                                                            </select>
+                                                        {{/ifEquals}}
+                                                        <hr>
+                                                         {{#ifEquals childdetails.pagetype "externallink"}}
+                                                            <label>External URL</label>
+                                                            <input type="text" name="externallink" autocomplete="off" value="{{childdetails.externallink}}" class="submenu_edit_externallink">
+                                                        {{/ifEquals}}
+                                                        
+                                                   {{!-- <div id="menu-group">
+                                                            <label>Parent Menu:</label>
+                                                            <select name="parentid" class="submenu_edit_parentid">
+                                                                <option value="">Please Select</option>
+                                                                <option value="5ca49edae7179a36ac300c26" {{#equal childdetails.parentid "5ca49edae7179a36ac300c26"}}selected="selected"{{/equal}}>Customer Service</option>
+                                                                <option value="5ca4a075e7179a36ac300d3b" {{#equal childdetails.parentid "5ca4a075e7179a36ac300d3b"}}selected="selected"{{/equal}}>Consult</option>
+                                                                <option value="5ca21eb9cab01b0004a513b3" {{#equal childdetails.parentid "5ca21eb9cab01b0004a513b3"}}selected="selected"{{/equal}}>Learn</option>
+                                                                <option value="5ca310d10c88be067000c117" {{#equal childdetails.parentid "5ca310d10c88be067000c117"}}selected="selected"{{/equal}}>FAQ</option>
+                                                            </select>
+                                                        </div> --}}
+                                                        <div id="menu-group">
+                                                            <label>Parent Menu:</label>
+                                                            <select name="parentid" class="parentmenu">
+                                                                <option value="">Please Select</option>
+                                                                {{#each @root.filter as |filter|}}
+                                                                    <option value="{{this._id}}">{{this.footerlabel}}</option>
+                                                                {{/each}}
+                                                            </select>
+                                                        </div>
+                                    
+                                                        <div class="submenu-item-actions description-wide submitbox">
+                                                            <input class="submenu-item-objectid" type="hidden" name="submenu-item-objectid" value="{{childdetails._id}}">
+                                                            <a class="btn btn-info submenu-edit submit" id="edit-{{childdetails._id}}" href="javascript:void(0);">Edit</a> <a class="btn btn-danger submenu-delete submit" id="delete-{{childdetails._id}}" href="javascript:void(0); data-submenuid="{{childdetails._id}}"">Remove</a>
+                                                        </div>
+                                                    </div>
+                                               </div>
+                                                <input id="custom-number-{{menukey}}-{{childkey}}" name="custom-number-{{menukey}}-{{childkey}}" type="number" min="1" data-menu-id="{{childdetails._id}}" class="menu-order-{{menukey}}" value="{{childdetails.footerorder}}">
+                                                <input type="hidden" name="menulabel{{menukey}}[]" class="menu-label-{{menukey}}" value="{{childdetails._id}}">
+                                            </li>
+                                        {{/each}}
+                                        
+                                    </ol>
+                                    <input type="submit" id="manual-sort-{{menukey}}" name="manual-sort" value="Update" class="btn btn-primary sort_update_btn">
+                                </form>
+                                {{/if}}
+                            </li>
+                        {{/each}}   
+                    
+                    </ul>
+                 
+                {{!-- <form id="sort-it">
+                    <ol class="menu_sort">
+                        <li class="menu_item">This is item #1 
+                            <label for="custom-number-1">New order:</label>
+                            <input id="custom-number-1" name="custom-number-1" type="number" min="1">
+                        </li>
+                            
+                        <li class="menu_item">This is item #2 
+                            <label for="custom-number-2">New order:</label>
+                            <input id="custom-number-2" name="custom-number-2" type="number" min="1">
+                        </li>
+                            
+                        <li class="menu_item">This is item #3 
+                            <label for="custom-number-3">New order:</label>
+                            <input id="custom-number-3" name="custom-number-3" type="number" min="1">
+                        </li>
+                            
+                        <li class="menu_item">This is item #4 
+                            <label for="custom-number-4">New order:</label>
+                            <input id="custom-number-4" name="custom-number-4" type="number" min="1">
+                        </li>
+                            
+                        <li class="menu_item">This is item #5 
+                            <label for="custom-number-5">New order:</label>
+                            <input id="custom-number-5" name="custom-number-5" type="number" min="1">
+                        </li>
+                    </ol>
+                    <input type="submit" id="manual-sort" name="manual-sort" value="Update">
+                </form>      --}}
+            </div>            
+            <div class="col-lg-5 Regular shadow custom-gradient-effect">
+                <div class="alert alert-success menusuccess" style="display:none;"></div>
+                <div class="alert alert-danger menudanger" style="display:none;"></div>
+
+                <div class="custom-footer-addition">
+                    <h4>Add Menu</h4>
+                    <label class="switch">
+                        <input type="checkbox" onclick="tryFunction('addmenuform')">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <form method="POST" action="/footermenus/add" id="addmenuform" class="menuform custom-menu-edit-add" style="display: none;">
+                    <label>Footer Type: </label>
+                    <select name="pagetype" id="menu_type">
+                        <option value="categorypage">Category Page</option>
+                        <option value="custompage">Custom Page</option>
+                        <option value="externallink">External Link</option>
+                    </select>
+                    <div id="categorypage" class="menu_category hideoption">
+                        <label>Category Name:</label>
+                        <select name="category" class="pagemenu">
+                            <option value="">Please Select</option>
+                            {{#each categories as |category|}}
+                                <option value="{{this.categorytitle}}">{{this.categorytitle}}</option>
+                            {{/each}}
+                        </select>           
+                    </div>
+                    <div id="custompage" class="menu_page hideoption">
+                        <label>Page Name:</label>
+                        <select name="pagetitle" class="pagemenu">
+                            <option value="">Please Select</option>
+                            {{#each pages as |page|}}
+                                <option value="{{this._id}}|!@{{this.title}}" data-page-type="{{page.pagetype}}">{{this.title}}</option>
+                            {{/each}}
+                        </select>       
+                    </div>
+                    <div id="menu-group" class="custom-menu-edit-add">
+                        <label>Label:</label>
+                        <input class="form-control menulabel" name="footerlabel" type="text" autocomplete="off" value="">
+                        <span class="form_error">Please Enter Footer Menu Label</span>
+                    </div>
+                    <div id="externallink"  class="menu_link hideoption">
+                        <label>URL:</label>
+                        <input type="text" name="externallink" autocomplete="off" value="" class="menu_link_field form-control">
+                        <span class="form_error">Please Enter Menu Link</span>
+                    </div>
+                    <div id="menu-group">
+                        <label>Parent Menu:</label>
+                        <select name="parentid" class="parentmenu">
+                            <option value="">Please Select</option>
+                            {{#each filter}}
+                                <option value="{{this._id}}">{{this.footerlabel}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+                <form method="POST" action="" enctype="multipart/form-data" class="menuform" id="edit_menu_form" style="display:none;">
+                    <div id="menu-group">
+                        <label>Label:</label>
+                        <input class="form-control editmenuname" name="footerlabel" type="text" value="" autocomplete="off">
+                        <span class="form_error">Please Enter Footer Menu Label</span>
+                    </div>
+                    <div id="menu-group">
+                        <label>Parent menu:</label>
+                        <select name="parentid" class="editparentmenu">
+                            <option value="">Please Select</option>
+                            {{#each menus}}
+                                <option value="{{this._id}}">{{this.menulabel}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form> 
+            </div>
+            {{!-- {{#each newmenus as |menudetails menukey|}}
+                {{test.label}}
+            {{/each}} --}}
+            
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}
+<script type="text/javascript">
+    jQuery(function(){
+		jQuery('#sort-it-0 ol').sortable({
+			onDrop: function(item) {
+				jQuery(item).removeClass("dragged").removeAttr("style");
+				jQuery("body").removeClass("dragging");
+				getInitialOrder('#sort-it-0 li');
+			}
+		});
+        jQuery('#sort-it-1 ol').sortable({
+			onDrop: function(item) {
+				jQuery(item).removeClass("dragged").removeAttr("style");
+				jQuery("body").removeClass("dragging");
+				getInitialOrder('#sort-it-1 li');
+			}
+		});
+        jQuery('#sort-it-2 ol').sortable({
+			onDrop: function(item) {
+				jQuery(item).removeClass("dragged").removeAttr("style");
+				jQuery("body").removeClass("dragging");
+				getInitialOrder('#sort-it-2 li');
+			}
+		});
+        jQuery('#sort-it-3 ol').sortable({
+			onDrop: function(item) {
+				jQuery(item).removeClass("dragged").removeAttr("style");
+				jQuery("body").removeClass("dragging");
+				getInitialOrder('#sort-it-3 li');
+			}
+		});
+         $( "#sort-it-0 ol" ).sortable( "refresh" );
+        $( "#sort-it-1 ol" ).sortable( "refresh" );
+        $( "#sort-it-2 ol" ).sortable( "refresh" );
+        $( "#sort-it-3 ol" ).sortable( "refresh" );
+        
+		//getInitialOrder('#sort-it-0 li');
+        reorderItems('#sort-it-0 li', '#sort-it-0 ol');
+        reorderItems('#sort-it-1 li', '#sort-it-1 ol');
+        reorderItems('#sort-it-2 li', '#sort-it-2 ol');
+        reorderItems('#sort-it-3 li', '#sort-it-3 ol');
+        // getInitialOrder('#sort-it-1 li');
+        // getInitialOrder('#sort-it-2 li');
+        // getInitialOrder('#sort-it-3 li');
+     
+    //bind stuff to number inputs
+		jQuery('#sort-it-0 ol input[type="number"]').focus(function(){
+			jQuery(this).select();	
+		}).change(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-0 input');
+		}).keyup(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-0 input');
+		});
+
+        jQuery('#sort-it-1 ol input[type="number"]').focus(function(){
+			jQuery(this).select();	
+		}).change(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-1 input');
+		}).keyup(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-1 input');
+		});
+
+        jQuery('#sort-it-2 ol input[type="number"]').focus(function(){
+			jQuery(this).select();	
+		}).change(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-2 input');
+		}).keyup(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-2 input');
+		});
+
+        jQuery('#sort-it-3 ol input[type="number"]').focus(function(){
+			jQuery(this).select();	
+		}).change(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-3 input');
+		}).keyup(function(){
+			updateAllNumbers(jQuery(this), '#sort-it-3 input');
+		});
+  
+    //bind to form submission
+    jQuery('#sort-it-0').submit(function(e){
+        let orderArray = [];
+        let menuArray = [];
+        $('.menu-order-0').each(function(newindex){
+            orderArray[newindex] = jQuery(this).val();
+            menuArray[newindex] = jQuery(this).attr('data-menu-id');
+        });
+
+
+        e.preventDefault();
+        jQuery('.loader').show();
+        jQuery.ajax({
+            type: "POST",
+            url: '/footermenus/change-order',
+            dataType:'json',
+            data:
+            {
+                orderarray: orderArray,
+                menuarray: menuArray
+            },
+            success: function(response) {
+                if(response['success'] == true) {
+                    reorderItems('#sort-it-0 li', '#sort-it-0 ol');
+                    jQuery('.menusuccess').html(response['message']);
+                    jQuery('.menusuccess').show();
+                    jQuery('.menudanger').hide();
+                    jQuery('.loader').hide();
+                                        setTimeout(function(){ window.location.href = '/footermenus/all'; }, 1000);
+
+                    // setTimeout(function(){ window.location.href = '/products/product-attribute'; }, 5000);
+                } else {
+                    if(response['serialerror']) {
+                        jQuery('.menudanger').html(response['serialerror']);
+                    } else {
+                        jQuery('.menudanger').html('');
+                        for (let index = 0; index < response['errors'].length; index++) {
+                            jQuery('.menudanger').append('</br> '+response['errors'][index].msg);
+                        }
+                    }
+                    jQuery('.menudanger').show();
+                    jQuery('.menusuccess').hide();
+                }
+                jQuery('.loader').hide();
+              
+            },
+            error: function(err) {
+                console.log(err);
+
+            }
+        });
+    });
+
+    jQuery('#sort-it-1').submit(function(e){
+      //reorderItems('#sort-it-1 li', '#sort-it-1 ol');
+      let orderArray = [];
+        let menuArray = [];
+        $('.menu-order-1').each(function(newindex){
+            orderArray[newindex] = jQuery(this).val();
+            menuArray[newindex] = jQuery(this).attr('data-menu-id');
+        });
+      e.preventDefault();
+      jQuery('.loader').show();
+        jQuery.ajax({
+            type: "POST",
+            url: '/footermenus/change-order',
+            dataType:'json',
+            data:
+            {
+                orderarray: orderArray,
+                menuarray: menuArray
+            },
+            success: function(response) {
+                if(response['success'] == true) {
+                    reorderItems('#sort-it-1 li', '#sort-it-1 ol');
+                    jQuery('.menusuccess').html(response['message']);
+                    jQuery('.menusuccess').show();
+                    jQuery('.menudanger').hide();
+                    jQuery('.loader').hide();
+                    setTimeout(function(){ window.location.href = '/footermenus/all'; }, 1000);
+                } else {
+                    if(response['serialerror']) {
+                        jQuery('.menudanger').html(response['serialerror']);
+                    } else {
+                        jQuery('.menudanger').html('');
+                        for (let index = 0; index < response['errors'].length; index++) {
+                            jQuery('.menudanger').append('</br> '+response['errors'][index].msg);
+                        }
+                    }
+                    jQuery('.menudanger').show();
+                    jQuery('.menusuccess').hide();
+                }
+                jQuery('.loader').hide();
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    })
+
+    jQuery('#sort-it-2').submit(function(e){
+      //reorderItems('#sort-it-2 li', '#sort-it-2 ol');
+       //reorderItems('#sort-it-2 li', '#sort-it-2 ol');
+        //e.preventDefault();
+        let orderArray = [];
+        let menuArray = [];
+        $('.menu-order-2').each(function(newindex){
+            orderArray[newindex] = jQuery(this).val();
+            menuArray[newindex] = jQuery(this).attr('data-menu-id');
+        });
+      e.preventDefault();
+      jQuery('.loader').show();
+        jQuery.ajax({
+            type: "POST",
+            url: '/footermenus/change-order',
+            dataType:'json',
+            data:
+            {
+                orderarray: orderArray,
+                menuarray: menuArray
+            },
+            success: function(response) {
+                if(response['success'] == true) {
+                    reorderItems('#sort-it-2 li', '#sort-it-2 ol');
+                    jQuery('.menusuccess').html(response['message']);
+                    jQuery('.menusuccess').show();
+                    jQuery('.menudanger').hide();
+                    jQuery('.loader').hide();
+                    setTimeout(function(){ window.location.href = '/footermenus/all'; }, 1000);
+                } else {
+                    if(response['serialerror']) {
+                        jQuery('.menudanger').html(response['serialerror']);
+                    } else {
+                        jQuery('.menudanger').html('');
+                        for (let index = 0; index < response['errors'].length; index++) {
+                            jQuery('.menudanger').append('</br> '+response['errors'][index].msg);
+                        }
+                    }
+                    jQuery('.menudanger').show();
+                    jQuery('.menusuccess').hide();
+                }
+                jQuery('.loader').hide();
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    })
+    })
+
+    jQuery('#sort-it-3').submit(function(e){
+      //reorderItems('#sort-it-3 li', '#sort-it-3 ol');
+       // reorderItems('#sort-it-3 li', '#sort-it-3 ol');
+      // e.preventDefault();
+        let orderArray = [];
+        let menuArray = [];
+        $('.menu-order-3').each(function(newindex){
+            orderArray[newindex] = jQuery(this).val();
+            menuArray[newindex] = jQuery(this).attr('data-menu-id');
+        });
+        e.preventDefault();
+        jQuery('.loader').show();
+        jQuery.ajax({
+            type: "POST",
+            url: '/footermenus/change-order',
+            dataType:'json',
+            data:
+            {
+                orderarray: orderArray,
+                menuarray: menuArray
+            },
+            success: function(response) {
+                if(response['success'] == true) {
+                    reorderItems('#sort-it-3 li', '#sort-it-3 ol');
+                    jQuery('.menusuccess').html(response['message']);
+                    jQuery('.menusuccess').show();
+                    jQuery('.menudanger').hide(); 
+                    jQuery('.loader').hide();
+                    setTimeout(function(){ window.location.href = '/footermenus/all'; }, 1000);
+                } else {
+                    if(response['serialerror']) {
+                        jQuery('.menudanger').html(response['serialerror']);
+                    } else {
+                        jQuery('.menudanger').html('');
+                        for (let index = 0; index < response['errors'].length; index++) {
+                            jQuery('.menudanger').append('</br> '+response['errors'][index].msg);
+                        }
+                    }
+                    jQuery('.menudanger').show();
+                    jQuery('.menusuccess').hide();
+                }
+                jQuery('.loader').hide();
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+      //e.preventDefault();
+    })
+ // end doc ready
+	
+function getInitialOrder(obj){
+		var num = 1;
+		jQuery(obj).each(function(){
+       //set object initial order data based on order in DOM
+			jQuery(this).find('input[type="number"]').val(num).attr('data-initial-value', num); 
+			num++;
+		});
+      jQuery(obj).find('input[type="number"]').attr('max', jQuery(obj).length); //give it an html5 max attr based on num of objects
+}
+	
+function updateAllNumbers(currObj, targets){
+        var delta = currObj.val() - currObj.attr('data-initial-value'), //if positive, the object went down in order. If negative, it went up.
+                c = parseInt(currObj.val(), 10), //value just entered by user
+                cI = parseInt(currObj.attr('data-initial-value'), 10), //original object val before change
+                top = jQuery(targets).length;
+        
+        //if the user enters a number too high or low, cap it
+        if(c > top){
+            currObj.val(top);
+        }else if(c < 1){
+            currObj.val(1);
+        }
+        
+		jQuery(targets).not(jQuery(currObj)).each(function(){ //change all the other objects
+			var v = parseInt(jQuery(this).val(), 10); //value of object changed		
+				
+			if (v >= c && v < cI && delta < 0){ //object going up in order pushes same-numbered and in-between objects down
+				jQuery(this).val(v + 1);
+			} else if (v <= c && v > cI && delta > 0){ //object going down in order pushes same-numbered and in-between objects up
+				jQuery(this).val(v - 1);
+			}
+		}).promise().done(function(){
+			//after all the fields update based on new val, set their data element so further changes can be tracked 
+			//(but ignore if no value given yet)
+			jQuery(targets).each(function(){
+				if(jQuery(this).val() !== ""){
+					jQuery(this).attr('data-initial-value', jQuery(this).val());
+				}
+			});
+		});
+}
+
+function reorderItems(things, parent){
+  for(var i = 1; i <= jQuery(things).length; i++){
+    jQuery(things).each(function(){
+      var x = parseInt(jQuery(this).find('input').val(), 10);
+      if(x === i){
+        jQuery(this).appendTo(parent);
+      }
+    });
+  }
+}
+</script>
+

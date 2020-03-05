@@ -1,0 +1,297 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">View Ambassador</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+   
+    <!-- /.row -->
+    {{!-- {{#each user as |user errorkey|}} --}}        
+        <div class="order-id-section Regular shadow">
+            <p>Id: </p>
+            <p>{{user._id}}</p>
+        </div>
+            {{!-- Table Start --}}
+            <br>
+                                        <hr>
+            {{#ifEquals user.status true}}
+                                    <a href="/ambassador-portal/disapprove/{{user._id}}" class="ed" >Disable User</a>
+                                    {{else}}
+                             <a href="/ambassador-portal/approve1/{{user._id}}" class="ed" >Approve User</a>
+
+                                        {{/ifEquals}}
+                                        
+            <div class="table-inside-section">
+                <table class="table table-bordered">
+                    <tbody>
+                          
+                          <tr>
+                            <th scope="row">Ambassador Id:</th>
+                            <td>{{user.ambass_id}}</td>
+                        </tr> 
+                         <tr>
+                            <th scope="row">Extention: </th>
+                            <td>{{user.extention}}</td>
+                        </tr>    
+                          <tr>
+                            <th scope="row">First Name:</th>
+                            <td>{{user.fname}}</td>
+                        </tr>                       
+                          <tr>
+                            <th scope="row">Last Name:</th>
+                            <td>{{user.lname}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Profession:</th>
+                            <td>{{user.profession}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">email:</th>
+                            <td>{{user.email}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Webiste:</th>
+                            <td>{{user.website}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Phone Number:</th>
+                            <td>{{user.phonenumber}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Instragram:</th>
+                            <td>{{user.instagram}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Facebook:</th>
+                            <td>{{user.facebook}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Zip Code:</th>
+                            <td>{{user.zipcode}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Network Size</th>
+                            <td>{{user.networksize}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Facebook:</th>
+                            <td>{{user.facebook}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Why do i want to be an Ambassador:</th>
+                            <td>{{user.why}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Instragram:</th>
+                            <td>{{user.instagram}}</td>
+                        </tr>   
+                        <tr>
+                            <th scope="row">Status:</th>
+                            <td>{{user.status}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Created On:</th>
+                            <td>{{user.createdon}}</td>
+                        </tr>                       
+                    </tbody>
+                </table>
+            </div>
+
+
+    
+  
+   
+    
+    
+   
+    
+    
+    
+    
+            <div class="table-inside-section">
+                <h3>Account Details</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                          
+                          <tr>
+                            <th scope="row">Name:</th>
+                            <td>{{user.account.name}}</td>
+                        </tr> 
+                         <tr>
+                            <th scope="row">State: </th>
+                            <td>  {{user.account.state}}</td>
+                        </tr>    
+                          <tr>
+                            <th scope="row">Phone :</th>
+                            <td> {{user.account.phone}}</td>
+                        </tr>                       
+                          <tr>
+                            <th scope="row">City:</th>
+                            <td>{{user.account.city}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Zipcode:</th>
+                            <td>{{user.account.zipcode}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Fax:</th>
+                            <td> {{user.account.fax}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Currency:</th>
+                            <td>{{user.account.currency}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Region:</th>
+                            <td>{{user.account.region}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Country:</th>
+                            <td>{{user.account.country}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Address:</th>
+                            <td>{{user.account.address}}</td>
+                        </tr>                
+                    </tbody>
+                </table>
+            </div>
+
+
+ <div class="table-inside-section">
+                <h3>Bank Details</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                          
+                          <tr>
+                            <th scope="row">Account Number:</th>
+                            <td>{{user.bank.accountNumber}}</td>
+                        </tr> 
+                         <tr>
+                            <th scope="row">Payment Method: </th>
+                            <td>  {{user.bank.paymentMethod}}</td>
+                        </tr>    
+                          <tr>
+                            <th scope="row">Account Name :</th>
+                            <td> {{user.bank.accName}}</td>
+                        </tr>                       
+                          <tr>
+                            <th scope="row">Routing Type:</th>
+                            <td>{{user.bank.routingType}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Bank Name:</th>
+                            <td>{{user.bank.bankName}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Account Type:</th>
+                            <td> {{user.bank.accType}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Minimum Pay Amount:</th>
+                            <td>{{user.bank.minPayAmt}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Currency:</th>
+                            <td>{{user.bank.currency}}</td>
+                        </tr>                                     
+                    </tbody>
+                </table>
+            </div>
+
+ 
+
+
+<div class="table-inside-section">
+                <h3>Tax Details</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                          
+                          <tr>
+                            <th scope="row">Name:</th>
+                            <td>{{user.tax.name}}</td>
+                        </tr> 
+                         <tr>
+                            <th scope="row">Payment Method: </th>
+                            <td>{{user.tax.businessType}}</td>
+                        </tr>    
+                          <tr>
+                            <th scope="row">Account Name :</th>
+                            <td> {{user.tax.address}}</td>
+                        </tr>                       
+                          <tr>
+                            <th scope="row">Routing Type:</th>
+                            <td>{{user.tax.city}}</td>
+                        </tr>                       
+                        <tr>
+                            <th scope="row">Bank Name:</th>
+                            <td>{{user.tax.zipcode}}</td>
+                        </tr>                                                        
+                    </tbody>
+                </table>
+            </div>
+
+            {{!-- Table End --}}
+
+        {{!-- <p>Username: {{user.username}}</p> --}}
+        {{!-- <p>email: {{user.email}}</p> --}}
+        {{!--  <p>Display Name: {{user.displayname}}</p> --}}
+        {{!--  <p>Phone Number: {{user.phonenumber}}</p> --}}
+        {{!-- <p>Role: {{user.role}}</p> --}}
+        {{!-- <p>Status: {{user.status}}</p> --}}
+        {{!-- <p>Created On: {{user.createdDate}}</p> --}}
+    {{!-- {{/each}} --}}
+    
+ <div class="col-lg-12 broker_table">
+                <table class="product_detail_table table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>refer URL</th>
+                            <th>Converted</th>
+                            <th>Create On</th>
+                            <th>Order ID</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>      
+                    </thead>  
+                    <tbody>
+                        {{#each user.urlvisits as |value key|}}
+                            {{!-- {{#notequal value.role "superAdmin"}} --}}
+                                <tr>
+                                    <td>{{value.url}}</td>
+                                    <td>{{value.refer_url}}</td>
+                                    <td>{{value.converted}}</td>
+                                    <td>{{value.date}}</td>
+                                <td>{{#if value.orderid}}<a href="/pages/orders/view/{{value.orderid}}">View Order</a>{{/if}}</td>
+
+                                    <td>{{value.amount}}</td>
+                                    <td>
+                                        {{#ifEquals value.paid false}}Not Paid{{else}}Paid{{/ifEquals}}
+                                      
+                                    </td>
+                                    {{!-- <td>{{#if this.referalamout}}{{this.referalamout}} Rs{{else}}0 Rs{{/if}}</td>
+                                    <td>{{#if this.discountbyrefnumber}}{{this.discountbyrefnumber}}{{else}}0{{/if}}</td> --}}
+                                    {{!-- <td><a href="/ambassador-portal/view/{{value._id}}" class="edit_user_btn" >View</a></td>
+                                    <td><a href="/ambassador-portal/delete/{{value._id}}" class="delete-user" ><i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a></td> --}}
+                                     
+                                        
+                                     
+                                     <td>{{#ifEquals value.converted true}}<a href="/ambassador-portal/pay/{{value._id}}" data-id=""  >Mark As Paid</a>{{else}}<a>---</a>{{/ifEquals}}</td>
+                                </tr>
+                            {{!-- {{/notequal}} --}}
+                        {{/each}}    
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

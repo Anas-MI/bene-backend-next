@@ -1,0 +1,55 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper" style="padding-left: 15px;padding-right: 15px">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit Wishlist Products</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+           <form method="POST" action="/wishlist/edit/{{wishlist.id}}"  class="wishlist-edit-form" >
+                <div class="col-lg-12">
+                    <div class="alert alert-success productsuccess" style="display:none;"></div>
+                    <div class="alert alert-danger productdanger" style="display:none;"></div>
+                    <div class="title-descripion">
+                         <div id="form-group">
+                            <label>Edit Serial: <span>*</span></label>
+                            <input class="form-control" name="serial" type="text" id="serial" autocomplete="off" value="{{wishlist.serial}}">
+                            <span class="form_error">Please enter Serial</span>
+                        </div>
+                         <div id="form-group">
+                            <label>Edit User ID: <span>*</span></label>
+                            <input class="form-control" name="userid" type="text" id="userid" autocomplete="off" value="{{wishlist.userid}}">
+                            <span class="form_error">Please enter User ID</span>
+                        </div>
+                        <div id="form-group">
+                            <label>Edit Product ID: <span>*</span></label>
+                            <input class="form-control" name="productid" type="text" id="productid" autocomplete="off" value="{{wishlist.productid}}">
+                            <span class="form_error">Please enter Product ID</span>
+                        </div>
+                        <div id="form-group">
+                            <label>Edit Product Meta ID: <span>*</span></label>
+                            <input class="form-control" name="productmeta" type="text" id="productmeta" autocomplete="off" value="{{wishlist.productmeta}}">
+                            <span class="form_error">Please enter product meta id</span>
+                        </div>
+                        </form>
+                         <div class="row">
+                        <div class="col-md-12"><input name="submit" type="submit" value="Submit"></div>
+                        </div>
+                        {{!-- <div class="publish-section">
+                        <div class="section-heading">
+                            <h2>Save changes</h2>
+                        </div>
+                        
+                            <input type="submit" name="submit" value="Submit" class="subscribed-edit-form"> --}}
+                        {{!-- ///////////////////////////////////////// --}}
+            
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

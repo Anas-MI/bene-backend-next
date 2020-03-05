@@ -1,0 +1,135 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Product Reviews</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="result_filter_section">
+                <div class="alert alert-success statussuccess" style="display:none;"></div>
+                <div class="alert alert-danger statusdanger" style="display:none;"></div>
+                {{!-- <ul class="product_review_ul">
+                    <input type="hidden" name="productid" value="{{productid}}" class="review_productid">
+                    {{#each reviews as |reviewcontent reviewkey|}}
+                        <li class="review_li">
+                            <div class="review_rating_section clearfix">
+                                <div class="ratings">
+                                   
+                                    <i class="{{#greaterorequal reviewcontent.rating 1}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                    <i class="{{#greaterorequal reviewcontent.rating 2}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                    <i class="{{#greaterorequal reviewcontent.rating 3}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                    <i class="{{#greaterorequal reviewcontent.rating 4}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                    <i class="{{#greaterorequal reviewcontent.rating 5}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                </div>
+                                <div class="review_title">
+                                    <h5>{{reviewcontent.title}}</h5>
+                                </div>
+                            </div>
+                            <div class="review_description_section">
+                                <div class="review_description">
+                                    {{reviewcontent.description}}
+                                </div>
+                                <div class="review_user_section">
+                                    {{#if reviewcontent.nickname}}
+                                        {{reviewcontent.nickname}}
+                                    {{else}}
+                                        {{reviewcontent.userid.firstname}} {{reviewcontent.userid.lastname}}
+                                    {{/if}}
+                                </div>
+                                <div class="review_status_section">
+                                     {{#equal reviewcontent.status 'pending'}}
+                                        <div class="review_status_desicion">
+                                            <div id="status_update_form_{{reviewkey}}" class="update_status_form">
+                                                <input type="hidden" name="productid" value="{{../productid}}" class="review_repeat_productid">
+                                                <a href="javascript:void(0);" onclick="save_review_status('accept', '{{reviewcontent._id}}', '{{../productid}}');">Accept</a>
+                                                <a href="javascript:void(0);" onclick="save_review_status('decline', '{{reviewcontent._id}}', '{{../productid}}');">Decline</a>
+                                            </div>
+                                            <span class="form_error review_status_error">Review status can not be left blank</span>
+                                        </div>
+                                    {{else}}
+                                        <div class="review_status_show">
+                                            {{reviewcontent.status}}
+                                        </div>
+                                    {{/equal}}
+                                </div>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul> --}}
+                <table class="review_table table table-striped table-hover table-bordered">
+                    <thead class="review_table_head">
+                        <tr>
+                            <th class="custom-sno-all-catogory">Sno.</th>
+                            <th class="custom-image-all-catogory">Image</th>
+                        </tr>      
+                    </thead>  
+                    <tbody>
+                        {{#each reviews as |reviewcontent reviewkey|}}
+                        <tr>
+                            <td class="review_serial_no">{{this.reviewid}}</td>
+                            <td>
+                                <div class="product_review_wrapper">
+                                    <div class="all_rating_sections">
+                                        <div class="review_rating_section clearfix">
+                                            <div class="ratings">
+                                                {{!-- {{reviewcontent.rating}} --}}
+                                                <i class="{{#greaterorequal reviewcontent.rating 1}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                                <i class="{{#greaterorequal reviewcontent.rating 2}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                                <i class="{{#greaterorequal reviewcontent.rating 3}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                                <i class="{{#greaterorequal reviewcontent.rating 4}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                                <i class="{{#greaterorequal reviewcontent.rating 5}}fa fa-star-o{{else}}fa fa-star{{/greaterorequal}}"></i>
+                                            </div>
+                                            <div class="review_title">
+                                                <h5>{{reviewcontent.title}}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="review_description_section">
+                                            <div class="review_description">
+                                                {{reviewcontent.description}}
+                                            </div>
+                                            <div class="review_user_section">
+                                                {{#if reviewcontent.nickname}}
+                                                    {{reviewcontent.nickname}}
+                                                {{else}}
+                                                    {{reviewcontent.userid.firstname}} {{reviewcontent.userid.lastname}}
+                                                {{/if}}
+                                            </div>
+                                            <div class="review_status_section">
+                                                {{#equal reviewcontent.status 'pending'}}
+                                                    <div class="review_status_desicion">
+                                                        <div id="status_update_form_{{reviewkey}}" class="update_status_form">
+                                                            <input type="hidden" name="productid" value="{{../productid}}" class="review_repeat_productid">
+                                                            <a href="javascript:void(0);" onclick="save_review_status('accept', '{{reviewcontent._id}}', '{{../productid}}');">Accept</a>
+                                                            <a href="javascript:void(0);" onclick="save_review_status('decline', '{{reviewcontent._id}}', '{{../productid}}');">Decline</a>
+                                                        </div>
+                                                        <span class="form_error review_status_error">Review status can not be left blank</span>
+                                                    </div>
+                                                {{else}}
+                                                    <div class="review_status_show">
+                                                        {{reviewcontent.status}}
+                                                    </div>
+                                                {{/equal}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="actions_section">
+                    <button type="button" class="btn btn-danger review_delete" data-reviewid="{{this._id}}" data-productid="{{../productid}}">Delete</button>
+                                    </div>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                        {{/each}}    
+                    </tbody>
+                </table>   
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

@@ -1,0 +1,54 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Edit HTML Pages</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+            <form action="/pages/edit/{{pageid}}" method="POST" class="" enctype="multipart/form-data" id="page-edit-form">
+                <div id="page-form-group">
+                    <label>Page Layout:</label>
+                    <input type="text" name="layout" class="page-layout" value="{{pagelayout}}" readonly data-pageid="{{pageid}}">
+                </div>
+
+                <div id="page-form-group">
+                    <label>Page Type:</label>
+                    <select name="pagetype"  class="page-type">
+                        {{#each pagetype as |value|}}
+                        <option value="{{value}}" {{#equal ../selectedpage value}}selected="selected"
+                            {{/equal}}>{{value}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div id="page-form-group">
+                    <label>Page Name:</label>
+                    <input class="pagetitle" name="title" type="text" autocomplete="off" value="{{title}}">
+                    <span class="form_error">Please Enter Page Name</span>
+                </div>
+                
+                <div id="page-form-group">
+                    <label>Country:</label>
+                    <select name="country" id="" class="page-country">
+                        {{#each countries as |countriesValue countrieskey|}}
+                            <option value="{{countriesValue}}" {{#equal ../country countriesValue}}selected="selected"{{/equal}}>{{countriesValue}}</option> 
+                        {{/each}}
+                    </select>    
+                </div>
+                <div class="code-container">
+                    <textarea id="code" name="htmlcode" class="htmlcodeeditor">
+                        {{pagecontent}}
+                    </textarea>
+                </div>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+{{> footer}}

@@ -1,0 +1,225 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Order</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="postbox-container-2" class="postbox-container">
+            <div id="normal-sortables" class="meta-box-sortables ui-sortable">
+                <div id="woocommerce-order-data" class="postbox ">
+                    <h2 class="hndle ui-sortable-handle"><span>Order data</span></h2>
+                    <div class="inside">
+                        <div class="panel-wrap woocommerce">
+                            <div id="order_data" class="panel woocommerce-order-data">
+                                <h2 class="woocommerce-order-data__heading">Order #{{order.orderid}} details</h2>
+                                <div class="order_data_column_container">
+                                    <div class="order_data_column">
+                                        <p class="form-field form-field-wide"><label for="order_date">Date created:</label>
+                                            {{dateformat order.orderdate 'DD/MM/YYYY h:mm a'}}
+                                        </p>
+                                       
+                                        <p class="form-field form-field-wide wc-customer-user">
+                                            <label for="customer_user">Customer:</label>
+                                            {{!-- {{#equal user.role 'customer'}}
+                                                {{#equal order.userid user._id}}
+                                                    {{user.name}}
+                                                {{/equal}}
+                                            {{else}} --}}
+                                                {{order.customername}}
+                                            {{!-- {{/equal}} --}}
+                                        </p>
+                                        <p class="form-field form-field-wide wc-customer-user">
+                                            <label for="customer_user">Mobile Number:</label>
+                                            {{#equal order.userid user._id}}
+                                                {{user.phonenumber}}
+                                            {{/equal}}
+                                        </p>
+                                    </div>
+                                    <div class="order_data_column">
+                                        <p class="form-field form-field-wide wc-customer-user">
+                                            <label for="customer_user">Broker Name:</label>
+                                            {{!-- {{#equal user.role 'broker'}}
+                                                {{#equal order.userid user._id}}
+                                                    {{user.name}}
+                                                {{/equal}}
+                                            {{else}} --}}
+                                                {{order.brokername}}
+                                            {{!-- {{/equal}} --}}
+                                        </p>
+                                        <p class="form-field form-field-wide wc-customer-user">
+                                            <label for="customer_user">Order Note:</label>
+                                            {{order.ordernote}}
+                                        </p>
+                                        <p class="form-field form-field-wide wc-customer-user">
+                                            <label for="customer_user">Order Total Amount:</label>
+                                            {{order.amount}} <small>Rs</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="woocommerce-order-items" class="postbox ">
+                    <h2 class="hndle ui-sortable-handle"><span>Items</span></h2>
+                    {{!-- <form method="POST" action="/orders/{{order._id}}" id="editorderform"> --}}
+                        <div class="inside">
+                            <div class="woocommerce_order_items_wrapper wc-order-items-editable">
+                                <table cellpadding="0" cellspacing="0" class="woocommerce_order_items">
+                                    <thead>
+                                        <tr>
+                                            <th class="item sortable" colspan="2">Item</th>
+                                            <th class="item_cost sortable">Cost</th>
+                                            <th class="item_cost sortable">Offer Cost</th>
+                                            <th class="quantity sortable">Qty</th>
+                                            <th class="quantity sortable">Tranport Charges</th>
+                                            <th class="line_cost sortable">Delivered Quantity</th>
+                                            <th class="line_cost sortable">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="order_line_items">
+                                            {{#each order.cartobject as |value key|}}
+                                                <tr class="item " data-order_item_id="5">
+                                                    {{#each value as |childvalue childkey|}}
+                                                    <input type="hidden" name="cartobject[{{key}}][{{childkey}}][_id]" value="{{childvalue._id}}" />
+
+                                                    <td class="thumb">
+                                                        <div class="wc-order-item-thumbnail"><img width="150" height="150" src="" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" title=""></div>
+                                                    </td>
+                                                    <td class="name">
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][sku]" value="{{childvalue.sku}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][brandSerialNumber]" value="{{childvalue.brandSerialNumber}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][productName]" value="{{childvalue.productName}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][filepath]" value="{{childvalue.filepath}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][filename]" value="{{childvalue.filename}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][brand]" value="{{childvalue.brand}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][pack][packvalue]" value="{{childvalue.pack.packvalue}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][pack][totpack]" value="{{childvalue.pack.totpack}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][pack][innerpack]" value="{{childvalue.pack.innerpack}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][pack][packcharges]" value="{{childvalue.pack.packcharges}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][price]" value="{{childvalue.price}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][brandPrice]" value="{{childvalue.brandPrice}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][offerMaxKgLimit]" value="{{childvalue.offerMaxKgLimit}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][qtyInKg]" value="{{childvalue.qtyInKg}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][offer]" value="{{childvalue.offer}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][offerPrice]" value="{{childvalue.offerPrice}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][staticOfferPrice]" value="{{childvalue.staticOfferPrice}}" />
+                                                        {{#if childvalue.offerId}}
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][offerId]" value="{{childvalue.offerId}}" />
+                                                        {{/if}}
+                                                        {{#if childvalue.fullOffer}}
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][_id]" value="{{childvalue.fullOffer._id}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offerstartdate]" value="{{childvalue.fullOffer.offerstartdate}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offerenddate]" value="{{childvalue.fullOffer.offerenddate}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][productname]" value="{{childvalue.fullOffer.productname}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offerproductid]" value="{{childvalue.fullOffer.offerproductid}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][productbrand]" value="{{childvalue.fullOffer.productbrand}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][pack]" value="{{childvalue.fullOffer.pack}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][priceoffer]" value="{{childvalue.fullOffer.priceoffer}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][maxlimituser]" value="{{childvalue.fullOffer.maxlimituser}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][maxlimituserunit]" value="{{childvalue.fullOffer.maxlimituserunit}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][startdatemiliseconds]" value="{{childvalue.fullOffer.startdatemiliseconds}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][enddatemiliseconds]" value="{{childvalue.fullOffer.enddatemiliseconds}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offersizeunit]" value="{{childvalue.fullOffer.offersizeunit}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offersize]" value="{{childvalue.fullOffer.offersize}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][offerremaingquantity]" value="{{childvalue.fullOffer.offerremaingquantity}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][priceofferunit]" value="{{childvalue.fullOffer.priceofferunit}}" />
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][fullOffer][priceofferapplied]" value="{{childvalue.fullOffer.priceofferapplied}}" />
+                                                            
+                                                        {{/if}}
+                                                        
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][discountOnQuantity]" value="{{childvalue.discountOnQuantity}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][staticDiscountOnQuantity]" value="{{childvalue.staticDiscountOnQuantity}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][transportCharge]" value="{{childvalue.transportCharge}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][transportRate]" value="{{childvalue.transportRate}}" />
+                                                        <input type="hidden" name="cartobject[{{key}}][{{childkey}}][totalItemPrice]" value="{{childvalue.totalItemPrice}}" />
+                                                        <a href="/products/{{childvalue._id}}" class="wc-order-item-name">{{childvalue.productName}}</a><div class="wc-order-item-sku"><strong>Brand:</strong> {{childvalue.brand}}</div><div class="wc-order-item-variation"><strong>Pack:</strong>
+                                                        {{childvalue.pack.packvalue}} kg
+                                                        </div>		
+                                                    </td>
+                                                    <td class="item_cost" width="1%">
+                                                        <div class="view">
+                                                            <span class="woocommerce-Price-amount amount">{{childvalue.brandPrice}}<span class="woocommerce-Price-currencySymbol">Rs/QTL</span></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="item_cost" width="1%">
+                                                        <div class="view">
+                                                            <span class="woocommerce-Price-amount amount">{{childvalue.offerPrice}}<span class="woocommerce-Price-currencySymbol">Rs/QTL</span></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="quantity" width="1%">
+                                                        <div class="view">
+                                                            <small class="times">×</small> {{childvalue.quantity}}
+                                                            <input type="hidden" name="cartobject[{{key}}][{{childkey}}][quantity]" value="{{childvalue.quantity}}" />
+                                                        </div>
+                                                    </td>
+                                                    <td class="quantity" width="1%">
+                                                        <div class="view">
+                                                            <span class="woocommerce-Price-amount amount">{{childvalue.transportCharge}}<span class="woocommerce-Price-currencySymbol">Rs</span></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="quantity" width="1%">
+                                                        <div class="view">
+                                                            <span class="woocommerce-Price-amount amount"></span>
+                                                            <input type="number" name="cartobject[{{key}}][{{childkey}}][delivaryquantity]" value="{{childvalue.quantity}}" min="0" />
+                                                        </div>
+                                                    </td>
+                                                    <td class="line_cost" width="1%" data-sort-value="8000">
+                                                        <div class="view">
+                                                            <span class="woocommerce-Price-amount amount">{{childvalue.totalItemPrice}}<span class="woocommerce-Price-currencySymbol">Rs</span></span>		</div>
+                                                        <div class="edit" style="display: none;">
+                                                            <div class="split-input">
+                                                                <div class="input">
+                                                                    <label>Pre-discount:</label>
+                                                                    <input type="text" name="line_subtotal[5]" placeholder="0" value="8000" class="line_subtotal wc_input_price" data-subtotal="8000">
+                                                                </div>
+                                                                <div class="input">
+                                                                    <label>Total:</label>
+                                                                    <input type="text" name="line_total[5]" placeholder="0" value="8000" class="line_total wc_input_price" data-tip="After pre-tax discounts." data-total="8000">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                    {{/each}}
+                                                </tr>
+                                            {{/each}} 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="wc-order-data-row wc-order-totals-items wc-order-items-editable">
+                                <table class="wc-order-totals">
+                                    <tbody>
+                                        <tr>
+                                            <td class="label">Transport Charge:</td>
+                                            <td width="1%"></td>
+                                            <td class="total"><span class="woocommerce-Price-amount amount">{{order.transportcharge}}<span class="woocommerce-Price-currencySymbol">Rs</span></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Total:</td>
+                                            <td width="1%"></td>
+                                            <td class="total"><span class="woocommerce-Price-amount amount">{{order.amount}}<span class="woocommerce-Price-currencySymbol"> Rs</span></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        {{!-- <input class="btn btn-success" type="submit" value="Submit"> --}}
+                        <a class="btn btn-danger delete-orders" href="#" data-id="{{order._id}}">Delete</a>
+                    {{!-- </form> --}}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

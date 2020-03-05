@@ -1,0 +1,68 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Add Settings</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        {{#if err}}
+        <div class="alert alert-danger">
+            <strong>{{err}}</strong>
+        </div>
+        {{/if}}
+
+        {{#if errors}}
+        <div class="alert alert-danger">
+            <strong>{{errors}}</strong>
+        </div>
+        {{/if}}
+        <div class="alert alert-success settingsuccess" style="display:none;">
+            <strong></strong>
+        </div>
+        <div class="alert alert-danger settingfailed" style="display:none;">
+            <strong></strong>
+        </div>
+        <form method="POST" action="" id="setting_submit">
+            <div class="form-group input-group">
+                <label>Transport Rate:</label>
+                <div class="input-group">
+                     <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                    <input class="form-control transportrate" name="transportrate" type="number" value="{{setting.0.transportrate}}">
+                    <span class="input-group-addon">.00</span>
+                </div>
+                <span class="form_error">Please Enter Transport rate</span>
+            </div>
+        
+            <div class="form-group input-group">
+                <label>Reference Amount:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                    <input class="form-control refdiscount" name="refdiscount" type="number" value="{{setting.0.referaldiscount}}">
+                    <span class="input-group-addon">.00</span>
+                </div>
+                <span class="form_error">Please Enter Reference Amount</span>
+            </div>
+            <div class="form-group input-group">
+                <label>Order Offer Amount:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                    <input class="form-control orderofferamt" name="orderofferamt" type="number" value="{{setting.0.offeramout}}">
+                    <span class="input-group-addon">.00</span>
+                </div>
+                <span class="form_error">Please Enter Order Offer Amount</span>
+            </div>
+            <br>
+            <input class="btn btn-primary settingsubmit" type="button" value="Submit">
+        </form>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}
+  </body>
+</html>
+

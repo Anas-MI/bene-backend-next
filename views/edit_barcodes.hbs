@@ -1,0 +1,50 @@
+{{> header}}
+<style>
+    .alert-danger {
+  color: #FFF;
+  background-color: #EA6153;
+  border-color: #E05749;
+}
+</style>
+<div class="container">
+  <hr>
+  <div class="row">
+    {{message}}
+     {{{flash}}}
+    <div class="col-md-12">
+      	<form method="POST" action="/barcodes/edit/{{barcodes._id}}">
+                     {{#if error}}
+    <hr>
+    <div class="alert-danger">
+    <span>{{error}}</span>
+    </div>
+    <hr>
+    {{/if}}
+    <div id="form-group">
+         <label>File Name</label>
+            <input class="form-control" name="filename" type="number" value="{{barcodes.filename}}">
+          </div>
+          <br>
+          <div id="form-group">
+            <label>Check digit</label>
+            <input class="form-control" name="checkdigit" type="number" value="{{barcodes.checkdigit}}">
+          </div>
+          <br>
+          <div id="form-group">
+            <label>EAN 13 - Number Formula</label>
+            <input class="form-control" name="formula" type="number" value="{{barcodes.formula}}">
+          </div>
+          <br>
+          <div id="form-group">
+            <label>EAN 13 - Number</label>
+            <input class="form-control" name="barcode" type="number" value="{{barcodes.barcode}}">
+          </div>
+          <br>
+          <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+  </div> <!-- row -->
+</div>
+    {{> footer}}
+  </body>
+</html>

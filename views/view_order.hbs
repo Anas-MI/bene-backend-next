@@ -1,0 +1,578 @@
+{{> header}}
+{{> nav}}
+
+<style>
+    body {
+        color: #2c3e50;
+        background: #ecf0f1;
+        padding: 0 1em 1em;
+    }
+    
+    .divadjust th, td {
+    width: 50%
+}
+
+    h1 {
+        margin: 0;
+        line-height: 2;
+        text-align: center;
+    }
+
+    h2 {
+        margin: 0 0 0.5em;
+        font-weight: normal;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row .col {
+        flex: 1;
+    }
+
+    .row .col:last-child {
+        margin-left: 1em;
+    }
+
+    /* Accordion styles */
+    .tabs {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    .tab {
+        width: 100%;
+        color: white;
+        overflow: hidden;
+    }
+
+    .tab-label {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+        background: #2c3e50;
+        font-weight: bold;
+        cursor: pointer;
+        /* Icon */
+    }
+
+    .tab-label:hover {
+        background: #1a252f;
+    }
+
+    .tab-label::after {
+        content: "\276F";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all 0.35s;
+    }
+
+    .tab-content {
+        max-height: 0;
+        padding: 0 1em;
+        color: #2c3e50;
+        background: white;
+        transition: all 0.35s;
+    }
+
+    .tab-close {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1em;
+        font-size: 0.75em;
+        background: #2c3e50;
+        cursor: pointer;
+    }
+
+    .tab-close:hover {
+        background: #1a252f;
+    }
+
+    input:checked+.tab-label {
+        background: #1a252f;
+    }
+
+    input:checked+.tab-label::after {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+    input:checked~.tab-content {
+        max-height: 100vh;
+        padding: 1em;
+    }
+</style>
+
+{{#each @root.fees }}
+{{fees.amount}}
+{{/each}}
+
+
+<div id="page-wrapper" style="padding-left: 15px;padding-right: 15px; padding-bottom:30px;">
+    <h1>View Order</h1>
+    {{!-- <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">View Order</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div> --}}
+    {{#each orders as |ordervalue orderkey|}}
+
+
+     {{#ifEquals ordervalue.carrier 'shipment_failed'}}
+    <h2>International Order</h2>
+    {{/ifEquals}}
+    
+
+    <hr>
+    <div class="product-detail-section">
+        <p>Ordered Product details</p>
+    </div>
+
+   {{#each ordervalue.products as |products|}}
+    <hr />
+    {{!-- Start 1 --}}
+   
+    <table class="table table-bordered divadjust">
+        <tbody>
+            {{#if products.isSubscribed}}
+            <tr>
+                <th scope="row">Subscription Meta</th>
+                <td>{{products.subscriptionMeta:}}</td>
+            </tr>
+            {{/if}}
+            <tr>
+                <th scope="row">Product Name</th>
+                <td>{{products.title}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Reviewed By User</th>
+                <td>{{products.reviewed}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Quantiy</th>
+                <td>{{products.qty}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Unit Price</th>
+                <td>{{products.unitPrice}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Sub Total</th>
+                <td>{{products.subTotal}}</td>
+            </tr>
+        
+              {{#if products.attribute}}
+            {{#each products.attribute as |attr|}}
+             <tr>
+                <th scope="row">{{@key}}</th>
+                <td>{{attr}}</td>
+            </tr>
+            {{/each}}
+             {{/if}}
+        </tbody>
+    </table>
+      
+           
+            
+             
+    {{/each}}
+    <hr />
+    {{!--       
+       <div >
+        <a href="{{products.label}}" target="_blank">View Label</a>
+        <img src="{{ordervalue.label}}" height="500" width="400" onclick="window.print()" />
+    </div> --}}
+    {{/each}}
+    <!-- /.row -->
+
+    {{#each orders as |ordervalue orderkey|}}
+    <div class="order-id-section Regular shadow">
+        <p>Order Id:</p>
+        <p>{{ordervalue._id}}</p>
+    </div>
+
+    <hr>
+    <div class="product-detail-section">
+        <p>Order details</p>
+    </div>
+
+    {{#each orderproduct as |orderkey|}}
+    <hr />
+    {{!-- Start 1 --}}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">Product Meta id </th>
+                <td>{{orderkey.productmetaid}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Product Title</th>
+                <td>{{orderkey.proucttitle}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Quantity</th>
+                <td>{{orderkey.quantity}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Single Price</th>
+                <td>{{orderkey.singleprice}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Subtotal</th>
+                <td>{{orderkey.subtotal}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Order Date</th>
+                <td>{{orderkey.orderdate}}</td>
+            </tr>
+            {{!-- <tr>
+                    <th scope="row">Country</th>
+                    <td>{{orderkey.country}}</td>
+                </tr> --}}
+            <tr>
+                <th scope="row">Isguest</th>
+                <td>{{orderkey.isguest}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Userid</th>
+                <td>{{orderkey.userId}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{!-- End 1 --}}
+
+    {{!-- <p>Product Meta id: {{orderkey.productmetaid}}</p> --}}
+    {{!-- <p>Product Title: {{orderkey.proucttitle}}</p> --}}
+    {{!-- <p>Quantity: {{orderkey.quantity}}</p> --}}
+    {{!-- <p>Single Price: {{orderkey.singleprice}}</p> --}}
+    {{!-- <p>subtotal:{{orderkey.subtotal}}</p> --}}
+    {{!-- <p>orderdate:{{orderkey.orderdate}}</p> --}}
+    {{!-- <p>country:{{orderkey.country}}</p> --}}
+    {{!-- <p>isguest:{{orderkey.isguest}}</p> --}}
+    {{!-- <p>userid:{{orderkey.userId}}</p> --}}
+    {{/each}}
+    <hr />
+    {{!-- Start 2 --}}
+    <table class="table table-bordered">
+        <tbody>
+            {{!-- <tr>
+                <th scope="row">Selected Attribute</th>
+                <td>{{ordervalue.selectedattribute}}</td>
+            </tr> --}}
+            <tr>
+                <th scope="row">Grand Total</th>
+                <td>{{ordervalue.grandTotal}}</td>
+            </tr>
+            {{!-- <tr>
+                <th scope="row">Coupon Disc</th>
+                <td>{{ordervalue.coupondisc}}</td>
+            </tr> --}}
+            {{#if ordervalue.isCoupon}}
+            <tr>
+                <th scope="row">Coupon Used</th>
+                <td>{{ordervalue.isCoupon:}}</td>
+            </tr>
+            {{/if}}
+            {{#if ordervalue.isCoupon}}
+            <tr>
+                <th scope="row">Coupon Id</th>
+                <td>{{ordervalue.couponid:}}</td>
+            </tr>
+            {{/if}}
+            {{!-- <tr>
+                <th scope="row">Country</th>
+                <td>{{ordervalue.country}}</td>
+            </tr> --}}
+            {{!-- <tr>
+                <th scope="row">Offerprice</th>
+                <td>{{ordervalue.offerprice}}</td>
+            </tr> --}}
+          
+            <tr>
+                <th scope="row">Wholesub Total</th>
+                <td>{{ordervalue.wholeSubtotal}}</td>
+            </tr>
+             {{#ifEquals ordervalue.carrier 'shipment_failed'}}
+     {{else}}
+            <tr>
+                <th scope="row">Shipping Charge</th>
+                <td>{{ordervalue.shippingcharge}}</td>
+            </tr>
+              <tr>
+                <th scope="row">Shipping Method</th>
+                <td>{{ordervalue.shippingMethod}}</td>
+            </tr>
+            {{/ifEquals}}
+            <tr>
+                <th scope="row">Payment Method</th>
+                <td>{{ordervalue.paymentMethod}}</td>
+            </tr>
+            {{!-- <tr>
+                <th scope="row">User id</th>
+                <td>{{ordervalue.userid}}</td>
+            </tr> --}}
+            <tr>
+                <th scope="row">Status</th>
+                <td>{{ordervalue.orderStatus}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Transaction id</th>
+                <td>{{ordervalue.transactionId}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Country Tax</th>
+                <td>{{ordervalue.countryTax}}</td>
+            </tr>
+            {{#ifEquals ordervalue.carrier 'shipment_failed'}}
+     {{else}}
+            <tr>
+                <th scope="row">Shipment ID</th>
+                <td>{{ordervalue.shipmentId}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Rate ID</th>
+                <td>{{ordervalue.rateId}}</td>
+            </tr>
+            {{/ifEquals}}
+            <tr>
+                <th scope="row">Carrier</th>
+                <td>{{ordervalue.carrier}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{!-- End 2 --}}
+
+    {{!-- <p>selectedattribute: {{ordervalue.selectedattribute}}</p> --}}
+    {{!-- <p>grandtotal: {{ordervalue.grandtotal}}</p> --}}
+    {{!-- <p>coupondisc: {{ordervalue.coupondisc}}</p>   --}}
+    {{!-- <p>couponid: {{ordervalue.couponid:}}</p> --}}
+    {{!-- <p>country: {{ordervalue.country}}</p> --}}
+    {{!-- <p>offerprice: {{ordervalue.offerprice}}</p> --}}
+    {{!-- <p>shippingmethod: {{ordervalue.shippingmethod}}</p> --}}
+    {{!-- <p>wholesubtotal: {{ordervalue.wholesubtotal}}</p> --}}
+    {{!-- <p>shippingcharge: {{ordervalue.shippingcharge}}</p> --}}
+    {{!-- <p>paymentmethod: {{ordervalue.paymentmethod}}</p> --}}
+    {{!-- <p>ordernote: {{ordervalue.ordernote}}</p> --}}
+    {{!-- <p>userid: {{ordervalue.userid}}</p> --}}
+    {{!-- <p>status: {{ordervalue.status}}</p> --}}
+    {{!-- <p>paymentstatus: {{ordervalue.paymentstatus}}</p> --}}
+    {{!-- <p>transactionid: {{ordervalue.transactionid}}</p> --}}
+    {{!-- <p>country tax: {{ordervalue.country_tax:}}</p> --}}
+    {{!-- <p>taxamount: {{ordervalue.taxamount}}</p> --}}
+
+    <hr>
+    <div class="product-detail-section">
+        <p>Userdetails</p>
+    </div>
+    <hr>
+    {{!-- Start 3 --}}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">Country</th>
+                <td>{{ordervalue.userDetails.country}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>{{ordervalue.userDetails.email}}</td>
+            </tr>
+            <tr>
+                <th scope="row">First Name</th>
+                <td>{{ordervalue.userDetails.firstname}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Last Name</th>
+                <td>{{ordervalue.userDetails.lastname}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Shipping Address</th>
+                <td>{{ordervalue.userDetails.shippingaddress}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Billing Address</th>
+                <td>{{ordervalue.userDetails.billingaddress}}</td>
+            </tr>
+            {{!-- <tr>
+                <th scope="row">Extra Address</th>
+                <td>{{ordervalue.userDetails.extraaddress}}</td>
+            </tr>
+            <tr>
+                <th scope="row">City</th>
+                <td>{{ordervalue.userDetails.city}}</td>
+            </tr> --}}
+            <tr>
+                <th scope="row">State</th>
+                <td>{{ordervalue.userDetails.state}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Zipcode</th>
+                <td>{{ordervalue.userDetails.zipcode}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Phone Number</th>
+                <td>{{ordervalue.userDetails.phonenumber}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{!-- End 3 --}}
+    {{!-- <p>country:  {{ordervalue.userdetails.country}}</p> --}}
+    {{!-- <p>email:  {{ordervalue.userdetails.email}}</p> --}}
+    {{!-- <p>first Name:  {{ordervalue.userdetails.firstname}}</p> --}}
+    {{!-- <p>last Name: {{ordervalue.userdetails.lastname}}</p> --}}
+    {{!-- <p>Shipping Address: {{ordervalue.userdetails.shippingaddress}}</p> --}}
+    {{!-- <p>Billing Address: {{ordervalue.userdetails.billingaddress}}</p> --}}
+    {{!-- <p>Extra Address:{{ordervalue.userdetails.extraaddress}}</p> --}}
+    {{!-- <p>City: {{ordervalue.userdetails.city}}</p> --}}
+    {{!-- <p>State: {{ordervalue.userdetails.state}}</p> --}}
+    {{!-- <p>Zipcode: {{ordervalue.userdetails.zipcode}}</p> --}}
+    {{!-- <p>Phone Number: {{ordervalue.userdetails.phonenumber}}</p> --}}
+    <hr />
+    <hr>
+   
+    {{#ifEquals ordervalue.carrier 'shipment_failed'}}
+     {{else}}
+   
+    
+    <div class="product-detail-section">
+        <p>Fee details</p>
+    </div>
+    <hr>
+    {{!-- {{#each fees as fee}}
+    {{fee}}
+    {{/each}} --}}
+    {{!-- Start 3 --}}
+    <table class="table table-bordered">
+        <tbody>
+            {{#each fees as |red|}}
+            <tr>
+                <th scope="row">Type</th>
+                <td>{{red.type}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Amount</th>
+                <td>{{red.amount}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+
+    </table>
+    {{/ifEquals}}
+    <div class="order-status">
+        <p>Order Status: </p><span>{{ordervalue.status}}</span>
+    </div>
+    <div class="order-date">
+        <p>Order Date: </p><span>{{ordervalue.createdOn}}</span>
+    </div>
+
+
+
+    {{!-- orderproduct: [ 
+    { productmetaid: '5c7f5d87f41b2900043024a4', 
+    proucttitle: 'Chocolate Bars', 
+    quantity: '3', 
+    singleprice: '300', 
+    subtotal: 900, 
+    orderdate: 'Fri Mar 08 2019 15:17:15 GMT+0530 (India Standard Time)', 
+    country: 'test', 
+    isguest: 'true', 
+    userid: 'null', 
+    selectedattribute: [Object] }, 
+    { productmetaid: '5c7f5c95f41b2900043024a2',
+     proucttitle: 'CBD Chewing Gum', 
+     quantity: '5', 
+     singleprice: 98, 
+     subtotal: 490, 
+     orderdate: 'Fri Mar 08 2019 15:17:15 GMT+0530 (India Standard Time)', 
+     country: 'test', 
+     isguest: 'true', 
+     userId: 'null' } ], 
+      1235, 
+     coupondisc: 454, 
+     couponid: '123', 
+     country: 'test', 
+     offerprice: 100, 
+     shippingmethod: 'Express shipping', 
+     wholesubtotal: 1390, 
+     shippingcharge: 10, 
+     paymentmethod: 'Paypal', 
+     ordernote: 'Make it quick', 
+     userid: '8486565658926546345415', 
+     status: 'in process', 
+     paymentstatus: 'Processing', 
+     transactionid: '848484845454765', 
+     country_tax: '18', 
+     taxamount: '7412', 
+     userdetails: { 
+         country: 'USA', 
+         email: 'fgeg445@gmail.com', 
+         firstname: 'name', 
+         lastname: 'last name', 
+         shippingaddress: 'name last name, asdf jhgblkj\n\t\t\tkjnkln ', 
+         billingaddress: 'name last name, asdf jhgblkj\n\t\t\tkjnkln ', 
+         extraaddress: 'jdjdjd', 
+         city: 'Alajuela', 
+         state: 'USA', 
+         zipcode: '11224', 
+         phonenumber: '34345875' }, 
+         orderstatus: 'Processing', 
+         orderdate: 2019-03-09T13:38:27.645Z, serial_id: 5, __v: 0 } --}}
+
+
+    {{!-- {{/each}}
+
+{{#each orders as |ordervalue orderkey|}}
+<div id="page-wrapper" style="padding-left: 20px;padding-right: 20px"> --}}
+
+{{#ifEquals ordervalue.carrier 'shipment_failed'}}
+     {{else}}
+
+    <div class="row">
+        <div class="col">
+            {{!-- <h2>Open <b>multiple</b></h2> --}}
+            <div class="tabs">
+                <div class="tab">
+                    <input type="checkbox" id="chck1">
+                    <label class="tab-label" for="chck1">View Label</label>
+                    <div class="tab-content">
+                        <img src="{{ordervalue.label}}" height="500" width="400" target="_blank"
+                            onclick="window.print()" />
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="checkbox" id="chck2">
+                    <label class="tab-label" for="chck2">Tracking</label>
+                    <div class="tab-content">
+
+                        <p>Tracking ID: {{ordervalue.trackerId}}</p>
+                        <hr>
+                        {{!-- <p>Tracking Code: {{ordervalue.trackingcode}}</p> --}}
+                        {{!-- <hr> --}}
+                        <a href="{{@root.trackerurl}}" target="_blank">Track Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/ifEquals }}
+</div>
+</div>
+<div></div>
+{{/each}}
+
+
+</div>
+<!-- /#page-wrapper -->
+<script>
+
+</script>
+{{> footer}}

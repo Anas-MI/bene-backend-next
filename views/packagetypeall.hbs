@@ -1,0 +1,64 @@
+{{> header}}
+{{> nav}}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Package Types</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="product_detail_table table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                        <th>Packingid</th>
+	<th>Packing Type</th>
+	<th>Description</th>
+	<th>Capacity</th>
+	<th>Cap Color</th>
+	<th>Cap Size</th>
+	<th>Cap Style</th>
+	<th>Diameter</th>
+	<th>Dip Tube</th>
+	<th>Label panel dimension</th>
+	<th>Height</th>
+	<th>Container Weight</th>
+	<th>Container Volume</th>
+
+                    </tr>      
+                </thead>
+                
+                <tbody>
+                    {{#each packagetype as |ptype|}}
+                    {{!-- {{productvalue}} --}}
+                    <tr>
+    <td>{{ptype.packingid}}</td>
+	<td>{{ptype.packingtype}}</td>
+	<td>{{ptype.description}}</td>
+	<td>{{ptype.capacity}}</td>
+	<td>{{ptype.capcolor}}</td>
+	<td>{{ptype.capsize}}</td>
+	<td>{{ptype.capstyle}}</td>
+	<td>{{ptype.diameter}}</td>
+	<td>{{ptype.diptube}}</td>
+	<td>{{ptype.labelpaneldimension}}</td>
+	<td>{{ptype.height}}</td>
+	<td>{{ptype.containerweight}}</td>
+	<td>{{ptype.containervolume}}
+                       
+                            <div class="custom-delete-edit">
+                                <a href="/packagetype/edit/{{ptype._id}}"><i class="fa fa-pencil-square-o" title="Edit" aria-hidden="true"></i></a> | 
+                                <a href="/packagetype/delete/{{ptype._id}}"><i class="fa fa-trash" title="Delete" aria-hidden="true"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->
+{{> footer}}

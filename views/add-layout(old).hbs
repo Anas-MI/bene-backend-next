@@ -1,0 +1,1330 @@
+{{> header}}
+{{> nav}}
+<style type="text/css">
+#select-id {
+    width: 70%;
+}
+</style>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Add Pages</h1>
+        </div>
+    </div>
+
+    <div id="page-form-group">
+        <label>Template:</label>
+        <select id="size_select" name="layout" class="page-layout">
+            {{#each layoutDropDown as |layoutvalue layoutkey|}}
+            <option value="{{layoutkey}}" {{#equal ../pagelayout layoutkey}}selected="selected" {{/equal}}>
+                {{layoutvalue}}</option>
+            {{/each}}
+        </select>
+        <span class="form_error">Please Enter Layout Name</span>
+    </div>
+    <div id="home" class="size_chart" style="display: none;" class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+            {{!-- change 1 --}}
+            {{!-- For Home --}}
+            {{!-- IMAGE PREVIEW SECTION --}}
+            <div class="w100 mt100">
+                <div class="preview-section">
+                    <label>Check View</label>
+                    <input type="checkbox" name="" id="preview-sec-checkboxhome" onclick="previewCheckboxHome()">
+                </div>
+                <section class="row" id="display-section-previewhome" style="display: none;">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                            <div class="panel panel-default">
+                                <p>First Section Preview</p>
+                                <div class="panel-body">
+                                    <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                        <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114341515-prd-01scr.png"
+                                            alt="...">
+                                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                            <div class="panel panel-default">
+                                <p>Second Section Preview</p>
+                                <div class="panel-body">
+                                    <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                        <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114396630-prd-03.png"
+                                            alt="...">
+                                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                            <div class="panel panel-default">
+                                <p>Third Section Preview</p>
+                                <div class="panel-body">
+                                    <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                        <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114401311-prd-04.png"
+                                            alt="...">
+                                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                            <div class="panel panel-default">
+                                <p>Fourth Section Preview</p>
+                                <div class="panel-body">
+                                    <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                        <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                            alt="...">
+                                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                            <div class="panel panel-default">
+                                <p>Fifth Section Preview</p>
+                                <div class="panel-body">
+                                    <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                        <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                            alt="...">
+                                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div id="lightbox" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Layout section preview</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> {{!-- Coloum Div --}}
+                </section> <!-- closing section -->
+            </div>
+
+            {{!-- IMAGE PREVIEW SECTION ENDS --}}
+
+            <div class="form_wrapper">
+                <form action="/pages/add" method="POST" class="Regular shadow rounded custom-add-page"
+                    enctype="multipart/form-data" id="add-home-page">
+                    <div id="page-form-group">
+                        <label>Title:</label>
+                        <input class="homepagetitle" name="title" type="text" autocomplete="off" value="{{title}}">
+                        <span class="form_error">Please Enter Page Title</span>
+                    </div>
+                    {{!-- Change 2 --}}
+                    {{!-- My page Check Box Section --}}
+                    <div id="page-form-group">
+                        <label>Select Region: </label>
+                        <input class="" name="selectregion" type="checkbox" autocomplete="off" value=""
+                            onclick="continentCheckHome()" id="first-check-home">
+                        <div class="section-inside" style="display: none;" id="select-id-home">
+                            <h2>Select Region</h2>
+                            <select name="pageregion" class="prod-cat js-example-basic-multiple" multiple="multiple"
+                                style="width: 100%;" id="custom-select-element1">
+                                <option value="select-val" disabled="disabled">Select Category</option>
+                                <option value="usa">USA</option>
+                                <option value="europe">Europe</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {{!-- Select-Region --}}
+                    <div class="custom-extra-home-filed Regular shadow sec-usa sec-europe sec-australia"
+                        style="display: none;" id="home-filed-id">
+                        <div class="home-fields extra-fields">
+                            {{!-------------------------------- Home Page First Section ----------------------------------}}
+                            <div class="firstgroupsection">
+                                <button class="accordian_btn" type="button">First Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>First Section Visibility:</label>
+                                        <input type="radio" class="first-visibility-yes" name="firstvisibility"
+                                            value="yes" checked="checked"> &nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="first-visibility-no" name="firstvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.firstsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}> &nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Title:</label>
+                                        <input type="text" class="first-section-title" name="firsttitle"
+                                            value="{{pagecontent.firstsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Description:</label>
+                                        <textarea class="first-section-description"
+                                            name="firstdescription">{{pagecontent.firstsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Text:</label>
+                                        <input type="text" class="first-section-buttontext" name="firstbtntext"
+                                            value="{{pagecontent.firstsection.btntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Link:</label>
+                                        <input type="text" class="first-section-btnlink" name="firstbtnlink"
+                                            value="{{pagecontent.firstsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>First Section Image:</label>
+                                        </div>
+                                        <div class="image-field-section">
+                                            {{#if pagecontent.firstsection.firstimagelink}}
+                                            <input type="hidden" class="first-img-link" name="firstimagelink"
+                                                value="{{pagecontent.firstsection.firstimagelink}}" autocomplete="off">
+                                            <img src="{{pagecontent.firstsection.firstimagelink}}" />
+                                            {{/if}}
+                                            <input type="file" class="first-section-image" name="firstimage"
+                                                value="{{pagecontent.firstsection.firstimagelink}}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!--------------------------- Home Page Second Section ------------------------------------}}
+                            <div class="secondgroupsection">
+                                <button class="accordian_btn" type="button">Second Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Second Section Visibility:</label>
+                                        <input type="radio" class="second-visibility-yes" name="secondvisibility"
+                                            value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="second-visibility-no" name="secondvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.secondsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}>&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Title:</label>
+                                        <input type="text" class="second-section-title" name="secondtitle"
+                                            value="{{pagecontent.secondsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Description:</label>
+                                        <textarea class="second-section-description"
+                                            name="seconddescription">{{pagecontent.secondsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Link Text:</label>
+                                        <input type="text" class="second-section-linktext" name="secondlinktext"
+                                            value="{{pagecontent.secondsection.linktext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Second Section Button Link:</label>
+                                        <input type="text" class="second-section-link" name="secondlink"
+                                            value="{{pagecontent.secondsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-------------------------------- Home Page Third Section ----------------------------------}}
+                            <div class="thirdgroupsection">
+                                <button class="accordian_btn" type="button">Third Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Third Section Visibility:</label>
+                                        <input type="radio" class="third-visibility-yes" name="thirdvisibility"
+                                            value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="third-visibility-no" name="thirdvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.thirdsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}>&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Small Title:</label>
+                                        <input type="text" class="third-section-stitle" name="thirdstitle"
+                                            value="{{pagecontent.thirdsection.stitle}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Title:</label>
+                                        <input type="text" class="third-section-title" name="thirdtitle"
+                                            value="{{pagecontent.thirdsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Description:</label>
+                                        <textarea class="third-section-description"
+                                            name="thirddescription">{{pagecontent.thirdsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Button Text:</label>
+                                        <input type="text" class="third-section-buttontext" name="thirdbtntext"
+                                            value="{{pagecontent.thirdsection.btntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Button Link:</label>
+                                        <input type="text" class="third-section-btnlink" name="thirdbtnlink"
+                                            value="{{pagecontent.thirdsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>Third Section Image:</label>
+                                        </div>
+                                        <div class="image-field-section">
+                                            {{#if pagecontent.thirdsection.thirdimagelink}}
+                                            <input type="hidden" class="third-img-link" name="thirdimagelink"
+                                                value="{{pagecontent.thirdsection.thirdimagelink}}" autocomplete="off">
+                                            <img src="{{pagecontent.thirdsection.thirdimagelink}}" />
+                                            {{/if}}
+                                            <input type="file" class="third-section-image" name="thirdimage"
+                                                value="{{pagecontent.thirdsection.thirdimagelink}}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!------------------------------- Home Page Fourth Section --------------------------------}}
+                            <div class="fourthgroupsection">
+                                <button class="accordian_btn" type="button">Fourth Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Visibility:</label>
+                                        <input type="radio" class="fourth-visibility-yes" name="fourthvisibility"
+                                            value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="fourth-visibility-no" name="fourthvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.fourthsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}>&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Small Title:</label>
+                                        <input type="text" class="fourth-section-stitle" name="fourthstitle"
+                                            value="{{pagecontent.fourthsection.stitle}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Title:</label>
+                                        <input type="text" class="fourth-section-title" name="fourthtitle"
+                                            value="{{pagecontent.fourthsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Description:</label>
+                                        <textarea class="fourth-section-description"
+                                            name="fourthdescription">{{pagecontent.fourthsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Button Text:</label>
+                                        <input type="text" class="fourth-section-buttontext" name="fourthbtntext"
+                                            value="{{pagecontent.fourthsection.btntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Button Link:</label>
+                                        <input type="text" class="fourth-section-btnlink" name="fourthbtnlink"
+                                            value="{{pagecontent.fourthsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>Fourth Section Image:</label>
+                                        </div>
+                                        <div class="image-field-section">
+                                            {{#if pagecontent.fourthsection.imagelink}}
+                                            <input type="hidden" class="fourth-img-link" name="fourthimagelink"
+                                                value="{{pagecontent.fourthsection.imagelink}}" autocomplete="off">
+                                            <img src="{{pagecontent.fourthsection.imagelink}}" />
+                                            {{/if}}
+                                            <input type="file" class="fourth-section-image" name="fourthimage"
+                                                value="{{pagecontent.fourthsection.imagelink}}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{!----------------------------- Home Page Fifth Section -----------------------------------}}
+                            <div class="fifthgroupsection">
+                                <button class="accordian_btn" type="button">Fifth Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Visibility:</label>
+                                        <input type="radio" class="fifth-visibility-yes" name="fifthvisibility"
+                                            value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="fifth-visibility-no" name="fifthvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.fifthsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}>&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Small Title:</label>
+                                        <input type="text" class="fifth-section-stitle" name="fifthstitle"
+                                            value="{{pagecontent.fifthsection.stitle}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Title:</label>
+                                        <input type="text" class="fifth-section-title" name="fifthtitle"
+                                            value="{{pagecontent.fifthsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Description:</label>
+                                        <textarea class="fifth-section-description"
+                                            name="fifthdescription">{{pagecontent.fifthsection.description}}</textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Button Text:</label>
+                                        <input type="text" class="fifth-section-buttontext" name="fifthbtntext"
+                                            value="{{pagecontent.fifthsection.btntext}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Fifth Section Button Link:</label>
+                                        <input type="text" class="fifth-section-btnlink" name="fifthbtnlink"
+                                            value="{{pagecontent.fifthsection.btnlink}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>Fifth Section Image:</label>
+                                        </div>
+                                        <div class="image-field-section">
+                                            {{#if pagecontent.fifthsection.imagelink}}
+                                            <input type="hidden" class="fifth-img-link" name="fifthimagelink"
+                                                value="{{pagecontent.fifthsection.imagelink}}" autocomplete="off">
+                                            <img src="{{pagecontent.fifthsection.imagelink}}" />
+                                            {{/if}}
+                                            <input type="file" class="fifth-section-image" name="fifthimage"
+                                                value="{{pagecontent.fifthsection.imagelink}}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!---------------------------- Home Page Sixth Section ----------------------------------}}
+                            <div class="sixthgroupsection">
+                                <button class="accordian_btn" type="button">Sixth Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Sixth Section Visibility:</label>
+                                        <input type="radio" class="sixth-visibility-yes" name="sixthsectionvisibility"
+                                            value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="sixth-visibility-no" name="sixthsectionvisibility"
+                                            value="no"
+                                            {{#equal pagecontent.sixthsection.visibility 'no'}}checked="checked"
+                                            {{/equal}}>>&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Sixth Section Title:</label>
+                                        <input type="text" class="sixth-section-title" name="sixthtitle"
+                                            value="{{pagecontent.sixthsection.title}}" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Sixth Section Description:</label>
+                                        <textarea class="sixth-section-description"
+                                            name="sixthdescription">{{pagecontent.sixthsection.description}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Code for layout 1 starts from here --}}
+
+    <div id="layout1" class="size_chart" class="row">
+        {{!-- Layout one Image Preview Section --}}
+        {{!-- IMAGE PREVIEW SECTION --}}
+        <div class="w100 mt100">
+            <div class="preview-section">
+                <label>Check View</label>
+                <input type="checkbox" name="" id="preview-sec-checkboxl1" onclick="previewCheckboxlayout1()">
+            </div>
+            <section class="row" id="display-section-previewl1" style="display: none;">
+                <div class="col-md-12">
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>First Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114341515-prd-01scr.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Second Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114396630-prd-03.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Third Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114401311-prd-04.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Fourth Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Fifth Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="lightbox" class="modal fade" tabindex="-1" role="dialog"
+                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Layout section preview</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {{!-- Coloum Div --}}
+            </section> <!-- closing section -->
+        </div>
+
+        {{!-- IMAGE PREVIEW SECTION ENDS --}}
+        <div class="col-lg-12">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+            <div class="form_wrapper">
+                <form action="/pages/add" method="POST" class="Regular shadow rounded custom-add-page"
+                    enctype="multipart/form-data" id="add-layout1-page">
+                    {{!-- My page Check Box Section --}}
+                    <div id="page-form-group">
+                        <label>Title:</label>
+                        <input class="pagetitle" name="titlelayout1" type="text" autocomplete="off" value="">
+                        <span class="form_error">Please Enter Page Title</span>
+                    </div>
+                    <div id="page-form-group">
+                        <label>Is Page is Common</label>
+                        <input type="radio" class="common-yes" name="pagecommon" value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                        <input type="radio" class="common-no" name="pagecommon" value="no"> &nbsp; No
+                    </div>
+                    {{!-- <input class="" name="selectregion" type="checkbox" autocomplete="off" value=""
+                            onclick="continentCheck()" id="first-check"> --}}
+                    <div id="page-form-group" class="region_select_div" style="display: none;">
+                        <label>Select Region: </label>
+                        <div class="section-inside" id="select-id">
+                            <select name="pageregion" class="prod-cat js-example-basic-multiple" multiple="multiple"
+                                style="width: 100%;" id="custom-select-element">
+                                <option value="select-val" disabled="disabled">Select Category</option>
+                                <option value="usa">USA</option>
+                                <option value="europe">Europe</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="special-append" class="cloningwrraper">
+                        <div class="custom-extra-home-filed Regular shadow sec-usa sec-europe sec-australia" id="layout1-filed-id" data-section="usa">
+                            {{!-- Layout 1 --}}
+                            <div class="country-section" style="display:none;">
+                                <h3>USA</h3>
+                            </div>
+                            <div class="for-cloning-field copyMe">
+                                <div class="home-fields extra-fields">
+                                    {{!----------------- Layout One First Section -------------------------}}
+                                    <div class="firstgroupsection">
+                                        <button class="accordian_btn" type="button">First Section</button>
+                                        <div class="section_panel">
+                                            <div id="page-form-group">
+                                                <label>First Section Visibility:</label>
+                                                <input type="radio" class="first-visibility-yes" name="usafirstvisibility"
+                                                    value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                                <input type="radio" class="first-visibility-no" name="usafirstvisibility"
+                                                    value="no"> &nbsp; No
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>First Section Title:</label>
+                                                <input type="text" class="first-section-title" name="usafirsttitle"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>First Section Author:</label>
+                                                <input type="text" class="first-section-author" name="usafirstauthor"
+                                                    value="" autocomplete="off">
+                                            </div>
+
+                                            <div id="page-form-group">
+                                                <label>First Section Date:</label>
+                                                <input type="text" class="first-section-date" name="usafirstdate" value=""
+                                                    autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>First Section Description:</label>
+                                                <textarea class="first-section-description"
+                                                    name="usafirstdescription"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <div class="image-label-section">
+                                                    <label>First Section Image:</label>
+                                                </div>
+                                                <div class="image-field-section">
+                                                    <input type="file" class="first-section-image" name="usafirstimage"
+                                                        value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>First Section Order:</label>
+                                                <input type="number" class="first-section-order" name="usafirstorder"
+                                                    value="" autocomplete="off" max="100" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{!---------------------- Layout One Second Section ---------------------------}}
+                                    <div class="secondgroupsection">
+                                        <button class="accordian_btn" type="button">Second Section</button>
+                                        <div class="section_panel">
+                                            <div id="page-form-group">
+                                                <label>Second Section Visibility:</label>
+                                                <input type="radio" class="second-visibility-yes"
+                                                    name="usasecondvisibility" value="yes" checked="checked">&nbsp;Yes
+                                                &nbsp; &nbsp;
+                                                <input type="radio" class="second-visibility-no" name="usasecondvisibility"
+                                                    value="no">&nbsp;No
+                                            </div>
+                                            <div class="wrapper1">
+                                                <div class="element1">
+                                                    <div id="page-form-group">
+                                                        <label>Second Section Title:</label>
+                                                        <input type="text" class="second-section-title"
+                                                            name="usasecondtitle[]" value="" autocomplete="off">
+                                                    </div>
+                                                    <div id="page-form-group">
+                                                        <label>Second Section Description:</label>
+                                                        <textarea class="second-section-description"
+                                                            name="usaseconddescription[]"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="results1"></div>
+                                                <div class="buttons">
+                                                    <button type="button" class="btn btn-primary edit-clone1">clone</button>
+                                                    <button type="button" class="btn btn-danger edit-remove1">remove</button>
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section Order:</label>
+                                                <input type="number" class="second-section-order" name="usasecondorder"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <hr>
+                                            <hr>
+                                            <div id="page-form-group">
+                                                <label>Second Section Title 1:</label>
+                                                <input type="text" class="second-section-title1" name="usasecondtitle1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section Description 1:</label>
+                                                <textarea class="second-section-description1"
+                                                    name="usaseconddescription1"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section 1 Order:</label>
+                                                <input type="number" class="second-section-order1" name="usasecondorder1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <hr>
+                                            <hr>
+                                            <div id="page-form-group">
+                                                <label>Second Section Title 2:</label>
+                                                <input type="text" class="second-section-title2" name="usasecondtitle2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section Description 2:</label>
+                                                <textarea class="second-section-description2"
+                                                    name="usaseconddescription2"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section 2 Order:</label>
+                                                <input type="number" class="second-section-order2" name="usasecondorder2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <hr>
+                                            <hr>
+                                            <div id="page-form-group">
+                                                <label>Second Section Title 3:</label>
+                                                <input type="text" class="second-section-title3" name="usasecondtitle3"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section Description:</label>
+                                                <textarea class="second-section-description4"
+                                                    name="usaseconddescription3"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section 3 Order:</label>
+                                                <input type="number" class="second-section-order3" name="usasecondorder3"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <hr>
+                                            <hr>
+                                            <div id="page-form-group">
+                                                <label>Second Section Title 4:</label>
+                                                <input type="text" class="second-section-title4" name="usasecondtitle4"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section Description 4:</label>
+                                                <textarea class="second-section-description4"
+                                                    name="usaseconddescription4"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Second Section 4 Order:</label>
+                                                <input type="number" class="second-section-order4" name="usasecondorder4"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{!------------------ Home Page Third Section -------------------}}
+                                    <div class="thirdsectiongroup">
+                                        <button class="accordian_btn" type="button">Third Section</button>
+                                        <div class="section_panel">
+                                            <div id="page-form-group">
+                                                <label>Third Section Visibility:</label>
+                                                <input type="radio" class="third-visibility-yes" name="usathirdvisibility"
+                                                    value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                                <input type="radio" class="third-visibility-no" name="usathirdvisibility"
+                                                    value="no">&nbsp; No
+                                            </div>
+                                            <div class="wrapper">
+                                                <div class="results">
+                                                    <div class="element">
+                                                        <div id="page-form-group">
+                                                            <label>Third Section Title:</label>
+                                                            <input type="text" class="third-section-title"
+                                                                name="usathirdtitle[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Third Section Description:</label>
+                                                            <textarea class="third-section-description"
+                                                                name="usathirddescription[]"></textarea>
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Third Section Button Text:</label>
+                                                            <input type="text" class="third-section-buttontext"
+                                                                name="usathirdbtntext[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Third Section Button Link:</label>
+                                                            <input type="text" class="third-section-btnlink"
+                                                                name="usathirdbtnlink[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <div class="image-label-section">
+                                                                <label>Third Section Image:</label>
+                                                            </div>
+                                                            <div class="image-field-section third-image-section">
+                                                                <input type="hidden" class="third-img-link"
+                                                                    name="usathirdimagelink[]" value="" autocomplete="off">
+                                                                <input type="file" class="third-section-image"
+                                                                    name="usathirdimage0" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        <div class="buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary edit_clone">clone</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <label>Third Section Order:</label>
+                                                    <input type="number" class="third-section-order" name="usathirdorder"
+                                                        value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Title 1:</label>
+                                                <input type="text" class="third-section-title" name="usathirdtitle1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Description 1:</label>
+                                                <textarea class="third-section-description"
+                                                    name="usathirddescription1"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Button Text 1:</label>
+                                                <input type="text" class="third-section-buttontext" name="usathirdbtntext1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Button Link 1:</label>
+                                                <input type="text" class="third-section-btnlink" name="usathirdbtnlink1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <div class="image-label-section">
+                                                    <label>Third Section Image 1:</label>
+                                                </div>
+                                                <div class="image-field-section">
+                                                    <input type="file" class="third-section-image"
+                                                        name="usathirdcopyimage_1" value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Order 1:</label>
+                                                <input type="number" class="third-section-order1" name="usathirdorder1"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <hr>
+                                            <hr>
+                                            <div id="page-form-group">
+                                                <label>Third Section Title 2:</label>
+                                                <input type="text" class="third-section-title" name="usathirdtitle2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Description 2:</label>
+                                                <textarea class="third-section-description"
+                                                    name="usathirddescription2"></textarea>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Button Text 2:</label>
+                                                <input type="text" class="third-section-buttontext" name="usathirdbtntext2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Button Link 2:</label>
+                                                <input type="text" class="third-section-btnlink" name="usathirdbtnlink2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                            <div id="page-form-group">
+                                                <div class="image-label-section">
+                                                    <label>Third Section Image 2:</label>
+                                                </div>
+                                                <div class="image-field-section">
+                                                    <input type="file" class="third-section-image"
+                                                        name="usathirdcopyimage_2" value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Third Section Order 2:</label>
+                                                <input type="number" class="third-section-order2" name="usathirdorder2"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{!------------------- Home Page Fourth Section ---------------------------}}
+                                    <div class="fourthsectiongroup">
+                                        <button class="accordian_btn" type="button">Fourth Section</button>
+                                        <div class="section_panel">
+                                            <div id="page-form-group">
+                                                <label>Fourth Section Visibility:</label>
+                                                <input type="radio" class="fourth-visibility-yes"
+                                                    name="usafourthvisibility" value="yes" checked="checked"> &nbsp; Yes
+                                                &nbsp; &nbsp;
+                                                <input type="radio" class="fourth-visibility-no" name="usafourthvisibility"
+                                                    value="no"
+                                                    {{#equal pagecontent.fourthsection.visibility 'no'}}checked="checked"
+                                                    {{/equal}}>&nbsp; No
+                                            </div>
+                                            <div class="wrapper2">
+                                                <div class="results2">
+                                                    <div class="element2">
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Title:</label>
+                                                            <input type="text" class="fourth-section-title"
+                                                                name="usafourthtitle[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Author:</label>
+                                                            <input type="text" class="fourth-section-author"
+                                                                name="usafourthauthor[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Description:</label>
+                                                            <textarea class="fourth-section-description"
+                                                                name="usafourthdescription[]"></textarea>
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <div class="image-label-section">
+                                                                <label>Fourth Section Image:</label>
+                                                            </div>
+                                                            <div
+                                                                class="image-field-section image-field-section fourth-img-section">
+                                                                <input type="hidden" class="fourth-img-link"
+                                                                    name="usafourthimagelink[]" value=""
+                                                                    autocomplete="off">
+                                                                <input type="file" class="fourth-section-image"
+                                                                    name="usafourthimage0" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Twitter:</label>
+                                                            <input type="text" class="fourth-section-twitter"
+                                                                name="usafourthtwitter[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Insta:</label>
+                                                            <input type="text" class="fourth-section-insta"
+                                                                name="usafourthinsta[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div id="page-form-group">
+                                                            <label>Fourth Section Facebook:</label>
+                                                            <input type="text" class="fourth-section-facebook"
+                                                                name="usafourthfb[]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div class="buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary edit_clone2">clone</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="page-form-group">
+                                                <label>Fourth Section Order:</label>
+                                                <input type="number" class="fourth-section-order" name="usafourthorder"
+                                                    value="" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <a class="clone" href="javascript:void(0);" style="display:none;">Clone</a>
+                            </div>
+                            <select name="sectiioncopy" class="clone_category_select" style="display:none;">
+                                <option value="">Please select region</option>
+                                <option value="usa">USA</option>
+                                <option value="europe">Europe</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                  <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout2" class="size_chart" style="display: none;" class="row">
+        {{!-- Layout 2 --}}
+        {{!-- IMAGE PREVIEW SECTION --}}
+        <div class="w100 mt100">
+            <div class="preview-section">
+                <label>Check View</label>
+                <input type="checkbox" name="" id="preview-sec-checkboxl2" onclick="previewCheckboxlayout2()">
+            </div>
+            <section class="row" id="display-section-previewl2" style="display: none;">
+                <div class="col-md-12">
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>First Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114341515-prd-01scr.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Second Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114396630-prd-03.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Third Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114401311-prd-04.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Fourth Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-4 col-xs-6 image-holder">
+                        <div class="panel panel-default">
+                            <p>Fifth Section Preview</p>
+                            <div class="panel-body">
+                                <a href="#" class="zoom" data-toggle="modal" data-target="#lightbox">
+                                    <img src="https://new-maxxbio.s3.us-west-2.amazonaws.com/1554114406462-prd-Untitled-1%20copy.png"
+                                        alt="...">
+                                    <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Layout section preview</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {{!-- Coloum Div --}}
+            </section> <!-- closing section -->
+        </div>
+        {{!-- IMAGE PREVIEW SECTION ENDS --}}
+
+        <div class="col-lg-12 Regular shadow rounded custom-add-page">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+
+            <div class="form_wrapper">
+                <form action="/pages/add" method="POST" class="" enctype="multipart/form-data" id="layout2-page-add">
+                    <input type="hidden" name="layout" class="layoutvalue" value="layout2">
+                    <div id="page-form-group">
+                        <label>Title:</label>
+                        <input class="layout2pagetitle" name="title" type="text" autocomplete="off" value="">
+                        <span class="form_error">Please Enter Page Name</span>
+                    </div>
+                    <div id="page-form-group">
+                        <label>Is Page is Common</label>
+                        <input type="radio" class="common-yes" name="layout2common" value="yes" checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                        <input type="radio" class="common-no" name="layout2common" value="no"> &nbsp; No
+                    </div>
+                    <div id="page-form-group" class="region_select_div" style="display: none;">
+                        <label>Select Region: </label>
+                        <div class="section-inside" id="select-id">
+                            <select name="pageregion" class="page_region_select js-example-basic-multiple" multiple="multiple"
+                                style="width: 100%;">
+                                <option value="select-val" disabled="disabled">Select Category</option>
+                                <option value="usa">USA</option>
+                                <option value="europe">Europe</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                    {{!---------------------------- Layout 2 Fields Started --------------------------------}}
+                    <div class="layout2_clone_wrapper">
+                        <div class="layout2-fields extra-fields" data-section="usa" id="usa_field_layout2">
+                            <div class="country-section" style="display:none;">
+                                <h3>USA</h3>
+                            </div>
+                            <div class="firstgroupsection">
+                                <button class="accordian_btn" type="button">First Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>First Section Visibility:</label>
+                                        <input type="radio" class="first-visibility-yes" name="usafirstvisibility" value="yes"
+                                            checked="checked"> &nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="first-visibility-no" name="usafirstvisibility" value="no">&nbsp; No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <div class="image-label-section">
+                                            <label>First Section Background Image:</label>
+                                        </div>
+                                        <div class="image-field-section" id="layout2-first-bg-img">
+                                            <div class="img_preview"></div>
+                                            <input type="file" class="layout2img first-bg-image" name="usafirstbgimage" value="">
+                                        </div>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Title:</label>
+                                        <input type="text" class="section_one_title" name="usafirsttitle" value="" autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Description:</label>
+                                        <textarea class="first-section-description" name="usafirstdescription"></textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Text:</label>
+                                        <input type="text" class="first-section-buttontext" name="usafirstbtntext" value=""
+                                            autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>First Section Button Link:</label>
+                                        <input type="text" class="first-section-btnlink" name="usafirstbtnlink" value=""
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            {{!--------------------------- Layout 2 Second Section -------------------------------}}
+                            <div class="secondgroupsection">
+                                <button class="accordian_btn" type="button">Second Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Second Section Visibility:</label>
+                                        <input type="radio" class="second-visibility-yes" name="usasecondvisibility" value="yes"
+                                            checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="second-visibility-no" name="usasecondvisibility" value="no">&nbsp;
+                                        No
+                                    </div>
+
+                                    <div class="wrapper1">
+                                        <div class="section_two_clone">
+                                            <div class="layout2_second_element" id="layout2_second_element_0">
+                                                <div id="page-form-group">
+                                                    <label>Second Section Title:</label>
+                                                    <input type="text" class="second-section-title" name="usasecondtitle[]" value=""
+                                                        autocomplete="off">
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <label>Second Section Sub Title:</label>
+                                                    <textarea class="second-section-subtitle" name="usasecondsubtitle[]"></textarea>
+                                                </div>
+                                                <div class="second_cloned_wrapper clearfix">
+                                                    <div class="diseases_cloned">
+                                                        <div id="page-form-group">
+                                                            <label>Second Section Diseases Name:</label>
+                                                            <input type="text" class="second-section-diseases"
+                                                                name="usaseconddiseases[0][]" value="" autocomplete="off">
+                                                        </div>
+                                                        <div class="buttons">
+                                                            <button type="button" class="btn btn-primary l2_s_diseases_clone"
+                                                                data-section="0">Clone</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="buttons">
+                                                    <button type="button" class="btn btn-primary l2_second_clone">Clone</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-------------------------------- Layout 2 Third Section ----------------------------}}
+                            <div class="thirdsectiongroup">
+                                <button class="accordian_btn" type="button">Third Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Third Section Visibility:</label>
+                                        <input type="radio" class="third-visibility-yes" name="usathirdvisibility" value="yes"
+                                            checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="third-visibility-no" name="usathirdvisibility" value="no">&nbsp;No
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Title:</label>
+                                        <input type="text" class="third-section-stitle" name="usathirdstitle" value=""
+                                            autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section First Description:</label>
+                                        <textarea class="third-section-firstdescription" name="usathirdfirstdescription"></textarea>
+                                    </div>
+
+                                    <div class="third_cloned_wrapper">
+                                        <div class="third_diseases_cloned">
+                                            <div id="page-form-group">
+                                                <label>Third Section Diseases Name:</label>
+                                                <input type="text" class="third-section-diseases" name="usathirddiseases[]" value=""
+                                                    autocomplete="off">
+                                            </div>
+                                            <div class="buttons">
+                                                <button type="button" class="btn btn-primary l2_third_clone">Clone</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="page-form-group">
+                                        <label>Third Section Second Description:</label>
+                                        <textarea class="third-section-seconddescription" name="usathirdseconddescription"></textarea>
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Button Text:</label>
+                                        <input type="text" class="third-section-buttontext" name="usathirdbtntext" value=""
+                                            autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Button Link:</label>
+                                        <input type="text" class="third-section-btnlink" name="usathirdbtnlink" value=""
+                                            autocomplete="off">
+                                    </div>
+
+                                    <div id="page-form-group">
+                                        <label>Third Section Schedule Link Text:</label>
+                                        <input type="text" class="third-section-buttontext" name="usathirdslinktext" value=""
+                                            autocomplete="off">
+                                    </div>
+                                    <div id="page-form-group">
+                                        <label>Third Section Schedule Link URL:</label>
+                                        <input type="text" class="third-section-btnlink" name="usathirdsbtnlink" value=""
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            {{!--------------------------- Layout 2 Fourth Section --------------------------------}}
+                            <div class="fourthsectiongroup">
+                                <button class="accordian_btn" type="button">Fourth Section</button>
+                                <div class="section_panel">
+                                    <div id="page-form-group">
+                                        <label>Fourth Section Visibility:</label>
+                                        <input type="radio" class="fourth-visibility-yes" name="usafourthvisibility" value="yes"
+                                            checked="checked">&nbsp; Yes &nbsp; &nbsp;
+                                        <input type="radio" class="fourth-visibility-no" name="usafourthvisibility" value="no">&nbsp;
+                                        No
+                                    </div>
+
+                                    <div class="wrapper2">
+                                        <div class="fourth_results">
+                                            <div class="fourth_element">
+                                                <div id="page-form-group">
+                                                    <label>Fourth Section Title:</label>
+                                                    <input type="text" class="fourth-section-title" name="usafourthtitle[]" value=""
+                                                        autocomplete="off">
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <div class="image-label-section">
+                                                        <label>Fourth Section Image:</label>
+                                                    </div>
+                                                    <div class="image-field-section image-field-section fourth-img-section">
+                                                        <input type="hidden" class="fourth-img-link" name="usafourthimagelink[]"
+                                                            value="" autocomplete="off">
+                                                        <input type="file" class="fourth-section-image" name="usafourthimage0" value=""
+                                                            autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div id="page-form-group">
+                                                    <label>Fourth Section Image Link:</label>
+                                                    <input type="text" class="fourth-section-link" name="usafourthlink[]" value=""
+                                                        autocomplete="off">
+                                                </div>
+                                                <div class="buttons">
+                                                    <button type="button" class="btn btn-primary l2_fourthclone">Clone</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <select name="layout2_section_copy" class="clone_region_select" style="display:none;">
+                                <option value="">Select Region</option>
+                                <option value="usa">USA</option>
+                                <option value="europe">Europe</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                            <button type="button" class="btn btn-primary layout2-clone-btn" style="display:none;">Clone</button>
+                        </div>
+                    </div>
+                    
+                    {{!-- <div id="page-form-group">
+                        <label>Country:</label>
+                        <select name="country" id="" class="layout2-page-country">
+                            {{#each countries as |countriesValue countrieskey|}}
+                            <option value="{{countriesValue}}" {{#equal ../country countriesValue}}selected="selected"
+                                {{/equal}}>{{countriesValue}}</option>
+                            {{/each}}
+                        </select>
+                        <span class="form_error">Please Enter Country</span>
+                    </div> --}}
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="html" class="size_chart" style="display: none;" class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success pagesuccess" style="display:none;"></div>
+            <div class="alert alert-danger pagedanger" style="display:none;"></div>
+            <form action="/pages/add" method="POST" class="" enctype="multipart/form-data" id="pageaddform">
+                <input type="hidden" name="layout" class="layoutvalue" value="html">
+
+                <div id="page-form-group">
+                    <label>Title:</label>
+                    <input class="htmlpagetitle" name="title" type="text" autocomplete="off" value="">
+                    <span class="form_error">Please Enter Page Name</span>
+                </div>
+                <div id="page-form-group">
+                    <label>Select Region: </label>
+                    <input class="" name="showregion" type="checkbox" autocomplete="off" value=""
+                        onclick="continentCheckdl()" id="first-check-dl">
+                    <div class="section-inside" style="display: none;" id="select-id-dl">
+                        <h2>Select Region</h2>
+                        <select name="pageregion" class="prod-cat js-example-basic-multiple" multiple="multiple"
+                            style="width: 100%;" id="custom-select-element1">
+                            <option value="select-val" disabled="disabled">Select Category</option>
+                            <option value="usa">USA</option>
+                            <option value="europe">Europe</option>
+                            <option value="australia">Australia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <textarea id="code" name="htmlcode" class="htmlcodeeditor">
+                            <!-- xml/html syntax -->
+                            <!DOCTYPE html>
+                            <html>
+                                <head>
+                                    <body>
+                                    <!-- ADD YOUR HTML CODE HERE -->
+                                    </body>
+                                </head>
+                            </html>
+                        </textarea>
+                </div>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+{{> footer}}
