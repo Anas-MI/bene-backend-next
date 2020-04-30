@@ -34,7 +34,7 @@
     "express-validator": "^5.2.0",
     "googleapis": "^38.0.0",
     "hbs": "^4.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jquery.repeater": "^1.2.1",
     "jsdom": "^11.11.0",
     "moment": "^2.22.2",
