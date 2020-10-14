@@ -6,7 +6,7 @@ db.once('open', function () {
     console.log('Connected to MongoDB New');
 });
 
-db.on('error', function (err) {
+db.on('error', function (err) { 
     console.log(err);
 }); 
 

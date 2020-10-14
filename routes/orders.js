@@ -938,15 +938,21 @@ router.post('/process/order', async function(req, res) {
 						let filehtml = '/' + data._id + '.html';
 
 						let filepdf = '/' + data._id + '.pdf';
-
+						
+						
 						// Render invoice as HTML and PDF
 
 						myInvoice
 							.toHtml('./public/images' + filehtml, (err, data) => {
+								if(err) console.log('invoice tohtml',err);
+								
 								console.log(data);
 								console.log('Saved HTML file');
 							})
 							.toPdf('./public/images' + filepdf, (err, data) => {
+								if(err){
+									console.log('invoice to pdf',err);	
+								}
 								console.log('Saved pdf file');
 							});
 						let path = './public/images/' + data._id + '.pdf';
