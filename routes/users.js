@@ -98,10 +98,13 @@ router.get('/edit/:id', async function(req, res) {
 // APi login route
 router.post('/api/login', async function(req, res) {
 	if (req.body.facebook) {
-		User2.findOne({ facebook: req.body.facebook }).then((data) => check(data));
+		
 		let checkIfExists = await User2.findOne({email: req.body.email})
-		if(checkIfExists.length === 0){
+		console.log("check:",checkIfExists);
+		if(!checkIfExists){
+			User2.findOne({ facebook: req.body.facebook }).then((data) => check(data));
 		async function check(data) {
+			console.log("facebook:",data);
 			if (data == null) {
 				res.json({ status: false, message: 'User not found' });
 			} else {
@@ -114,8 +117,7 @@ router.post('/api/login', async function(req, res) {
 		}
 	} else if (req.body.google) {
 		let checkIfExists = await User2.findOne({email: req.body.email});
-		if(checkIfExists.length === 0){
-		console.log(req.body);
+		if(!checkIfExists){
 		User2.findOne({ google: req.body.google }).then((data) => check(data));
 		async function  check(data) {
 			console.log(data);
@@ -174,16 +176,19 @@ router.post('/api/login', async function(req, res) {
 //API REGISTER ROUTE
 router.post('/api/register', async (req, res) => {
 	if (req.body.facebook) {
-		let data = await User2.find({ email: req.body.email });
-		if (data.length == 0) {
+		let data = await User2.findOne({ email: req.body.email });
+		if (!data) {
 			const user = new User2({
 				facebook: req.body.facebook,
 				email: req.body.email,
 				role: 'customer',
 				username: req.body.username
 			});
-			await user.save().then(() => set(data));
-			async function set(user) {
+			await user.save(function(err){
+				if(err) return console.log(err);
+			});
+			
+				console.log(user);
 				let usermeta = new Usermeta2({ userid: user._id });
 				await usermeta.save().then(() => res.json({ status: true, user }));
 				var mailOptions = {
@@ -197,7 +202,7 @@ router.post('/api/register', async (req, res) => {
 					}
 					console.log('Registration email sent ');
 				});
-			}
+			
 		} else {
 			res.json({ status: false, message: 'User already exists' });
 			return;

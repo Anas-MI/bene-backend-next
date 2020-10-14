@@ -1541,7 +1541,7 @@ router.get('/api/getbyname/:id', async function(req, res){
     let toFind = req.params.id.replace(/-/g," ");
     console.log({toFind})
     let product = await Product.findOne({"producttitle":{ "$regex" : toFind , "$options" : "i"}}).populate('productid').populate('categoryid')
-    
+    console.log(product);
     if(product){
        let productmeta =  await ProductMeta.findOne({productid: product._id}).populate('productid').populate('categoryid')
         return res.status(200).json({status: true, product_details: productmeta})
