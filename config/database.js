@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/bene');
+// mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bene');
 let db = mongoose.connection;
 db.once('open', function () {
     console.log('Connected to MongoDB New');
@@ -37,5 +38,6 @@ vendor: require("../models/vendor"),
 packagetype:require("../models/packageType"),
 barcodes: require("../models/barcode"),
 combos: require("../models/combos"),
-affiliation:require("../models/affiliation")
+affiliation:require("../models/affiliation"),
+Folder:require("../models/folder")
 }

@@ -283,5 +283,6 @@ app.use("/ship", require("./routes/easyPost"));
 app.use("/review", require("./routes/reviews"));
 app.use("/authorize", require("./routes/Authorize"));
 app.use("/contact-us", require("./routes/contactus"));
+app.use("/folders", require("./routes/folder"));
 
 app.listen(PORT, () => console.log('Listening on '+ PORT));
