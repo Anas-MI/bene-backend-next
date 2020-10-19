@@ -40,6 +40,7 @@ router.get("/", (req, res) => {
 })
 
 router.post("/add", (req, res ) => {
+    console.log(req.body)
     if (!fs.existsSync(`./public/folders/${req.body.folder}`)){
         fs.mkdirSync(`./public/folders/${req.body.folder}`);
     }
@@ -48,25 +49,73 @@ router.post("/add", (req, res ) => {
 })
 
 router.post("/files/add", upload.any(), async(req, res) => {
-    console.log(req)
+    let folder, files
     if(req.body.folder){
-        let files
-        Folder.findOne({name: req.body.folder}, (err, folder) => {
-            // console.log(req.files)
-            files = [...folder.files]
-            req.files.map( (item, index) => {
-                console.log(item)
-                let filepath = `./public/folders/${item.filename}`
-                fs.move(`./public/folders/${item.filename}`, filepath);
-                files.push({
-                    name: item.filename,
-                    path: filepath
-                })
+        folder = await Folder.findOne({name: req.body.folder})
+        files = [...folder.files]
+        req.files.map( (item, index) => {
+            let filepath = `./public/folders/${req.body.folder}/${item.filename}`
+            fs.move(`./public/folders/${item.filename}`, filepath);
+            files.push({
+                name: item.filename,
+                path: filepath
             })
-            // console.log(files)
         })
-    }     
+    }else{
+        let folder = await Folder.findOne({name: 'root'})
+        files = [...folder.files]
+        req.files.map( (item, index) => {
+            files.push({
+                name: item.filename,
+                path: item.path
+            })
+        })
+    }
+    folder.save().then(data => res.status(200).json(folder)).catch(err => err)     
 })
 
+router.post("/delete/:id", (req, res) => {
+    Folder.deleteOne({_id: req.params.id}).then(async () => {
+        await fs.remove(`./public/folders/${req.body.name}`)
+        return res.status(200).json({message: 'Folder Deleted Successfully'})
+    }).catch(err => err)
+})
 
+router.post("/edit/:id", async(req, res) => {
+    let folder = await Folder.findById(req.params.id)
+    console.log(folder)
+    if(folder){
+        fs.renameSync(`./public/folders/${folder.name}`, `./public/folders/${req.body.name}`)
+        folder.name = req.body.name
+        let files = folder.files.map((file) => {
+            file.location = `./public/folders/${req.body.name}/${file.name}`
+        })
+        folder.files = files
+        folder.save().then(data => res.status(200).json(folder)).catch(err => err)
+    }
+})
+
+router.post("/files/delete/:id", (req, res) => {
+    let folder = Folder.findOne({_id: req.params.id})
+    let files = [...folder.files]
+    files = files.filter(file => file.name !== req.body.fileName)
+    folder.files = files
+    fs.removeSync(`./public/folders/${folder.name}/req.body.fileName`)
+    folder.save().then(data => res.status(200).json(folder)).catch(err => err)
+})
+
+router.post("/files/edit/:id", (req, res) => {
+    let folder = Folder.findOne({_id: req.params.id})
+    let files = [...folder.files]
+    let file = files.filter(file => file._id === req.body.id)[0]
+    fs.renameSync(`./public/folders/${folder.name}/${file.name}`, `./public/folders/${folder.name}/${req.body.filename}`)
+    files = files.map(item => {
+        if(item._id === file._id){
+            item.path = `./public/folders/${folder.name}/${req.body.filename}`
+        }
+    })
+    folder.files = files
+    folder.save().then(data => res.status(200).json(folder)).catch(err => err)
+})
+ 
 module.exports = router
