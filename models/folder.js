@@ -8,7 +8,7 @@ const folderSchema = mongoose.Schema({
     files: [
         {
             name: {type: String},
-            fileLocation: {type: String}
+            path: {type: String}
         }
     ]
 }, {timeStamp: true});
