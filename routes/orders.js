@@ -430,7 +430,9 @@ router.post('/api/delete', async function(req, res) {
 router.get('/api/getbyuser/:id', function(req, res) {
 	let query = req.params.id;
 	OOrder.find({ userMetaId: query })
-		.populate('products')
+		.populate({path:'products',populate:{
+			path:'productId'
+		}})
 		.then((data) => res.json({ status: true, orders: data }))
 		.catch((err) => res.json({ status: false, error: err }));
 	// 		if (err) {
