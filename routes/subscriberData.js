@@ -13,9 +13,14 @@ router.post("/add", (req, res) => {
     if (result) {
       return res
         .status(200)
-        .json({ message: "Email has already been subscribed" });
+        .json({ message: "Email has already been subscribed !" });
     } else {
-      subscriberData.save().then((result) => res.status(200).json(result));
+      subscriberData.save().then((result) =>
+        res.status(200).json({
+          data: result,
+          message: "Thank you for Subscribing !",
+        })
+      );
     }
   });
 });
