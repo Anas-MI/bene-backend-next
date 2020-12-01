@@ -3,12 +3,13 @@ const express = require("express"),
     nodemailer = require("nodemailer");
 
 let smtpTransport = nodemailer.createTransport({
-    host: 'localhost',
-    port: 25, 
+    host: 'email-smtp.ap-south-1.amazonaws.com',
+    port: 25,
     secure: false,
-    tls:{
-        rejectUnauthorized: false
-    }
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 router.get("/test", (req, res) => {

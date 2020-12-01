@@ -55,12 +55,13 @@ let Creatives = require("../models/creatives");
 // });
 
 let smtpTransport = nodemailer.createTransport({
-    host: 'localhost',
+    host: 'email-smtp.ap-south-1.amazonaws.com',
     port: 25,
     secure: false,
-    tls:{
-        rejectUnauthorized: false
-    }
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 let sessionChecker = (req, res, next) => {
