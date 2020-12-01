@@ -1,7 +1,8 @@
+
 const mongoose = require("mongoose");
-const subscriberData = require("../models/subscriberData");
 // mongoose.set('debug', true);
 mongoose.connect(process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/bene");
+
 // mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bene');
 let db = mongoose.connection;
 db.once("open", function () {
@@ -15,6 +16,7 @@ db.on("error", function (err) {
 mongoose.Promise = global.Promise;
 
 module.exports = {
+
   User: require("../models/user"),
   UserMeta: require("../models/usermeta"),
   Category: require("../models/category"),
@@ -42,3 +44,4 @@ module.exports = {
   Folder: require("../models/folder"),
   SubscriberData: require("../models/subscriberData"),
 };
+

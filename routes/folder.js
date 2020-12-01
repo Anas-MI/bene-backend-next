@@ -39,6 +39,7 @@ router.get("/", (req, res) => {
     Folder.find().then(folders => res.status(200).json(folders)).catch(err => err)
 })
 
+
 router.post ("/files", (req, res) => {
     Folder.findOne({name: req.body.folder}).then(folder => res.status(200).json(folder)).catch(err => err)
 })
@@ -56,6 +57,7 @@ router.post("/add", (req, res ) => {
     let folder = new Folder({name: req.body.folder})
     folder.save().then(data => res.status(200).json(folder)).catch(err => err)
 })
+
 
 router.post("/files/add", upload.any(), async(req, res) => {
     console.log(req)
@@ -87,16 +89,19 @@ router.post("/files/add", upload.any(), async(req, res) => {
     folder.save().then(data => res.status(200).json(folder)).catch(err => err)     
 })
 
+
 router.post("/delete", async (req, res) => {
     const folder = await Folder.findOne({_id: req.body.id})
     Folder.deleteOne({_id: req.body.id}).then(async () => {
         await fs.remove(`./public/folders/${folder.name}`)
+
         return res.status(200).json({message: 'Folder Deleted Successfully'})
     }).catch(err => err)
 })
 
 router.post("/edit", async(req, res) => {
     let folder = await Folder.findById(req.body.id)
+
     console.log(folder)
     if(folder){
         fs.renameSync(`./public/folders/${folder.name}`, `./public/folders/${req.body.folder}`)
@@ -119,6 +124,7 @@ router.post("/files/delete", async (req, res) => {
     let file = files.filter(file => file._id == req.body.fileId)[0]
     console.log(file)
     files = files.filter(file => file._id != req.body.fileId)
+
     folder.files = files
     fs.removeSync(`./public/folders/${folder.name}/${file.name}`)
     folder.save().then(data => res.status(200).json(folder)).catch(err => err)
@@ -129,12 +135,15 @@ router.post("/files/edit", async(req, res) => {
     console.log(folder.files)
     let files = [...folder.files]
     let file = files.filter(file => file._id == req.body.fileId)[0]
+
     console.log(file)
     fs.renameSync(`./public/folders/${folder.name}/${file.name}`, `./public/folders/${folder.name}/${req.body.fileName}`)
     files = []
     folder.files.map(item => {
         if(item._id === file._id){
+
             item.name = req.body.fileName
+
             item.path = `./public/folders/${folder.name}/${req.body.fileName}`
         }
         files.push(item)
