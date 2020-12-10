@@ -536,7 +536,7 @@ router.post('/forgetpassword', async function(req, res, next) {
 		// });
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			console.log(here);
+			
 			if (err) {
 				console.log(error);
 				return res.status(404).json({ success: false, message: error });
