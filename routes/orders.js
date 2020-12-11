@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const moment = require('moment-timezone');
@@ -401,13 +402,18 @@ router.get('/testcron', (req, res) => {
 // let User = require('../models/user');
 // let Notification = require('../models/notification');
 
+
 let smtpTransport = nodemailer.createTransport({
-	host: 'localhost',
+	host:"email-smtp.ap-south-1.amazonaws.com",
 	port: 25,
 	secure: false,
 	tls: {
 		rejectUnauthorized: false
-	}
+	},
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 //Route to fetch the order as per the userid

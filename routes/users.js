@@ -17,14 +17,15 @@ var key = 'abcdefghijklmnopqrstuvwxyztgbhgf';
 let iv = '1234567891234567';
 let cipher = crypto.createCipheriv(algorithm, new Buffer.from(key), iv);
 const { google } = require('googleapis');
-
+require('dotenv').config();
 let smtpTransport = nodemailer.createTransport({
-    host: 'localhost',
+    host: 'email-smtp.ap-south-1.amazonaws.com',
     port: 25,
     secure: false,
-    tls:{
-        rejectUnauthorized: false
-    }
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 // const OAuth2 = google.auth.OAuth2;
@@ -54,7 +55,7 @@ let smtpTransport = nodemailer.createTransport({
 // 		service: 'gmail',
 // 		auth: {
 // 			type: 'OAuth2',
-// 			user: 'admin@thirdessential.com',
+// 			user: 'support@thirdessential.com',
 // 			clientId: '1046438206668-j9jojvn8hcc3dd7d32p8fn1ed2g7vqbs.apps.googleusercontent.com',
 // 			clientSecret: '5IyyBQxJI9I44XzoLbRv0AO3',
 // 			refreshToken: '1/5TaFf1UzWmH10uDIuN1kBtieOvS6FO0mGRGxXxn9dwo',
@@ -192,7 +193,7 @@ router.post('/api/register', async (req, res) => {
 				let usermeta = new Usermeta2({ userid: user._id });
 				await usermeta.save().then(() => res.json({ status: true, user }));
 				var mailOptions = {
-					from: '"CBD Bene" <admin@cbdbene.com>',
+					from: '"CBD Bene" <support@cbdbene.com>',
 					to: req.body.email,
 					subject: 'Successfully Registered - CBDBene',
 					text: "You've been succesfully registered on CBDBene. "
@@ -224,7 +225,7 @@ console.log({ aa: data.length });
 				let usermeta = new Usermeta2({ userid: user._id });
 				await usermeta.save().then((data) => res.json({ status: true, user }));
 				var mailOptions = {
-					from: '"CBD Bene" <admin@cbdbene.com>',
+					from: '"CBD Bene" <support@cbdbene.com>',
 					to: req.body.email,
 					subject: 'Successfully Registered - CBDBene',
 					text: "You've been succesfully registered on CBDBene. "
@@ -288,7 +289,7 @@ console.log({ aa: data.length });
 					
 
 					var mailOptions = {
-						from: '"CBD Bene" <admin@cbdbene.com>',
+						from: '"CBD Bene" <support@cbdbene.com>',
 						to: req.body.email,
 						subject: 'Successfully Registered - CBDBene',
 						text: "You've been succesfully registered on CBDBene. "
@@ -599,7 +600,7 @@ router.post('/register', ensureNotAuthenticated, async (req, res) => {
 						});
 					} else {
 		var mailOptions = {
-			from: '"CBD Bene" <admin@cbdbene.com>',
+			from: '"CBD Bene" <support@cbdbene.com>',
 			to: req.body.email,
 			subject: 'Registration Complete - CBDBene',
 			text: "You have been successfully registered on CBDBene"
@@ -683,7 +684,7 @@ router.post('/api/forgetpassword', async function(req, res, next) {
 			// var transporter = nodemailer.createTransport({
 			// 	service: 'gmail',
 			// 	auth: {
-			// 		user: 'admin@thirdessential.com',
+			// 		user: 'support@thirdessential.com',
 			// 		pass: 'thirdessential@21'
 			// 	}
 			// });
@@ -694,7 +695,7 @@ router.post('/api/forgetpassword', async function(req, res, next) {
 		var emailText = 'Please click on the link below to reset your password - CBDBene';
 		emailText += '<p><a href="' + url + '">Click Here</a>';
 		var mailOptions = {
-			from: '"CBD Bene" <admin@cbdbene.com>',
+			from: '"CBD Bene" <support@cbdbene.com>',
 			to: userEmail,
 			subject: 'Forget Password Link - CBDBene',
 			html: emailText
@@ -704,7 +705,7 @@ router.post('/api/forgetpassword', async function(req, res, next) {
 		// 	service: 'gmail',
 		// 	auth: {
 		// 		type: 'OAuth2',
-		// 		user: 'admin@thirdessential.com',
+		// 		user: 'support@thirdessential.com',
 		// 		clientId:
 		// 			'1046438206668-j9jojvn8hcc3dd7d32p8fn1ed2g7vqbs.apps.googleusercontent.com',
 		// 		clientSecret: '5IyyBQxJI9I44XzoLbRv0AO3',
@@ -804,7 +805,7 @@ router.post('/forgetpassword', async function(req, res, next) {
 			var emailText = 'please click on the below link for the forget password link';
 			emailText += '<p><a href="' + url + '">click here</a>';
 			var mailOptions = {
-				from: '"CBD Bene" <admin@cbdbene.com>',
+				from: '"CBD Bene" <support@cbdbene.com>',
 				to: userEmail,
 				subject: 'Forget Password Link',
 				html: emailText
