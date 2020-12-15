@@ -14,6 +14,7 @@
     "dependencies": {
         "@easypost/api": "^3.9.1",
         "aws-sdk": "^2.705.0",
+        "aws-smtp-credentials": "^1.0.0",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "bootstrap-colorpicker": "^3.2.0",
