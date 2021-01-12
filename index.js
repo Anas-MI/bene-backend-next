@@ -326,5 +326,4 @@ app.use("/contact-us", require("./routes/contactus"));
 app.use("/folders", require("./routes/folder"));
 app.use("/subscribedData", require("./routes/subscriberData"));
 
-
 app.listen(PORT, () => console.log("Listening on " + PORT));
