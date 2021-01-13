@@ -55,12 +55,13 @@ let Creatives = require("../models/creatives");
 // });
 
 let smtpTransport = nodemailer.createTransport({
-    host: 'localhost',
-    port: 25,
+    host: 'email-smtp.ap-south-1.amazonaws.com',
+    port: 587,
     secure: false,
-    tls:{
-        rejectUnauthorized: false
-    }
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 let sessionChecker = (req, res, next) => {
@@ -87,7 +88,7 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage,
     fileFilter: function (req, file, callback) {
         var ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' &&  ext !== '.webp') {
             req.fileValidationError = "Forbidden extension";
             return callback(null, false, req.fileValidationError);
         }
@@ -535,7 +536,7 @@ router.post('/forgetpassword', async function(req, res, next) {
 		// });
 
 		smtpTransport.sendMail(mailOptions, (error, response) => {
-			console.log(here);
+			
 			if (err) {
 				console.log(error);
 				return res.status(404).json({ success: false, message: error });

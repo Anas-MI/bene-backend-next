@@ -1377,7 +1377,7 @@ aws.config.update({
 const app = express();
 const s3 = new aws.S3();
 //Dont forget to change this
-const apiKey = "EZTKabecb64c21dd48da9c2049dbce486899dlgd5K9QwNRQq4xhv01gJQ"
+const apiKey = "EZTK09944b7a65df4e44a6d8457478b41575Hq5800KjUUXBh0L8zNhKow"
 
 const api = new EasyPost(apiKey);
 const OOrder = require("../models/order");
@@ -1418,7 +1418,7 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage,
     fileFilter: function (req, file, callback) {
         var ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' &&  ext !== '.webp') {
             req.fileValidationError = "Forbidden extension";
             return callback(null, false, req.fileValidationError);
         }

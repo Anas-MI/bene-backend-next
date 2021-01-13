@@ -20,6 +20,7 @@ const s3 = new aws.S3();
 app.use(bodyParser.json());
 
 const upload = multer({
+
   storage: multerS3({
     s3: s3,
     bucket: process.env.BUCKET,
@@ -28,6 +29,7 @@ const upload = multer({
     },
     key: function (req, file, cb) {
       cb(null, Date.now() + "-prd-" + file.originalname);
+
     },
   }),
   fileFilter: function (req, file, callback) {

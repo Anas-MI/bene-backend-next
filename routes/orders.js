@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const moment = require('moment-timezone');
@@ -22,7 +23,7 @@ const Product = require('../models/product.js');
 const Combos = require('../models/combos');
 //Test key
 //Dont forget to change this
-const apiKey = 'EZTKabecb64c21dd48da9c2049dbce486899dlgd5K9QwNRQq4xhv01gJQ';
+const apiKey = 'EZTK09944b7a65df4e44a6d8457478b41575Hq5800KjUUXBh0L8zNhKow';
 
 const api = new EasyPost(apiKey);
 
@@ -401,13 +402,18 @@ router.get('/testcron', (req, res) => {
 // let User = require('../models/user');
 // let Notification = require('../models/notification');
 
+
 let smtpTransport = nodemailer.createTransport({
-	host: 'localhost',
+	host:"email-smtp.ap-south-1.amazonaws.com",
 	port: 25,
 	secure: false,
 	tls: {
 		rejectUnauthorized: false
-	}
+	},
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
 });
 
 //Route to fetch the order as per the userid
@@ -578,12 +584,22 @@ router.post('/process/order', async function(req, res) {
 
 					let trackerid;
 					if (req.body.carrier !== 'shipment_failed') {
-						trackerid = req.body.trackerid;
+						//trackerid = req.body.trackerid;
+						trackerid =``
 					} else {
 						trackerid = 'Not found';
 					}
 					if (req.body.carrier !== 'shipment_failed') {
-						api.Tracker.retrieve(trackerid).then((s) => sendTrackingId(s)).catch(console.log);
+						
+							console.log(trackerid);
+							api.Tracker.retrieve(trackerid)
+									.then(s =>{
+										console.log(s);
+										console.log(`${trackerid}`);
+										sendTrackingId(s)})
+									.catch(err=>console.log(err));
+						
+						
 					} else {
 						let dummy = {
 							public_url: 'Not Found'
@@ -616,7 +632,7 @@ router.post('/process/order', async function(req, res) {
 								console.log({ prod });
 							}
 
-							let prodimg = 'https://admin.cbdbene.com/var/www/cbdbene_3rde/cbdbene/' + prod.menuimage;
+							let prodimg = 'https://admin.cbdbene.com/images/uploads/' + prod.menuimage;
 
 							console.log({ prodimg });
 
