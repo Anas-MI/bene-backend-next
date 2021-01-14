@@ -10,17 +10,41 @@ const apiKey = "EZTK09944b7a65df4e44a6d8457478b41575Hq5800KjUUXBh0L8zNhKow"
 //const apiKey = "EZAKabecb64c21dd48da9c2049dbce486899y32tOxabXd1V7aP7cunOSQ"
 
 const api = new EasyPost(apiKey);
-
+router.post("/verifyAddress",(req,res)=>{
+    const toAddress = new api.Address({
+        verify_strict: ['delivery'],
+        name: 'Dr. Steve Brule',
+        street2: '179 N Harbor Dr',
+        city: 'Redondo Beach',
+        state: 'CA',
+        zip: '',
+        country: 'US',
+        phone: '310-808-5243'
+    });
+    toAddress.save().then((addr) => {
+        console.dir(addr.verifications, {
+          depth: null
+        });
+      
+       return res.send(addr);
+        /*
+        { delivery:
+         { success: false,
+           errors:
+            [ { message: 'Address not found',
+                field: 'address',
+                code: 'E.ADDRESS.NOT_FOUND',
+                suggestion: null },
+              { message: 'House number is missing',
+                field: 'street1',
+                code: 'E.HOUSE_NUMBER.MISSING',
+                suggestion: null } ],
+           details: {} } }
+           */
+      }).catch(err=>console.log(err));
+})
 // Set Address
-const toAddress = new api.Address({
-    name: 'Dr. Steve Brule',
-    street1: '179 N Harbor Dr',
-    city: 'Redondo Beach',
-    state: 'CA',
-    zip: '90277',
-    country: 'US',
-    phone: '310-808-5243'
-});
+
 
 const fromAddress = new api.Address({
     name: 'EasyPost',
@@ -38,14 +62,15 @@ fromAddress.save().then(addr => {
 
 //Create a shipment
 router.post("/shipment", (req, res) => {
+    console.log(req.body);
     let name= req.body.name,
-    street1= req.body.street,
-    city= req.body.street,
+    street1= req.body.street.split(",")[0],
+    city= req.body.city,
     state= req.body.state,
     zip= req.body.zip,
-    country= req.body.country,
+    country= req.body.country, 
     phone= req.body.phone;
-
+console.log(street1);
     //Creation of from address
     // const fromaddress = new api.Address({
     //     name: 'EasyPost',
@@ -155,6 +180,7 @@ api.Tracker.all({
 //Retrieve a tracker
 router.post("/track/", (req, res) => {
     let trackerid = req.body.trackerid;
+    console.log(trackerid);
 api.Tracker.retrieve(trackerid).then(s => res.json({status: true, data: s})).catch((error) => res.json({status: false, error}));    
 })
 

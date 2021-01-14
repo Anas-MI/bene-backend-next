@@ -55,12 +55,22 @@ let Creatives = require("../models/creatives");
 // });
 
 let smtpTransport = nodemailer.createTransport({
+<<<<<<< HEAD
   host: "localhost",
   port: 25,
   secure: false,
   tls: {
     rejectUnauthorized: false,
   },
+=======
+    host: 'email-smtp.ap-south-1.amazonaws.com',
+    port: 587,
+    secure: false,
+	auth: {
+		user: process.env.smtpUsername,
+		pass: process.env.smtpPassword
+	  }
+>>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 });
 
 let sessionChecker = (req, res, next) => {
@@ -99,6 +109,23 @@ var upload = multer({
     fileSize: 420 * 150 * 200,
   },
 });
+<<<<<<< HEAD
+=======
+var upload = multer({storage: storage,
+    fileFilter: function (req, file, callback) {
+        var ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' &&  ext !== '.webp') {
+            req.fileValidationError = "Forbidden extension";
+            return callback(null, false, req.fileValidationError);
+        }
+        callback(null, true)
+    },
+    limits:{
+        fileSize: 420 * 150 * 200
+    }});
+
+
+>>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 
 //Register route for Ambassador Portal
 router.post("/register", async (req, res) => {
@@ -661,6 +688,7 @@ router.post("/forgetpassword", async function (req, res, next) {
     // 	}
     // });
 
+<<<<<<< HEAD
     smtpTransport.sendMail(mailOptions, (error, response) => {
       console.log(here);
       if (err) {
@@ -707,6 +735,99 @@ router.post("/forgetpassword", async function (req, res, next) {
       });
     }
   }
+=======
+//Forhget password link 
+router.post('/forgetpassword', async function(req, res, next) {
+	if (req.body.firststep) {
+		req.checkBody('email', 'email is required').notEmpty();
+		let errors = req.validationErrors();
+		if (errors) return res.status(404).json({ success: false, message: 'validation error' });
+
+		let userExist = await Affiliate.findOne({ email: req.body.email }, 'email', function(
+			err,
+			user
+		) {});
+		if (!userExist) {
+			return res.status(404).json({ success: false, message: 'No user found' });
+		} else {
+			// var transporter = nodemailer.createTransport({
+			// 	service: 'gmail',
+			// 	auth: {
+			// 		user: 'admin@thirdessential.com',
+			// 		pass: 'thirdessential@21'
+			// 	}
+			// });
+
+			var url = process.env.serverurl + '/ambassador-portal/update-password/?token=' + userExist._id;
+		}
+		var userEmail = userExist.email;
+		var emailText = 'Please click on the link below to reset your password - CBDBene';
+		emailText += '<p><a href="' + url + '">Click Here</a>';
+		var mailOptions = {
+			from: '"CBD Bene" <admin@cbdbene.com>',
+			to: userEmail,
+			subject: 'Forget Password Link - CBDBene',
+			html: emailText
+		};
+
+		// smtpTransport = nodemailer.createTransport({
+		// 	service: 'gmail',
+		// 	auth: {
+		// 		type: 'OAuth2',
+		// 		user: 'admin@thirdessential.com',
+		// 		clientId:
+		// 			'1046438206668-j9jojvn8hcc3dd7d32p8fn1ed2g7vqbs.apps.googleusercontent.com',
+		// 		clientSecret: '5IyyBQxJI9I44XzoLbRv0AO3',
+		// 		refreshToken: '1/5TaFf1UzWmH10uDIuN1kBtieOvS6FO0mGRGxXxn9dwo',
+		// 		accessToken: tokens.access_token
+		// 	}
+		// });
+
+		smtpTransport.sendMail(mailOptions, (error, response) => {
+			
+			if (err) {
+				console.log(error);
+				return res.status(404).json({ success: false, message: error });
+			} else {
+				console.log(response);
+				return res.status(200).json({ success: true, message: 'Email successfully sent' });
+				smtpTransport.close();
+			}
+		});
+		res.json({ status: true });
+		
+	} else {
+		// req.checkbody('userid', "Userid is required").notEmpty();
+		// req.checkBody('newpassword', 'Password is required').notEmpty();
+		// let errors = req.validationErrors();
+		// if (errors) return res.status(404).json({ success: false, message: 'validation error' });
+		let userPassExist = await Affiliate.findOne(
+			{ _id: req.body.userid },
+			function(err, user) {}
+		);
+		if (!userPassExist) {
+			return res.status(404).json({ success: false, message: 'No user found' });
+		} else {
+			// let hashPass = bcrypt.hashSync(req.body.newpassword, 11);
+			let cipher = crypto.createCipheriv(algorithm, new Buffer.from(key), iv);
+			var encrypted =
+				cipher.update(req.body.newpassword, 'utf8', 'hex') + cipher.final('hex');
+			let userobject = {};
+			userobject.password = encrypted;
+			let query = { _id: req.body.userid };
+			Affiliate.update(query, userobject, function(err) {
+				if (err) {
+					return res.status(404).json({ success: false, message: err });
+				} else {
+					return res.status(200).json({
+						success: true,
+						message: 'Your password has been succesfully changed'
+					});
+				}
+			});
+		}
+	}
+>>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 });
 
 router.get("/creatives/api/all", async (req, res) => {

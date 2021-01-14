@@ -37,7 +37,7 @@ const upload = multer({
     }),
     fileFilter: function (req, file, callback) {
         var ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' &&  ext !== '.webp') {
             req.fileValidationError = "Forbidden extension";
             return callback(null, false, req.fileValidationError);
         }

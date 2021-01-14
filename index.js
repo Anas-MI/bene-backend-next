@@ -19,6 +19,7 @@ const app = express();
 const morgan = require("morgan");
 const Notify = db.Notify;
 const OrderProduct = db.orderProduct;
+const compression = require('compression');
 // const flashm = require('express-flash-notification');
 
 app.use(
@@ -65,7 +66,7 @@ app.use(
     },
   })
 );
-
+//app.use(compression());
 app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(morgan("dev"));
 app.use(errorHandler);
