@@ -73,7 +73,13 @@ var upload = multer({
   fileFilter: function (req, file, callback) {
     console.log(req.body.menu_image);
     var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg" && ext !== ".pdf") {
+    if (
+      ext !== ".png" &&
+      ext !== ".jpg" &&
+      ext !== ".jpeg" &&
+      ext !== ".pdf" &&
+      ext !== ".webp"
+    ) {
       req.fileValidationError = "Forbidden extension";
       return callback(null, false, req.fileValidationError);
     }
@@ -1937,6 +1943,30 @@ router.get("/attribute-term/:id", function (req, res) {
       let termsobject = result.terms;
       res.status(200).render("attribute-term-add.hbs", {
         pageTitle: pageTitle,
+        attributes: result,
+        keys: termsobject,
+      });
+    } else {
+      res
+        .status(404)
+        .json({ success: false, message: "error in getting result" });
+    }
+  }
+});
+
+router.get("/get-attribute-term/:id", function (req, res) {
+  Attribute.findById(req.params.id)
+    .then((result) => attributes(result))
+    .catch((err) =>
+      res
+        .status(404)
+        .json({ success: false, message: "error in getting result" })
+    );
+  function attributes(result) {
+    if (result) {
+      let pageTitle = "Products " + result.name;
+      let termsobject = result.terms;
+      res.status(200).json({
         attributes: result,
         keys: termsobject,
       });
