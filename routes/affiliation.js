@@ -55,14 +55,6 @@ let Creatives = require("../models/creatives");
 // });
 
 let smtpTransport = nodemailer.createTransport({
-<<<<<<< HEAD
-  host: "localhost",
-  port: 25,
-  secure: false,
-  tls: {
-    rejectUnauthorized: false,
-  },
-=======
     host: 'email-smtp.ap-south-1.amazonaws.com',
     port: 587,
     secure: false,
@@ -70,7 +62,6 @@ let smtpTransport = nodemailer.createTransport({
 		user: process.env.smtpUsername,
 		pass: process.env.smtpPassword
 	  }
->>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 });
 
 let sessionChecker = (req, res, next) => {
@@ -95,22 +86,7 @@ var storage = multer.diskStorage({
     );
   },
 });
-var upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
-      req.fileValidationError = "Forbidden extension";
-      return callback(null, false, req.fileValidationError);
-    }
-    callback(null, true);
-  },
-  limits: {
-    fileSize: 420 * 150 * 200,
-  },
-});
-<<<<<<< HEAD
-=======
+
 var upload = multer({storage: storage,
     fileFilter: function (req, file, callback) {
         var ext = path.extname(file.originalname);
@@ -125,7 +101,6 @@ var upload = multer({storage: storage,
     }});
 
 
->>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 
 //Register route for Ambassador Portal
 router.post("/register", async (req, res) => {
@@ -634,7 +609,7 @@ router.get("/creatives/delete/:id", ensureAuthenticated, (req, res) => {
 });
 
 //Forhget password link
-router.post("/forgetpassword", async function (req, res, next) {
+router.post("/forgetpassword", async  (req, res, next)=> {
   if (req.body.firststep) {
     req.checkBody("email", "email is required").notEmpty();
     let errors = req.validationErrors();
@@ -687,55 +662,9 @@ router.post("/forgetpassword", async function (req, res, next) {
     // 		accessToken: tokens.access_token
     // 	}
     // });
-
-<<<<<<< HEAD
-    smtpTransport.sendMail(mailOptions, (error, response) => {
-      console.log(here);
-      if (err) {
-        console.log(error);
-        return res.status(404).json({ success: false, message: error });
-      } else {
-        console.log(response);
-        return res
-          .status(200)
-          .json({ success: true, message: "Email successfully sent" });
-        smtpTransport.close();
-      }
-    });
-    res.json({ status: true });
-  } else {
-    // req.checkbody('userid', "Userid is required").notEmpty();
-    // req.checkBody('newpassword', 'Password is required').notEmpty();
-    // let errors = req.validationErrors();
-    // if (errors) return res.status(404).json({ success: false, message: 'validation error' });
-    let userPassExist = await Affiliate.findOne(
-      { _id: req.body.userid },
-      function (err, user) {}
-    );
-    if (!userPassExist) {
-      return res.status(404).json({ success: false, message: "No user found" });
-    } else {
-      // let hashPass = bcrypt.hashSync(req.body.newpassword, 11);
-      let cipher = crypto.createCipheriv(algorithm, new Buffer.from(key), iv);
-      var encrypted =
-        cipher.update(req.body.newpassword, "utf8", "hex") +
-        cipher.final("hex");
-      let userobject = {};
-      userobject.password = encrypted;
-      let query = { _id: req.body.userid };
-      Affiliate.update(query, userobject, function (err) {
-        if (err) {
-          return res.status(404).json({ success: false, message: err });
-        } else {
-          return res.status(200).json({
-            success: true,
-            message: "Your password has been succesfully changed",
-          });
-        }
-      });
-    }
   }
-=======
+});
+
 //Forhget password link 
 router.post('/forgetpassword', async function(req, res, next) {
 	if (req.body.firststep) {
@@ -827,7 +756,6 @@ router.post('/forgetpassword', async function(req, res, next) {
 			});
 		}
 	}
->>>>>>> 03d6c02fd06c284ab362dd34182710aa1bc099d8
 });
 
 router.get("/creatives/api/all", async (req, res) => {
