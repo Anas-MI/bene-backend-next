@@ -546,6 +546,17 @@ router.get("/pay/:id", ensureAuthenticated, (req, res) => {
   }).then((data) => res.redirect(url));
 });
 
+router.get("/makePayment/:id/:ambassId", (req, res) => {
+  let id = req.params.id;
+  let url = "/ambassador-portal/viewAmbassador/" + req.params.ambassId;
+  Referral.findByIdAndUpdate(id, {
+    $set: {
+      paid: true,
+      paidon: Date.now(),
+    },
+  }).then((data) => res.redirect(url));
+});
+
 //apporve ambasador route
 router.get("/approve/:id", ensureAuthenticated, (req, res) => {
   let id = req.params.id;
@@ -626,6 +637,13 @@ router.get("/disapprove/:id", ensureAuthenticated, (req, res) => {
   Affiliate.findByIdAndUpdate(id, { $set: { status: false } }).then((data) =>
     res.redirect(url)
   );
+});
+
+router.get("/disapproveAmbassador/:id", (req, res) => {
+  let id = req.params.id;
+  Affiliate.findByIdAndUpdate(id, { $set: { status: false } }, { new: true })
+    .then((data) => res.status(200).json({ data }))
+    .catch((err) => res.status(404).json("Error Disapproving Ambassador"));
 });
 
 //get creatives link
