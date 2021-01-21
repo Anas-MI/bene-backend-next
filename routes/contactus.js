@@ -1,20 +1,15 @@
 const express = require("express"),
     router = express.Router(),
     nodemailer = require("nodemailer");
-
-let smtpTransport = nodemailer.createTransport({
-    host: 'email-smtp.ap-south-1.amazonaws.com',
-    port: 587,
-    secure: false,
-	auth: {
-		user: process.env.smtpUsername,
-		pass: process.env.smtpPassword
-	  }
-});
+    var sesTransport = require('nodemailer-ses-transport');
+    let smtpTransport = nodemailer.createTransport(sesTransport({
+      accessKeyId: process.env.accessKeyId,
+      secretAccessKey: process.env.secretAccessKey,
+    }));
 
 router.get("/test", (req, res) => {
     let replyTo = "anas3rde@gmail.com"
-    let from = '"CBD Bene" <admin@cbdbene.com>',
+    let from = '"CBD Bene" <admin@precedentonline.com>',
     to = "anas3rde@gmail.com"
    
     let mail = {
