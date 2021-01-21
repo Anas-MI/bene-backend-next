@@ -16,17 +16,15 @@ const algorithm = "aes-256-cbc";
 var key = "abcdefghijklmnopqrstuvwxyztgbhgf";
 let iv = "1234567891234567";
 let cipher = crypto.createCipheriv(algorithm, new Buffer.from(key), iv);
-const { google } = require("googleapis");
-require("dotenv").config();
-let smtpTransport = nodemailer.createTransport({
-  host: "email-smtp.ap-south-1.amazonaws.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.smtpUsername,
-    pass: process.env.smtpPassword,
-  },
-});
+
+const { google } = require('googleapis');
+require('dotenv').config();
+var sesTransport = require('nodemailer-ses-transport');
+let smtpTransport = nodemailer.createTransport(sesTransport({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+}));
+
 
 // const OAuth2 = google.auth.OAuth2;
 
@@ -312,6 +310,7 @@ router.post("/api/register", async (req, res) => {
       }
     }
   }
+
 });
 
 //Api ROUTE TO SAVE USER DETAILS
@@ -559,6 +558,7 @@ router.post("/usermanagement", ensureAuthenticated, async (req, res) => {
 });
 
 // Register Proccess
+
 router.post("/register", ensureNotAuthenticated, async (req, res) => {
   let firstName = req.body.firtstname;
   let lastName = req.body.lastname;
@@ -658,6 +658,7 @@ router.post("/register", ensureNotAuthenticated, async (req, res) => {
       });
     });
   }
+
 });
 
 // Fetch Login Form
@@ -700,6 +701,7 @@ router.get("/forgetpassword", ensureNotAuthenticated, function (req, res) {
 
 //Forget password for APi
 // forget Passwor Form Submit
+
 router.post("/api/forgetpassword", async function (req, res, next) {
   if (req.body.firststep) {
     req.checkBody("email", "email is required").notEmpty();
@@ -914,6 +916,7 @@ router.post("/forgetpassword", async function (req, res, next) {
       });
     }
   }
+
 });
 
 // Login Process For application
