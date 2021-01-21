@@ -90,7 +90,6 @@ var upload = multer({
   },
 });
 
-
 // const upload = multer({
 //     storage: multerS3({
 //         s3: s3,
@@ -921,7 +920,6 @@ router.post("/test-schema9", upload.any(), (req, res) => {
 // Product Add Post Route
 router.post("/add-product", upload.any(), async (req, res, next) => {
   console.log(req.body);
-  console.log(typeof req.body.categoryid);
   console.log(req.files);
   req.checkBody("producttitle", "Title is required").notEmpty();
   req.checkBody("categoryid", "Product Category is required").notEmpty();
@@ -1071,7 +1069,7 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
                 : false
               : req.body.enable_review;
         }
-        productMeta.featured = req.body.featured;
+        productMeta.featured = req.body.featured === "1" ? true : false;
         productMeta.barcode = req.body.barcode;
         productMeta.visibilitytype = req.body.hide;
         productMeta.asin = req.body.asin;
@@ -1091,6 +1089,11 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
         productMeta.productid = product._id;
         productMeta.galleryimgdetails = galleryArray;
         productMeta.sectionbimage = photob.sectionbimage;
+        if (JSON.parse(req.body.attributes).length > 0) {
+          productMeta.attributesList = JSON.parse(req.body.attributes);
+        } else {
+          productMeta.attributesList = [];
+        }
         if (req.body.page_attribute) {
           productMeta.attributecontent = req.body.page_attribute;
         }
@@ -1322,6 +1325,11 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     productMeta.warranty = req.body.warranty;
     productMeta.totalcbdmg = req.body.totalcbdmg;
     productMeta.cbdperunitmg = req.body.cbdperunitmg;
+    if (JSON.parse(req.body.attributes).length > 0) {
+      productMeta.attributesList = JSON.parse(req.body.attributes);
+    } else {
+      productMeta.attributesList = [];
+    }
     if (photob.labsheet) {
       if (photob.labsheet.length > 0) {
         productMeta.labsheet = photob.labsheet;
