@@ -19,6 +19,11 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 app.use(bodyParser.json());
 let Creatives = require("../models/creatives");
+var sesTransport = require('nodemailer-ses-transport');
+let smtpTransport = nodemailer.createTransport(sesTransport({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+}));
 // const oauth2Client = new OAuth2(
 //     '1046438206668-j9jojvn8hcc3dd7d32p8fn1ed2g7vqbs.apps.googleusercontent.com', // ClientID
 //     '5IyyBQxJI9I44XzoLbRv0AO3', // Client Secret
@@ -54,15 +59,6 @@ let Creatives = require("../models/creatives");
 //     //   return setTokens(tokens);
 // });
 
-let smtpTransport = nodemailer.createTransport({
-    host: 'email-smtp.ap-south-1.amazonaws.com',
-    port: 587,
-    secure: false,
-	auth: {
-		user: process.env.smtpUsername,
-		pass: process.env.smtpPassword
-	  }
-});
 
 let sessionChecker = (req, res, next) => {
   console.log({ usersession: req.session.user });
@@ -157,7 +153,7 @@ router.post("/register", async (req, res) => {
       async function setdata(user) {
         res.status(200).json({ status: true, user });
         var mailOptions = {
-          from: '"CBD Bene" <admin@cbdbene.com>',
+          from: '"CBD Bene" <admin@precedentonline.com>',
           to: req.body.email,
           subject: "Registration Complete - CBDBene",
           text:
@@ -509,7 +505,7 @@ router.get("/approve/:id", ensureAuthenticated, (req, res) => {
 
   function sendmail(data) {
     var mailOptions = {
-      from: '"CBD Bene" <admin@cbdbene.com>',
+      from: '"CBD Bene" <admin@precedentonline.com>',
       to: data.email,
       subject: "Ambassador Program - CBDBene",
       text:
@@ -547,7 +543,7 @@ router.get("/approveAmbassador/:id", (req, res) => {
 
   function sendmail(data) {
     var mailOptions = {
-      from: '"CBD Bene" <admin@cbdbene.com>',
+      from: '"CBD Bene" <admin@precedentonline.com>',
       to: data.email,
       subject: "Ambassador Program - CBDBene",
       text:
@@ -644,7 +640,7 @@ router.post("/forgetpassword", async  (req, res, next)=> {
       "Please click on the link below to reset your password - CBDBene";
     emailText += '<p><a href="' + url + '">Click Here</a>';
     var mailOptions = {
-      from: '"CBD Bene" <admin@cbdbene.com>',
+      from: '"CBD Bene" <admin@precedentonline.com>',
       to: userEmail,
       subject: "Forget Password Link - CBDBene",
       html: emailText,
@@ -693,7 +689,7 @@ router.post('/forgetpassword', async function(req, res, next) {
 		var emailText = 'Please click on the link below to reset your password - CBDBene';
 		emailText += '<p><a href="' + url + '">Click Here</a>';
 		var mailOptions = {
-			from: '"CBD Bene" <admin@cbdbene.com>',
+			from: '"CBD Bene" <admin@precedentonline.com>',
 			to: userEmail,
 			subject: 'Forget Password Link - CBDBene',
 			html: emailText
