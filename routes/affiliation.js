@@ -829,7 +829,7 @@ router.post("/forgetpassword", async function (req, res, next) {
       "Please click on the link below to reset your password - CBDBene";
     emailText += '<p><a href="' + url + '">Click Here</a>';
     var mailOptions = {
-      from: '"CBD Bene" <admin@cbdbene.com>',
+      from: '"CBD Bene" <admin@precedentonline.com>',
       to: userEmail,
       subject: "Forget Password Link - CBDBene",
       html: emailText,

@@ -195,7 +195,7 @@ router.post("/api/register", async (req, res) => {
       let usermeta = new Usermeta2({ userid: user._id });
       await usermeta.save().then(() => res.json({ status: true, user }));
       var mailOptions = {
-        from: '"CBD Bene" <support@cbdbene.com>',
+        from: '"CBD Bene" <admin@precedentonline.com>',
         to: req.body.email,
         subject: "Successfully Registered - CBDBene",
         text: "You've been succesfully registered on CBDBene. ",
@@ -226,7 +226,7 @@ router.post("/api/register", async (req, res) => {
         let usermeta = new Usermeta2({ userid: user._id });
         await usermeta.save().then((data) => res.json({ status: true, user }));
         var mailOptions = {
-          from: '"CBD Bene" <support@cbdbene.com>',
+          from: '"CBD Bene" <admin@precedentonline.com>',
           to: req.body.email,
           subject: "Successfully Registered - CBDBene",
           text: "You've been succesfully registered on CBDBene. ",
@@ -295,7 +295,7 @@ router.post("/api/register", async (req, res) => {
             .then((data) => res.json({ status: true, user }));
 
           var mailOptions = {
-            from: '"CBD Bene" <support@cbdbene.com>',
+            from: '"CBD Bene" <admin@precedentonline.com>',
             to: req.body.email,
             subject: "Successfully Registered - CBDBene",
             text: "You've been succesfully registered on CBDBene. ",
@@ -630,7 +630,7 @@ router.post("/register", ensureNotAuthenticated, async (req, res) => {
             });
           } else {
             var mailOptions = {
-              from: '"CBD Bene" <support@cbdbene.com>',
+              from: '"CBD Bene" <admin@precedentonline.com>',
               to: req.body.email,
               subject: "Registration Complete - CBDBene",
               text: "You have been successfully registered on CBDBene",
@@ -735,7 +735,7 @@ router.post("/api/forgetpassword", async function (req, res, next) {
       "Please click on the link below to reset your password - CBDBene";
     emailText += '<p><a href="' + url + '">Click Here</a>';
     var mailOptions = {
-      from: '"CBD Bene" <support@cbdbene.com>',
+      from: '"CBD Bene" <admin@precedentonline.com>',
       to: userEmail,
       subject: "Forget Password Link - CBDBene",
       html: emailText,
@@ -852,7 +852,7 @@ router.post("/forgetpassword", async function (req, res, next) {
         "please click on the below link for the forget password link";
       emailText += '<p><a href="' + url + '">click here</a>';
       var mailOptions = {
-        from: '"CBD Bene" <support@cbdbene.com>',
+        from: '"CBD Bene" <admin@precedentonline.com>',
         to: userEmail,
         subject: "Forget Password Link",
         html: emailText,
