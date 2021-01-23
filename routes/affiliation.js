@@ -83,20 +83,7 @@ var storage = multer.diskStorage({
     );
   },
 });
-var upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg" && ext !== "webp") {
-      req.fileValidationError = "Forbidden extension";
-      return callback(null, false, req.fileValidationError);
-    }
-    callback(null, true);
-  },
-  limits: {
-    fileSize: 420 * 150 * 200,
-  },
-});
+
 var upload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
@@ -794,7 +781,7 @@ router.post("/forgetpassword", async  (req, res, next)=> {
   }
 });
 //Forhget password link
-router.post("/forgetpassword", async function (req, res, next) {
+router.post("/forgetpassword", async  (req, res, next)=> {
   if (req.body.firststep) {
     req.checkBody("email", "email is required").notEmpty();
     let errors = req.validationErrors();
@@ -893,6 +880,7 @@ router.post("/forgetpassword", async function (req, res, next) {
       });
     }
   }
+});
 
 
 //Forhget password link 
