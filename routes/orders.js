@@ -280,7 +280,7 @@ var j = schedule.scheduleJob('0 0 * * *', function() {
 					</body>
 					</html>`
 							var mailOptions = {
-								from: '"CBD Bene" <admin@cbdbene.com>',
+								from: '"CBD Bene" <admin@precedentonline.com>',
 								to: data.userDetails.email,
 								subject: 'Delivered: Your Bene package has been delivered.',
 								html
@@ -403,18 +403,11 @@ router.get('/testcron', (req, res) => {
 // let Notification = require('../models/notification');
 
 
-let smtpTransport = nodemailer.createTransport({
-	host:"email-smtp.ap-south-1.amazonaws.com",
-	port: 587,
-	secure: false,
-	tls: {
-		rejectUnauthorized: false
-	},
-	auth: {
-		user: process.env.smtpUsername,
-		pass: process.env.smtpPassword
-	  }
-});
+var sesTransport = require('nodemailer-ses-transport');
+let smtpTransport = nodemailer.createTransport(sesTransport({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+}));
 
 //Route to fetch the order as per the userid
 router.get('/get', (req, res) => {
@@ -871,7 +864,7 @@ router.post('/process/order', async function(req, res) {
 							console.log(html);
 							console.log({ products });
 							var mailOptions = {
-								from: '"CBD Bene" <admin@cbdbene.com>',
+								from: '"CBD Bene" <admin@precedentonline.com>',
 								to: req.body.userDetails.email,
 								subject: 'Order Placed - CBDBene',
 								html,
@@ -1466,7 +1459,7 @@ router.post('/add', async function(req, res) {
 				console.log(html);
 
 				var mailOptions = {
-					from: '"CBD Bene" <admin@cbdbene.com>',
+					from: '"CBD Bene" <admin@precedentonline.com>',
 					to: data.userdetails.email,
 					subject: 'Order Placed - CBDBene',
 					html

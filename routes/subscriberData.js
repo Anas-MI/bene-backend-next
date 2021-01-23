@@ -4,15 +4,11 @@ const DB = require("../config/database");
 const SubscriberData = DB.SubscriberData;
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-let smtpTransport = nodemailer.createTransport({
-  host: 'email-smtp.ap-south-1.amazonaws.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.smtpUsername,
-    pass: process.env.smtpPassword
-  }
-});
+var sesTransport = require('nodemailer-ses-transport');
+let smtpTransport = nodemailer.createTransport(sesTransport({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+}));
 router.get("/get", (req, res) => {
   SubscriberData.find().then((result) => res.status(200).json(result));
 });
@@ -30,7 +26,7 @@ router.post("/add", (req, res) => {
         var emailText = 'Thank you for subscribing Us.';
 
         var mailOptions = {
-          from: '"CBD Bene" <support@cbdbene.com>',
+          from: '"CBD Bene" <admin@precedentonline.com>',
           to: userEmail,
           subject: 'Suscribe - CBDBene',
           html: emailText
