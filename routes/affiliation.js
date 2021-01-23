@@ -665,6 +665,7 @@ router.post("/forgetpassword", async  (req, res, next)=> {
   }
 });
 
+
 //Forhget password link 
 router.post('/forgetpassword', async function(req, res, next) {
 	if (req.body.firststep) {

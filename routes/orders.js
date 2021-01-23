@@ -405,7 +405,7 @@ router.get('/testcron', (req, res) => {
 
 let smtpTransport = nodemailer.createTransport({
 	host:"email-smtp.ap-south-1.amazonaws.com",
-	port: 25,
+	port: 587,
 	secure: false,
 	tls: {
 		rejectUnauthorized: false
