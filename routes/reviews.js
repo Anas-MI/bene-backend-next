@@ -84,6 +84,12 @@ router.get("/show/approve", async (req, res) => {
     res.render("approve_reviews.hbs", { reviews });
   };
 });
+router.get("/get/approved", async (req, res) => {
+  Review.find({ approved: true })
+    .then((data) => res.send(data))
+    .catch(console.log);
+  
+});
 
 //Route to delete a review
 router.get("/delete/:id", async (req, res) => {
