@@ -85,6 +85,7 @@ router.get("/show/approve", async (req, res) => {
   };
 });
 
+
 //Route to delete a review
 router.get("/delete/:id", async (req, res) => {
   let id = req.params.id;
@@ -120,5 +121,23 @@ router.get("/getall/:id", (req, res) => {
     .then((data) => res.json({ status: true, reviews: data.reviews }))
     .catch((error) => res.status(400).json({ status: false, error }));
 });
-
+router.get("/getapproved/:id", (req, res) => {
+  let id = req.params.id;
+  Productmeta.findOne({_id:id,approved:true})
+    .populate("reviews")
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "userid",
+      },
+    })
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "usermetaid",
+      },
+    })
+    .then((data) => res.json({ status: true, reviews: data.reviews }))
+    .catch((error) => res.status(400).json({ status: false, error }));
+});
 module.exports = router;

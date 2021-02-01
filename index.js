@@ -67,7 +67,7 @@ app.use(
   })
 );
 //app.use(compression());
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(errorHandler);
 app.use(cookieparser());
