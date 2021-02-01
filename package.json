@@ -53,6 +53,7 @@
         "node-schedule": "^1.3.2",
         "nodeice": "^3.0.10",
         "nodemailer": "^6.4.17",
+        "nodemailer-ses-transport": "^1.5.1",
         "nodemon": "^2.0.7",
         "notification-component": "0.0.3",
         "passport": "^0.4.1",
