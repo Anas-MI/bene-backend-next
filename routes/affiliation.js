@@ -733,17 +733,9 @@ router.post("/forgetpassword", async  (req, res, next)=> {
     // 	}
     // });
 
-    smtpTransport.sendMail(mailOptions, (error, response) => {
-    
-      if (error) {
-        console.log(error);
-        return res.status(404).json({ success: false, message: error });
-      } else {
-        console.log(response);
-        return res
-          .status(200)
-          .json({ success: true, message: "Email successfully sent" });
-        smtpTransport.close();
+    smtpTransport.sendMail(mailOptions, function(err) {
+      if (err) {
+        console.log(err);
       }
     });
     res.json({ status: true });
