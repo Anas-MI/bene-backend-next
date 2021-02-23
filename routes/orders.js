@@ -1022,6 +1022,25 @@ router.post('/add/cart', (req, res) => {
 	}
 });
 
+router.get("/cart/list", (req,res)=>{
+	// let pageNo = Number(req.query.pageNo) || 0;
+	// let size = Number(req.query.size) || 10;
+	UserMeta2.find(
+		{
+			cart:{ $exists: true, $not: {$size: 0} },
+			//orders:{ $exists: true, $size: 0 }
+		}
+		).populate("userid","email")
+		// .skip(pageNo * size)
+    	// .limit(size)
+		.then(result=>{
+		return res.send({status:true,data:result});
+	}).catch(err=>{
+		console.log(err);
+		res.status(400).send({status:false,error:err});
+	});
+});
+
 // Adding orde to database
 router.post('/add', async function(req, res) {
 	let errors = req.validationErrors();
