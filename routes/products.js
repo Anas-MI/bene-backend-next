@@ -1137,6 +1137,12 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
         if (req.body._stock_status) {
           productMeta.stock_status = req.body._stock_status;
         }
+        if(req.body.html){
+          productMeta.html = req.body.html;
+        }
+        if(req.body.html1){
+          productMeta.html1 = req.body.html1;
+        }
         console.log(productMeta);
         productMeta
           .save()
@@ -1404,7 +1410,12 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
       productMeta.volume = req.body.volume;
       productMeta.volumeunit = req.body.volume_unit;
     }
-
+    if(req.body.html){
+      productMeta.html = req.body.html;
+    }
+    if(req.body.html1){
+      productMeta.html1 = req.body.html1;
+    }
     console.log({ productmeta: productMeta });
     var data = {};
     try {

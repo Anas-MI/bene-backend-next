@@ -90,6 +90,8 @@ let productMetaSchema = Schema({
   fieldname: { type: String },
   labsheet: { type: String },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
+  html:{type:String},
+  html1:{type:String}
 });
 let ProductMeta = (module.exports = mongoose.model(
   "ProductMeta",
