@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const moment = require('moment-timezone');
@@ -22,7 +23,7 @@ const Product = require('../models/product.js');
 const Combos = require('../models/combos');
 //Test key
 //Dont forget to change this
-const apiKey = 'EZTKabecb64c21dd48da9c2049dbce486899dlgd5K9QwNRQq4xhv01gJQ';
+const apiKey = 'EZTK09944b7a65df4e44a6d8457478b41575Hq5800KjUUXBh0L8zNhKow';
 
 const api = new EasyPost(apiKey);
 
@@ -279,7 +280,7 @@ var j = schedule.scheduleJob('0 0 * * *', function() {
 					</body>
 					</html>`
 							var mailOptions = {
-								from: '"CBD Bene" <admin@cbdbene.com>',
+								from: '"CBD Bene" <admin@precedentonline.com>',
 								to: data.userDetails.email,
 								subject: 'Delivered: Your Bene package has been delivered.',
 								html
@@ -401,14 +402,12 @@ router.get('/testcron', (req, res) => {
 // let User = require('../models/user');
 // let Notification = require('../models/notification');
 
-let smtpTransport = nodemailer.createTransport({
-	host: 'localhost',
-	port: 25,
-	secure: false,
-	tls: {
-		rejectUnauthorized: false
-	}
-});
+
+var sesTransport = require('nodemailer-ses-transport');
+let smtpTransport = nodemailer.createTransport(sesTransport({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+}));
 
 //Route to fetch the order as per the userid
 router.get('/get', (req, res) => {
@@ -578,12 +577,22 @@ router.post('/process/order', async function(req, res) {
 
 					let trackerid;
 					if (req.body.carrier !== 'shipment_failed') {
-						trackerid = req.body.trackerid;
+						//trackerid = req.body.trackerid;
+						trackerid =``
 					} else {
 						trackerid = 'Not found';
 					}
 					if (req.body.carrier !== 'shipment_failed') {
-						api.Tracker.retrieve(trackerid).then((s) => sendTrackingId(s)).catch(console.log);
+						
+							console.log(trackerid);
+							api.Tracker.retrieve(trackerid)
+									.then(s =>{
+										console.log(s);
+										console.log(`${trackerid}`);
+										sendTrackingId(s)})
+									.catch(err=>console.log(err));
+						
+						
 					} else {
 						let dummy = {
 							public_url: 'Not Found'
@@ -616,7 +625,7 @@ router.post('/process/order', async function(req, res) {
 								console.log({ prod });
 							}
 
-							let prodimg = 'https://admin.cbdbene.com/var/www/cbdbene_3rde/cbdbene/' + prod.menuimage;
+							let prodimg = 'https://admin.cbdbene.com/images/uploads/' + prod.menuimage;
 
 							console.log({ prodimg });
 
@@ -855,7 +864,7 @@ router.post('/process/order', async function(req, res) {
 							console.log(html);
 							console.log({ products });
 							var mailOptions = {
-								from: '"CBD Bene" <admin@cbdbene.com>',
+								from: '"CBD Bene" <admin@precedentonline.com>',
 								to: req.body.userDetails.email,
 								subject: 'Order Placed - CBDBene',
 								html,
@@ -1011,6 +1020,25 @@ router.post('/add/cart', (req, res) => {
 	} else {
 		res.status(400).json({ status: false, error: 'usermetaid missing' });
 	}
+});
+
+router.get("/cart/list", (req,res)=>{
+	// let pageNo = Number(req.query.pageNo) || 0;
+	// let size = Number(req.query.size) || 10;
+	UserMeta2.find(
+		{
+			cart:{ $exists: true, $not: {$size: 0} },
+			//orders:{ $exists: true, $size: 0 }
+		}
+		).populate("userid","email")
+		// .skip(pageNo * size)
+    	// .limit(size)
+		.then(result=>{
+		return res.send({status:true,data:result});
+	}).catch(err=>{
+		console.log(err);
+		res.status(400).send({status:false,error:err});
+	});
 });
 
 // Adding orde to database
@@ -1450,7 +1478,7 @@ router.post('/add', async function(req, res) {
 				console.log(html);
 
 				var mailOptions = {
-					from: '"CBD Bene" <admin@cbdbene.com>',
+					from: '"CBD Bene" <admin@precedentonline.com>',
 					to: data.userdetails.email,
 					subject: 'Order Placed - CBDBene',
 					html
