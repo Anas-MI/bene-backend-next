@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const cloudinary = require("cloudinary").v2;
 const aws = require("aws-sdk");
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -1052,6 +1051,7 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
         productMeta.fieldname = req.body.fieldname;
         productMeta.fieldvalue = req.body.fieldvalue;
         productMeta.keyingredients = req.body.keyingredients;
+        productMeta.productKeyword= req.body.productKeyword;
         productMeta.labsheet = photob.labsheet;
         productMeta.allingredients = req.body.allingredients;
         if (req.body.manage_stock) {
@@ -1130,7 +1130,6 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
           productMeta.volume = req.body.volume;
           productMeta.volumeunit = req.body.volume_unit;
         }
-
         if (req.body.product_shipping_class) {
           productMeta.shipping_class = req.body.product_shipping_class;
         }
@@ -1185,13 +1184,13 @@ async function returnSku() {
 router.get("/test", async function (req, res) {
   const productLs = await Product.find();
   const productMLs = await ProductMeta.find();
-  const p1 = productMLs.map((el) => el.variation).map((el) => el);
-  const skuList = [
-    ...productLs.map((el) => el.sku),
-    ...[].concat.apply([], [].concat.apply([], p1)).map((el) => el.sku),
-  ];
-  console.log({ skuList });
-  res.status(200).json(skuList);
+  // const p1 = productMLs.map((el) => el.variation).map((el) => el);
+  // const skuList = [
+  //   ...productLs.map((el) => el.sku),
+  //   ...[].concat.apply([], [].concat.apply([], p1)).map((el) => el.sku),
+  // ];
+   console.log(productMLs);
+  res.status(200).json(productMLs);
 });
 // Product Edit Get Route
 router.get("/edit/:id", async function (req, res) {
@@ -1308,6 +1307,7 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     let productMeta = {};
     productMeta.producttype = req.body.producttype;
     productMeta.keyingredients = req.body.keyingredients;
+    productMeta.productKeyword= req.body.productKeyword;
     productMeta.allingredients = req.body.allingredients;
     productMeta.producttype = req.body.producttype;
     productMeta.fieldname = req.body.fieldname;
@@ -1438,6 +1438,7 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     product.sku = req.body.sku;
     product.description = req.body.description;
     product.sdescription = req.body.sdescription;
+    product.productKeyword = req.body.productKeyword;
     product.id = req.body.productid;
     if (photo.featureimage) {
       product.featurefilepath = photo.featureimage;
@@ -1449,7 +1450,7 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     Product.findOneAndUpdate({ _id: productid }, product, { new: true })
       .then((product) =>
         res.status(200).json({
-          success: true,
+            success: true,
           message: "Product Saved Successfully",
           product: product,
           data,

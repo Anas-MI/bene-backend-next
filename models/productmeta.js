@@ -14,6 +14,9 @@ let productMetaSchema = Schema({
   keyingredients: {
     type: String,
   },
+  productKeyword: {
+    type: Array,
+  },
   allingredients: {
     type: String,
   },
