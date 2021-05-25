@@ -17,6 +17,21 @@ let productMetaSchema = Schema({
   productKeyword: {
     type: Array,
   },
+  menuImageAlt:{
+    type: String,
+  },
+  sectionAImageAlt:{
+    type: String,
+  },  
+  sectionBImageAlt:{
+    type: String,
+  },  
+  galleryImageAlt:{
+    type: String,
+  },
+  productAltText:{
+    type:String
+  },
   allingredients: {
     type: String,
   },

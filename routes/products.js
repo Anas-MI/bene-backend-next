@@ -1051,6 +1051,10 @@ router.post("/add-product", upload.any(), async (req, res, next) => {
         productMeta.fieldname = req.body.fieldname;
         productMeta.fieldvalue = req.body.fieldvalue;
         productMeta.keyingredients = req.body.keyingredients;
+        productMeta.menuImageAlt=req.body.menuImageAlt; 
+        productMeta.sectionAImageAlt=req.body.sectionAImageAlt;  
+        productMeta.sectionBImageAlt=req.body.sectionBImageAlt;  
+        productMeta.galleryImageAlt=req.body.galleryImageAlt;
         productMeta.productKeyword= req.body.productKeyword;
         productMeta.labsheet = photob.labsheet;
         productMeta.allingredients = req.body.allingredients;
@@ -1307,6 +1311,10 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     let productMeta = {};
     productMeta.producttype = req.body.producttype;
     productMeta.keyingredients = req.body.keyingredients;
+    productMeta.menuImageAlt=req.body.menuImageAlt; 
+    productMeta.sectionAImageAlt=req.body.sectionAImageAlt;  
+    productMeta.sectionBImageAlt=req.body.sectionBImageAlt;  
+    productMeta.galleryImageAlt=req.body.galleryImageAlt;
     productMeta.productKeyword= req.body.productKeyword;
     productMeta.allingredients = req.body.allingredients;
     productMeta.producttype = req.body.producttype;
@@ -1438,7 +1446,12 @@ router.post("/edit/:id", upload.any(), async function (req, res) {
     product.sku = req.body.sku;
     product.description = req.body.description;
     product.sdescription = req.body.sdescription;
-    product.productKeyword = req.body.productKeyword;
+    product.productKeyword = req.body.productKeyword;       
+     productMeta.menuImageAlt=req.body.menuImageAlt; 
+    productMeta.sectionAImageAlt=req.body.sectionAImageAlt;  
+    productMeta.sectionBImageAlt=req.body.sectionBImageAlt;  
+    productMeta.galleryImageAlt=req.body.galleryImageAlt;
+
     product.id = req.body.productid;
     if (photo.featureimage) {
       product.featurefilepath = photo.featureimage;
