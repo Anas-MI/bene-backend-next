@@ -93,6 +93,19 @@ router.post('/admin/add', async (req, res) => {
  
 })
 
+router.post('/admin/edit', async (req, res) => {
+
+  Review
+    .findOneAndUpdate({_id : req.body._id}, req.body)
+    .then((review) => res.status(200).json({ status: true, review }))
+    .catch((error) => res.status(400).json({ status: false, error }))
+
+ 
+})
+
+
+
+
 //Route to display all the reviews in the backend
 router.get('/show', async (req, res) => {
   Review.find()
