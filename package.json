@@ -41,7 +41,7 @@
         "jquery.repeater": "^1.2.1",
         "jsdom": "^16.4.0",
         "moment": "^2.29.1",
-        "moment-timezone": "^0.5.32",
+        "moment-timezone": "^0.5.35",
         "mongodb": "^3.6.3",
         "mongoose": "^5.11.12",
         "mongoose-findorcreate": "^3.0.0",
